@@ -1,0 +1,29 @@
+.el-header{background: #3a444e !important;}
+.maintheme{background: #ecf0f5 !important;}
+.no-redirect[data-v-4fdd58e2]{
+    color: #4d627b !important;
+   }
+   a[data-v-362a7709] {
+    color: #4d627b !important;
+}
+span[data-v-362a7709] {
+    color: #4d627b !important;
+}
+.logtheme{background: #fff !important;}
+h3{color: #25476a !important;}
+.el-submenu.is-active .el-submenu__title {
+    border-bottom-color: #3a444e !important;
+    background: #3a444e !important; 
+    color: #fff;
+    border-radius: 5% !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    margin-top:5px !important;
+}
+.el-submenu.is-active .el-submenu__title i{
+    color:#fff !important; 
+}
+/* 设置鼠标选中文字颜色 */
+::selection { background:#3a444e; color: #fff; } 
+::-moz-selection { background:#3a444e;color: #fff; }
+::-webkit-selection { background:#3a444e; color: #fff; }

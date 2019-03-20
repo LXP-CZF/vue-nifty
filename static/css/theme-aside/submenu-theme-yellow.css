@@ -1,0 +1,40 @@
+.el-header{ background: #fff !important; color:#4d627b !important; }
+.hamburger[data-v-4105b24e],.userinfo-inner[data-v-8b941730]{color:#4d627b !important;}
+.maintheme{background: #ecf0f5 !important;}
+.no-redirect[data-v-4fdd58e2]{
+    color: #4d627b !important;;
+   }
+   a[data-v-362a7709] {
+    color: #4d627b !important;;
+}
+span[data-v-362a7709] {
+    color: #4d627b !important;;
+}
+.logtheme{background: #efd45a !important;}
+.el-collapse-item__content{background: #efd45a !important;}
+.coll-item,.coll-item a,.el-menu-item,.mnp-desc{color:#fff !important;}
+.el-menu-item.is-active{color:#cac4c4 !important;}
+.el-submenu .el-menu-item:hover,.el-submenu .el-submenu__title:hover,.el-menu-item.is-active{background: #efd45a !important;}
+.coll-item:hover,.coll-item a:hover,.el-menu-item:hover,.mnp-desc:hover,.el-collapse-item__header:hover,.el-submenu .el-submenu__title:hover,.el-submenu .el-submenu__title i:hover{color: #afbbc7 !important;}
+.el-collapse-item__header{background: #efd45a !important;color:#fff !important;border-bottom: 1px solid #efd45a !important;}
+.el-collapse{border-top:none !important;}
+.el-submenu .el-submenu__title,.el-submenu .el-submenu__title i{color: #fff !important;}
+.el-menu{background: #efd45a !important;border-right: solid 1px #efd45a !important;}
+h3{color: #fff;}
+.el-submenu.is-active .el-submenu__title {
+    border-bottom-color: #e2c338 !important;
+    background: #e2c338 !important; 
+    color: #fff;
+    border-radius: 5% !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    margin-top:5px !important;
+}
+.el-submenu.is-active .el-submenu__title i{
+    color:#fff !important; 
+}
+.asidemain{background: #efd45a !important;}
+/* 设置鼠标选中文字颜色 */
+::selection { background:#efd45a; color: #fff; } 
+::-moz-selection { background:#efd45a;color: #fff; }
+::-webkit-selection { background:#efd45a; color: #fff; }

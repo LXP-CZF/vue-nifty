@@ -1,0 +1,17 @@
+.maintheme{background:#25476a;}
+.el-submenu.is-active .el-submenu__title {
+    border-bottom-color: #409EFF; 
+    background: #25476a; 
+		 color: #fff;
+		border-radius: 5%;
+    margin-left: 5px;
+    margin-right: 5px;
+		margin-top:5px;
+}
+.el-header {
+    background-color:#25476a !important;
+    }
+    /* 设置鼠标选中文字颜色 */
+::selection { background:#25476a; color: #fff; } 
+::-moz-selection { background:#25476a;color: #fff; }
+::-webkit-selection { background:#25476a; color: #fff; }
