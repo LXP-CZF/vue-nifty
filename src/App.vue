@@ -29,6 +29,7 @@ body,html{width: 100%;height: 100%; overflow-x: hidden;  background: #8c979b;}
   /*text-align: center;*/
   color: #2c3e50;
   margin-top: 0px;
+ 
 }
 
 </style>

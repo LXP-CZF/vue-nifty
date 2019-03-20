@@ -132,10 +132,10 @@
       <div class="text-div mar-btm">
         <span>固定位置</span>
         <el-switch
+          v-model="isasideFixed"
           active-color="#8bc34a"
           inactive-color="#afafaf"
-          active-value="100"
-          inactive-value="0">
+          @change="changeAsideFixed">
         </el-switch>
       </div>
       <div class="text-div mar-btm">
@@ -150,10 +150,10 @@
       <div class="text-div mar-btm">
         <span>左边</span>
         <el-switch
+          v-model="isleftSide"
           active-color="#8bc34a"
           inactive-color="#afafaf"
-          active-value="100"
-          inactive-value="0">
+          @change="changeAsideLeft">
         </el-switch>
       </div>
       <div class="text-div mar-btm">
@@ -348,6 +348,8 @@ export default {
       isopenbtns:this.$store.getters.sidebar.isopenBtns,//控制是否显示快捷按钮
       isAsideVisible:this.$store.getters.isAside.Visible,//控制是否aside可显示
       isdarkVersion:this.$store.getters.isAside.darkVersion,//控制是否aside黑色背景
+      isleftSide:this.$store.getters.isAside.leftSide,//控制是否aside在左边
+      isasideFixed:this.$store.getters.isAside.asideFixed,//控制是否aside固定
       // iscollapse:this.$store.getters.sidebar.opened,
       // isProfil:this.$store.getters.sidebar.Profil,//控制个人简历
      
@@ -428,7 +430,9 @@ export default {
         'changeProfil',
         'toggleSideBar',
         'changeAsideVisible',
-        'changeAsideColor'
+        'changeAsideColor',
+        'changeAsideLeft',
+        'changeAsideFixed'
     	]),
      
       formatLayout(){
@@ -495,7 +499,6 @@ export default {
       // this.sidebar.mainLeft="mainleft";
       if(this.sidebar.isFixed===false){
          this.asideSetting.mainnavFixed="";
-        //  this.sidebar.mainLeft="";
       }
          if(this.boxlay.boxLayout===false){
            if(this.sidebar.isFixed===true){

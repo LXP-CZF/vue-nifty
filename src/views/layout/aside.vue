@@ -114,7 +114,9 @@
 			selectMenu(){
 				setTimeout(()=>{
 					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
-				 return this.getheight
+					document.querySelector('.tabclass').style.height=document.querySelector('.mainheight').offsetHeight+'px'; 
+
+				  return this.getheight
 				},2000)
 				 
 			},
@@ -144,10 +146,16 @@
 
 
 },
+// watch: {
+//       "document.querySelector('.mainheight').offsetHeight": function(){ //加引号监听对象里的属性
+//         this.selectMenu();
+//         this.getHeight();
+//       }
 
 
-	}
-		
+
+// 	}
+	}	
 
 </script>
 
@@ -158,7 +166,6 @@
     top:0;
     
 	}
-.mainnav_fixedbox{position: fixed;top: 40px;}	
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;
 		height: 100%;

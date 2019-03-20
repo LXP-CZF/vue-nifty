@@ -1,6 +1,7 @@
 <template>
 	<section>
 		<!--工具条-->
+		<el-row>
 		<el-col :span="24" class="toolbar" style="padding-bottom: 0px; text-align: left;margin: -60px 10px -10px 10px;">
 			<el-form :inline="true" :model="filters">
 				<el-form-item>
@@ -19,6 +20,7 @@
 		</el-col>
 
 		<!--列表-->
+		<el-col :span="24"
 		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 98%; margin: 10px;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
@@ -41,7 +43,7 @@
 				</template>
 			</el-table-column>
 		</el-table>
-
+		</el-col>
 		<!--工具条-->
 		<el-col :span="24" class="toolbar" style="margin: -10px 10px 0px 10px;text-align: left;">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
@@ -104,6 +106,7 @@
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
+		</el-row>
 	</section>
 </template>
 

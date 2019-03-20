@@ -37,7 +37,10 @@ const layout={
             Visible:false,//aside是否可见
             isVisibleClass:'',
             darkVersion:false,
-           
+            leftSide:false,
+            leftSideLeft:'',
+            asideFixed:false,
+            asideFixedClass:''
           }
     },
     mutations: {
@@ -83,12 +86,30 @@ const layout={
               themeCSS.href='';
           }
           }
+        },
+        changeAsideLeft:state=>{
+          state.isAside.leftSide=!state.isAside.leftSide;
+          if(state.isAside.leftSide===true){
+            state.isAside.leftSideLeft='-20px';
+          }else{
+            state.isAside.leftSideLeft=''
+          }
+        },
+        changeAsideFixed:state=>{
+          state.isAside.asideFixed=!state.isAside.asideFixed;
+          if(state.isAside.leftSide===true){
+            state.isAside.asideFixedClass='asideFixedclass'
+          }else{
+            state.isAside.asideFixedClass=''
+          }
         }
       },
       actions: {
-        changeBoxLayout:({commit})=>commit('changeBoxLayout'),
         changeAsideVisible:({commit})=>commit('changeAsideVisible'),
-        changeAsideColor:({commit})=>commit('changeAsideColor')
+        changeAsideColor:({commit})=>commit('changeAsideColor'),
+        changeAsideLeft:({commit})=>commit('changeAsideLeft'),
+        changeAsideFixed:({commit})=>commit('changeAsideFixed'),
+
       }
     }
     

@@ -36,7 +36,7 @@
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item> 
 					</el-dropdown-menu>
 		    </el-dropdown> -->
-				<el-tabs v-model="activeName" class="tabclass" :class="isVisibleClass">
+				<el-tabs v-model="activeName" id="tabs" class="tabclass" :class="[isVisibleClass,asidePanFixed == true ? 'asideFixedclass' :'']" :style="{height:getheight+ 'px',left:isleftSideLeft,right:asideRight}">
 							<el-tab-pane  name="first">
 								<span slot="label"><i class="el-icon-sold-out" style="font-size:20px;"></i></span>
 								<ul>
@@ -77,11 +77,17 @@
 				sysUserName: 'admin',
 				sysUserAvatar: '',
 				 activeName: 'first',
-				 yOrNvisible:false
+				 yOrNvisible:false,
+				 getheight:'',
+				 asidePanFixed:false,
+				 asideRight:''
 			}
 		},
 		computed:{
-      ...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
+			...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
+			boxLayout(){
+        return this.boxlay.boxLayout
+    },
     isCollapse() {
       return !this.sidebar.opened
 		},
@@ -100,20 +106,32 @@
 		isVisibleClass(){
        return this.isAside.isVisibleClass
 		},
-	
+		isleftSide(){
+			return this.isAside.leftSide
+		},
+		isleftSideLeft(){
+       return this.isAside.leftSideLeft
+		},
+	 isasidefixed(){
+       return this.isAside.asideFixed
+		},
 		},
 		mounted(){
 			 if(this.yOrNvisible===false){
             this.isAside.isVisibleClass='noneVisible'
           }else{
             this.isAside.isVisibleClass='Visibleclass'
-          }
+					}
+					this.getHeight();
+					//给window添加一个滚动滚动监听事件
+	  	window.addEventListener('scroll', this.handleScroll,true)
 		},
 		methods:{
 		...mapActions([
 			// 'menu_toggle',
 			// 'changeColor'
-			'changeAsideVisible'
+			'changeAsideVisible',
+			
 		]),
 		//退出登录
 			logout: function () {
@@ -139,11 +157,59 @@
           }else{
             this.isAside.isVisibleClass='Visibleclass'
           }
-			}
+			},
+				getHeight(){
+					setTimeout(()=>{
+					 this.getheight=document.querySelector('.mainheight').offsetHeight;
+						return this.getheight
+						},2000)
+			},
+				handleScroll () {
+					//获取滚动条距离浏览器顶部的距离
+				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+					//获取元素距离浏览器顶部的距离
+				let offsetTop = document.querySelector('#tabs').offsetTop
+				if(this.isAside.asideFixed===true){
+					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
+					 if( this.asidePanFixed=== true && this.boxlay.boxLayout===false){
+						 	this.asideRight="16px";
+					   }if(this.asidePanFixed=== false && this.boxlay.boxLayout===false){
+							this.asideRight="-20px"
+						}
+					  if(this.asidePanFixed=== true && this.boxlay.boxLayout===true){ 
+						 	this.asideRight="98px";
+					 }if(this.asidePanFixed=== false && this.boxlay.boxLayout===true){
+							this.asideRight="-20px"
+						}
+
+						if( this.asidePanFixed=== true && this.boxlay.boxLayout===false && this.isAside.leftSide===true && this.sidebar.opened===true){
+						 	this.isAside.leftSideLeft="220px";
+					   }if( this.asidePanFixed=== true && this.boxlay.boxLayout===false && this.isAside.leftSide===true && this.sidebar.opened===false){
+							this.isAside.leftSideLeft="65px";
+						}true
+					 if( this.asidePanFixed=== true && this.boxlay.boxLayout===true && this.isAside.leftSide===true && this.sidebar.opened===true){
+							this.isAside.leftSideLeft="300px";
+						}if( this.asidePanFixed=== true && this.boxlay.boxLayout===true && this.isAside.leftSide===true && this.sidebar.opened===false){
+							this.isAside.leftSideLeft="145px";
+						}
+				 }
+				else{
+					this.asideRight="-20px"
+				}
+
+			},
 		},
 	    components:{
 	      nxhamburger
-	    }
+			},
+	// 		watch: {
+  //     "document.querySelector('.mainheight').offsetHeight": function(){ //加引号监听对象里的属性
+  //       this.getHeight();
+  //     }
+
+
+
+	// }
 
 	}
 	
@@ -219,13 +285,14 @@
     background: #efd45a !important;
 }
 .el-dropdown-menu__item:hover{background:transparent;}
-.Visibleclass{width:255px;background: #fff; position: absolute; top: 60px; right:-20px; transform-origin: center top 0px; z-index: 998; display: block;color: #000;text-align: left;padding-left: 15px;}
-.noneVisible{width:300px;background: #fff;left: 110%;transform-origin: center top 0px; z-index: 2001; display: none;}
+.Visibleclass{width:255px;background: #fff; position: absolute; top: 60px; right:-20px; transform: none !important; z-index: 998; display: block;color: #000;text-align: left;padding-left: 15px;}
+.noneVisible{width:300px;background: #fff;left: 110%;transform: none !important; z-index: 2001; display: none;}
 .item{float:right;padding-right: 10px;padding-top: 4.5px;}
 .tabimg{width:32px;height:32px;border-radius:50%;}
 .tabtext{color: #4d627b;font-weight: 700;font-size: .9em;}
 .tabtext-lg{font-size: .9em;}
 
 ul li{list-style: none;}
+.asideFixedclass{position: fixed;top:0px;}
 
 </style>

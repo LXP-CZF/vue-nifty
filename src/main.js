@@ -7,8 +7,9 @@ import store from './store'
 import ElementUi from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
+import 'babel-polyfill'
 import vueGridLayout from 'vue-grid-layout';
-import animated from 'animate.css';
+// import animated from 'animate.css';
 //阿里图标
 import './assets/iconfont/iconfont.css';
 import echarts from 'echarts'
@@ -20,7 +21,7 @@ Mock.bootstrap();
 Vue.prototype.$echarts = echarts
 Vue.use(ElementUi);
 Vue.use(vueGridLayout);
-Vue.use(animated);
+// Vue.use(animated);
 
 Vue.config.productionTip = false
 require('./mockDate.js')
