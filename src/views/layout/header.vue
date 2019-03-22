@@ -1,8 +1,22 @@
 <template>
     <!--头部-->
-		<div>
+	<div style="width:100%;">
 	<el-header :class="[isalltheme,isHeadertheme,isfixedHeaderClass]">
-    <el-row style="height: 60px !important;">
+	
+		<div style="width:12%;" v-if="isfixedHeader">
+			<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" >
+			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
+      <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
+		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
+      </el-col>
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!isCollapse">
+        <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
+      </el-col>
+			 </el-row>
+		</el-col>
+		</div>
+		<div>
+    <el-row style="height: 60px !important;" :class="isfixedHeaderwidth">
       <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="height: 60px !important;">
         <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></nxhamburger>
       </el-col>
@@ -36,7 +50,13 @@
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item> 
 					</el-dropdown-menu>
 		    </el-dropdown> -->
-				<el-tabs v-model="activeName" id="tabs" class="tabclass" :class="[isVisibleClass,asidePanFixed == true ? 'asideFixedclass' :'']" :style="{height:getheight+ 'px',left:isleftSideLeft,right:asideRight}">
+				
+      </el-col>
+    </el-row>
+		</div>
+	
+	</el-header>
+	<el-tabs v-model="activeName" id="tabs" class="tabclass" :class="[isVisibleClass,asidePanFixed == true ? isasideFixedclass :'']" :style="{height:getheight+ 'px',left:isleftSideLeft,right:isasideright}">
 							<el-tab-pane  name="first">
 								<span slot="label"><i class="el-icon-sold-out" style="font-size:20px;"></i></span>
 								<ul>
@@ -59,10 +79,6 @@
 								<span slot="label"><i class="el-icon-news" style="font-size:20px;"></i>&nbsp;Setting </span>
 								角色管理</el-tab-pane>
 						</el-tabs>
-      </el-col>
-    </el-row>
-	</el-header>
-	
 	</div>
 </template>
 
@@ -80,7 +96,6 @@
 				 yOrNvisible:false,
 				 getheight:'',
 				 asidePanFixed:false,
-				 asideRight:''
 			}
 		},
 		computed:{
@@ -97,9 +112,18 @@
 		 isHeadertheme(){
       return this.colorSetting.headertheme
 		},
+		isFixed(){
+      return this.sidebar.isFixed
+    },
+		 isfixedHeader(){
+     return this.boxlay.fixedHeader
+         },
 		isfixedHeaderClass(){
        return this.boxlay.fixedHeaderClass
 		},
+		isfixedHeaderwidth(){
+      return this.boxlay.fixedHeaderwidth
+    },
 			isVisible(){
        return this.isAside.Visible
 		},
@@ -107,14 +131,20 @@
        return this.isAside.isVisibleClass
 		},
 		isleftSide(){
-			return this.isAside.leftSide
+			return this.sidebar.leftSide
 		},
 		isleftSideLeft(){
-       return this.isAside.leftSideLeft
+       return this.sidebar.leftSideLeft
+		},
+		isasideFixedclass(){
+			return this.isAside.asideFixedClass
 		},
 	 isasidefixed(){
        return this.isAside.asideFixed
 		},
+		 isasideright(){
+      return this.isAside.asideRight
+    }
 		},
 		mounted(){
 			 if(this.yOrNvisible===false){
@@ -171,46 +201,31 @@
 				let offsetTop = document.querySelector('#tabs').offsetTop
 				if(this.isAside.asideFixed===true){
 					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
-					 if( this.asidePanFixed=== true && this.boxlay.boxLayout===false){
-						 	this.asideRight="16px";
-					   }if(this.asidePanFixed=== false && this.boxlay.boxLayout===false){
-							this.asideRight="-20px"
-						}
-					  if(this.asidePanFixed=== true && this.boxlay.boxLayout===true){ 
-						 	this.asideRight="98px";
-					 }if(this.asidePanFixed=== false && this.boxlay.boxLayout===true){
-							this.asideRight="-20px"
-						}
-
-						if( this.asidePanFixed=== true && this.boxlay.boxLayout===false && this.isAside.leftSide===true && this.sidebar.opened===true){
-						 	this.isAside.leftSideLeft="220px";
-					   }if( this.asidePanFixed=== true && this.boxlay.boxLayout===false && this.isAside.leftSide===true && this.sidebar.opened===false){
-							this.isAside.leftSideLeft="65px";
-						}true
-					 if( this.asidePanFixed=== true && this.boxlay.boxLayout===true && this.isAside.leftSide===true && this.sidebar.opened===true){
-							this.isAside.leftSideLeft="300px";
-						}if( this.asidePanFixed=== true && this.boxlay.boxLayout===true && this.isAside.leftSide===true && this.sidebar.opened===false){
-							this.isAside.leftSideLeft="145px";
+					 
+					if(this.boxlay.fixedHeader===true){
+						this.isAside.asideFixedClass='asideFixedClasstop';
+					}
+					 if(this.sidebar.isFixed===true){
+							this.isAside.asideFixedClass='asdfixedClass';
+							}
+						if(this.boxlay.fixedHeader===true && this.sidebar.isFixed===true){
+						this.isAside.asideFixedClass='asideFixedClasstop';
+					}
+					if(this.sidebar.isFixed===true &&this.boxlay.fixedHeader===false){
+							this.isAside.asideFixedClass='asdfixedClass'
 						}
 				 }
-				else{
-					this.asideRight="-20px"
-				}
-
 			},
+			
 		},
 	    components:{
 	      nxhamburger
 			},
-	// 		watch: {
-  //     "document.querySelector('.mainheight').offsetHeight": function(){ //加引号监听对象里的属性
-  //       this.getHeight();
-  //     }
-
-
-
-	// }
-
+			// watch: {
+      // isCollapse(){
+			// 	this.changeLeft();
+			// }
+      // }
 	}
 	
 </script>
@@ -247,7 +262,8 @@
 	.iconfont:hover{color:lightgrey;}
 	.search{background: transparent; border: hidden;color:white;height: 30px;width: 100%;}
  .icon-set{text-align: right;}
- .fixedheaderclass{position: fixed;z-index: 998;}
+ .fixedheaderclass{position: fixed;z-index: 998;left:0px}
+ .fixedheaderwidth{width: 84%;float:right;}
 .demo-theme-gray{
     background: #8f9ea6;
 }
@@ -285,7 +301,7 @@
     background: #efd45a !important;
 }
 .el-dropdown-menu__item:hover{background:transparent;}
-.Visibleclass{width:255px;background: #fff; position: absolute; top: 60px; right:-20px; transform: none !important; z-index: 998; display: block;color: #000;text-align: left;padding-left: 15px;}
+.Visibleclass{width:255px;background: #fff; position: absolute; top: 60px;right:0px; transform: none !important; z-index: 997; display: block;color: #000;text-align: left;padding-left: 15px;}
 .noneVisible{width:300px;background: #fff;left: 110%;transform: none !important; z-index: 2001; display: none;}
 .item{float:right;padding-right: 10px;padding-top: 4.5px;}
 .tabimg{width:32px;height:32px;border-radius:50%;}
@@ -293,6 +309,6 @@
 .tabtext-lg{font-size: .9em;}
 
 ul li{list-style: none;}
-.asideFixedclass{position: fixed;top:0px;}
-
+.asdfixedClass{position: fixed;top:0px;}
+.asideFixedClasstop{position: fixed;top:60px;}
 </style>

@@ -8,7 +8,8 @@ const layout={
             backgroundImg:false,//背景图片面板显示
             dis:true,//控制背景图片switch是否禁用
             fixedHeader:false,//控制固定位置switch是否固定header
-            fixedHeaderClass:''//固定header的css
+            fixedHeaderClass:'',//固定header的css
+            fixedHeaderwidth:''//改变header的width
           },
           asideSetting:{
             mainnavFixed:'',//控制侧边栏添加固定class
@@ -37,8 +38,8 @@ const layout={
             Visible:false,//aside是否可见
             isVisibleClass:'',
             darkVersion:false,
-            leftSide:false,
-            leftSideLeft:'',
+           
+            asideRight:'',
             asideFixed:false,
             asideFixedClass:''
           }
@@ -87,21 +88,15 @@ const layout={
           }
           }
         },
-        changeAsideLeft:state=>{
-          state.isAside.leftSide=!state.isAside.leftSide;
-          if(state.isAside.leftSide===true){
-            state.isAside.leftSideLeft='-20px';
-          }else{
-            state.isAside.leftSideLeft=''
-          }
-        },
+       
         changeAsideFixed:state=>{
           state.isAside.asideFixed=!state.isAside.asideFixed;
-          if(state.isAside.leftSide===true){
-            state.isAside.asideFixedClass='asideFixedclass'
-          }else{
-            state.isAside.asideFixedClass=''
-          }
+          state.isAside.asideFixedClass='asdfixedClass'
+          // if(state.isAside.leftSide===true){
+          //   state.isAside.asideFixedClass='asideFixedclass'
+          // }else{
+          //   state.isAside.asideFixedClass=''
+          // }
         }
       },
       actions: {

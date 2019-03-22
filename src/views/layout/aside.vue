@@ -1,14 +1,14 @@
 <template>
 <!--侧边栏-->
-<div class="searchBar" id="searchBar">
+<div class="searchBar" id="searchBars">
 <el-row class="asideset" :class="searchBarFixed == true ? 'mainnav_fixed' :''">
 	<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only">
-		<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" :class="isfixedHeaderClass">
+		<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" >
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
       </el-col>
-      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!isCollapse" :class="isfixedHeaderClass">
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!isCollapse">
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
@@ -129,7 +129,7 @@
 		
 			handleScroll () {
 				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-				let offsetTop = document.querySelector('#searchBar').offsetTop
+				let offsetTop = document.querySelector('#searchBars').offsetTop
 				if(this.sidebar.isFixed===true){
 					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
 					 if( this.searchBarFixed === true && this.sidebar.opened===true){
@@ -164,7 +164,6 @@
   .mainnav_fixed{
     position:fixed;
     top:0;
-    
 	}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;

@@ -176,7 +176,7 @@
             <el-row>
               <el-col :xs="8" :sm="8" :md="5" :lg="4" :xl="4">
                 <router-link to="" @click.native="changeThemeLight">
-                <div class="demo-single-theme">
+                <div class="demo-single-theme theme-light" id="light">
                 </div>
                 </router-link>
                 </el-col>      
@@ -190,7 +190,7 @@
             <el-row>
               <el-col :xs="8" :sm="8" :md="5" :lg="4" :xl="4">
                 <router-link to="" @click.native="changeThemeDark">
-                <div class="demo-single-theme theme-dark">
+                <div class="demo-single-theme theme-dark" id="dark">
                 </div>
                 </router-link>
               </el-col>      
@@ -211,7 +211,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <div class="demo-justify-theme">
-               <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme" :class="color+itemcolor" @click.native="changeThemeColors(itemcolor,all)">
+               <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme" :class="color+itemcolor" :id="itemcolor+'all'" @click.native="changeThemeColors(itemcolor,all)">
             </router-link>
             </div>
           </el-col>
@@ -222,7 +222,7 @@
           <p class="text-xs demo-text">头</p>
           <img src="../../assets/color-schemes-a.png" class="img-theme"/>
           <div class="demo-diversify-theme">
-             <router-link to="" v-for="(itemcolor,index) in colorList" :key="index"  class="demo-theme-make" :class="color+itemcolor" @click.native="changeThemeColors(itemcolor,header)">
+             <router-link to="" v-for="(itemcolor,index) in colorList" tag="div" :key="index"  class="demo-theme-make" :class="[color+itemcolor]" :id="itemcolor+'header'"  @click.native="changeThemeColors(itemcolor,header)">
             </router-link>
              <!--  <a href="#" class="demo-theme-make demo-theme-gray"></a>
               <a href="#" class="demo-theme-make demo-theme-navy"></a>
@@ -242,7 +242,7 @@
           <p class="text-xs demo-text">logo</p>
           <img src="../../assets/color-schemes-b.png" class="img-theme"/>
           <div class="demo-diversify-theme">
-            <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make" :class="color+itemcolor" @click.native="changeThemeColors(itemcolor,logo)">
+            <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make"  :id="itemcolor+'logo'" :class="[color+itemcolor,{'isactive':itemcolor.isactive}]" @click.native="changeThemeColors(itemcolor,logo)">
             </router-link>
           </div>
         </el-col>
@@ -250,7 +250,7 @@
           <p class="text-xs demo-text">侧边导航栏</p>
           <img src="../../assets/color-schemes-c.png" class="img-theme"/>
           <div class="demo-diversify-theme">
-             <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make" :class="color+itemcolor" @click.native="changeAsideColors(itemcolor)">
+             <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make"  :class="color+itemcolor" :id="itemcolor" @click.native="changeAsideColors(itemcolor)">
             </router-link>
           </div>
         </el-col>
@@ -258,7 +258,7 @@
           <p class="text-xs demo-text">全顶栏</p>
           <img src="../../assets/color-schemes-d.png" class="img-theme"/>
           <div class="demo-diversify-theme">
-             <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make" :class="color+itemcolor"  @click.native="changeThemeColors(itemcolor,fulltop)">
+             <router-link to="" v-for="(itemcolor,index) in colorList" :key="index" class="demo-theme-make" :class="[color+itemcolor]" :id="itemcolor+'fulltop'"   @click.native="changeThemeColors(itemcolor,fulltop)">
             </router-link>
           </div>
         </el-col>
@@ -277,7 +277,7 @@
       <el-col :span="8">
         <p class="text-lg">模糊</p>
         <div id="demo-blurred-bg" class="text-justify">
-          <router-link to=""  ref="blurredbg" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" @click.native="boxedBgblurred(item)">
+          <router-link to=""  ref="blurredbg" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" :id="'blu'+item" @click.native="changeboxedBg(item,blurred,blu)">
              <img class="img-responsive" :src="'static/boxed-bg/blurred/thumbs/'+item+'.jpg?v=1.0'" alt="Background Image"/>
           </router-link>
         </div>
@@ -285,7 +285,7 @@
       <el-col :span="8">
         <p class="text-lg">多边形和几何</p>
         <div id="demo-blurred-bg" class="text-justify">
-          <router-link to="" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" @click.native="boxedBgpolygon(item)">
+          <router-link to="" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" :id="'pol'+item" @click.native="changeboxedBg(item,polygon,pol)">
              <img class="img-responsive" :src="'static/boxed-bg/polygon/thumbs/'+item+'.jpg?v=1.0'" alt="Background Image"/>
           </router-link>
         </div>
@@ -293,7 +293,7 @@
       <el-col :span="8">
         <p class="text-lg">抽象</p>
         <div id="demo-blurred-bg" class="text-justify">
-          <router-link to="" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" @click.native="boxedBgabstract(item)">
+          <router-link to="" class="thumbnail box-inline" v-for="(item,index) in 16" :key="index" :id="'abs'+item" @click.native="changeboxedBg(item,abstract,abs)">
              <img class="img-responsive" :src="'static/boxed-bg/abstract/thumbs/'+item+'.jpg?v=1.0'" alt="Background Image"/>
           </router-link>
         </div>
@@ -318,6 +318,7 @@ export default {
       rightoffset:'',//setting面板的右边距
       show:false,//控制面板显示
       markshow:false,//控制遮罩层显示
+      isactive:false,
       colorList:{
         gray:'gray',
         navy:'navy',
@@ -330,12 +331,15 @@ export default {
         well_red:'well_red',
         coffee:'coffee',
         prickly_pear:'prickly_pear',
-        dark:'dark'
+        dark:'dark',
       },//颜色列表
       color:'demo-theme-',
       blurred:'static/boxed-bg/blurred/bg/',
       polygon:'static/boxed-bg/polygon/bg/',
       abstract:'static/boxed-bg/abstract/bg/',
+      blu:'blu',
+      pol:'pol',
+      abs:'abs',
       all:'all',//存放更改的头部，侧边栏，主体的css
       header:'header',//存放更改的头部
       fulltop:'fulltop',//存放更改的头部、logo
@@ -348,7 +352,7 @@ export default {
       isopenbtns:this.$store.getters.sidebar.isopenBtns,//控制是否显示快捷按钮
       isAsideVisible:this.$store.getters.isAside.Visible,//控制是否aside可显示
       isdarkVersion:this.$store.getters.isAside.darkVersion,//控制是否aside黑色背景
-      isleftSide:this.$store.getters.isAside.leftSide,//控制是否aside在左边
+      isleftSide:this.$store.getters.sidebar.leftSide,//控制是否aside在左边
       isasideFixed:this.$store.getters.isAside.asideFixed,//控制是否aside固定
       // iscollapse:this.$store.getters.sidebar.opened,
       // isProfil:this.$store.getters.sidebar.Profil,//控制个人简历
@@ -356,7 +360,7 @@ export default {
   }
  },
  computed:{
-   ...mapGetters(['boxlay','sidebar','asideSetting','colorSetting','iscolors']),
+   ...mapGetters(['boxlay','sidebar','asideSetting','colorSetting','iscolors','isAside']),
   //  backgroundImg: {
   //   get () {
   //     return this.$store.getters.boxlay.backgroundImg
@@ -395,6 +399,9 @@ export default {
     isfixedHeaderClass(){
        return this.boxlay.fixedHeaderClass
     },
+    isfixedHeaderwidth(){
+      return this.boxlay.fixedHeaderwidth
+    },
     isProfil(){
       return this.sidebar.Profil
      },
@@ -421,7 +428,17 @@ export default {
     },
     isColors(){
       return this.iscolors
-    }
+    },
+    isasideright(){
+      return this.isAside.asideRight
+    },
+    isleftSideLeft(){
+       return this.sidebar.leftSideLeft
+    },
+     leftSide(){
+       return this.sidebar.leftSide
+    },
+    
  },
  methods:{
     ...mapActions([
@@ -431,7 +448,7 @@ export default {
         'toggleSideBar',
         'changeAsideVisible',
         'changeAsideColor',
-        'changeAsideLeft',
+        // 'changeAsideLeft',
         'changeAsideFixed'
     	]),
      
@@ -451,8 +468,10 @@ export default {
     changeBoxLayout(){
             this.boxlay.dis=!this.boxlay.dis;
             this.boxlay.boxLayout=!this.boxlay.boxLayout;
+            console.log(this.boxlay.boxLayout)
             if(this.boxlay.boxLayout===true){
               this.boxlay.open_boxlayout='open_boxlayout';
+              this.isAside.asideRight="6%";
                if( this.sidebar.isFixed===true){
                this.asideSetting.mainnavFixed='mainnav_fixedbox';
                } if(this.sidebar.isFixed===false){
@@ -462,6 +481,7 @@ export default {
             if( this.boxlay.boxLayout===false){
               this.backgroundImg=false;
               this.boxlay.open_boxlayout="";
+              this.isAside.asideRight="0px";
               if(this.backgroundImg===false)
               {
                 this.boxlay.isbgasidecolor=false;
@@ -472,6 +492,18 @@ export default {
                   this.asideSetting.mainnavFixed="";
                }
             }
+            if(this.boxlay.boxLayout===true && this.sidebar.leftSide===true && this.sidebar.opened===false){
+              this.sidebar.leftSideLeft="145px";
+            }
+            if(this.boxlay.boxLayout===true && this.sidebar.leftSide===true && this.sidebar.opened===true){
+              this.sidebar.leftSideLeft="300px";
+            }
+            if(this.boxlay.boxLayout===false && this.sidebar.leftSide===true && this.sidebar.opened===false){
+              this.sidebar.leftSideLeft="65px";
+            }
+            if(this.boxlay.boxLayout===false && this.sidebar.leftSide===true && this.sidebar.opened===true){
+              this.sidebar.leftSideLeft="220px";
+            }
         },
          changeBackgroundImg(){
           this.boxlay.backgroundImg=!this.boxlay.backgroundImg;
@@ -481,21 +513,33 @@ export default {
           this.backgroundImg=false;
           this.boxlay.isbgasidecolor=false;
         },
-    boxedBgblurred(item){
-    //  let url = this.$refs.imgblurredbg.prop('src').replace('thumbs','bg');
-    //  this.$refs.blurredbg.$el.style.borderColor="#000";
-     document.querySelector('body').setAttribute('style', 'background-image:url(' + this.blurred+ item +".jpg?v=1.0"+')');
+    changeboxedBg(item,type,Idname){
+          var arr=document.getElementsByClassName("thumbnail")
+                for(var i=0; i<arr.length; i++){
+                  if( arr[i].classList.contains('isactive'))
+                    arr[i].classList.remove("isactive")
+                }
+     document.querySelector('body').setAttribute('style', 'background-image:url(' + type+ item +".jpg?v=1.0"+')');
+     document.getElementById(Idname+item).classList.add("isactive")
+    },
+    // boxedBgblurred(item){
+    // //  let url = this.$refs.imgblurredbg.prop('src').replace('thumbs','bg');
+    // //  this.$refs.blurredbg.$el.style.borderColor="#000";
+    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.blurred+ item +".jpg?v=1.0"+')');
         
-    },
-     boxedBgpolygon(item){
-     document.querySelector('body').setAttribute('style', 'background-image:url(' + this.polygon+ item +".jpg?v=1.0"+')');
-    },
-     boxedBgabstract(item){
-     document.querySelector('body').setAttribute('style', 'background-image:url(' + this.abstract+ item +".jpg?v=1.0"+')');
-    },
+    // },
+    //  boxedBgpolygon(item){
+    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.polygon+ item +".jpg?v=1.0"+')');
+    // },
+    //  boxedBgabstract(item){
+    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.abstract+ item +".jpg?v=1.0"+')');
+    // },
     changenavFixed(){
       this.sidebar.isFixed=!this.sidebar.isFixed;
-      this.asideSetting.mainnavFixed="mainnav_fixed";
+      if(this.sidebar.isFixed===true){
+           this.asideSetting.mainnavFixed="mainnav_fixed";
+      }
+     
       // this.sidebar.mainLeft="mainleft";
       if(this.sidebar.isFixed===false){
          this.asideSetting.mainnavFixed="";
@@ -552,6 +596,21 @@ export default {
     //  // return this.colortext;
     // },
     changeThemeColors(itemcolor,type){
+        var arr1=document.getElementsByClassName("demo-theme-make")
+        for(var i=0; i<arr1.length; i++){
+          if( arr1[i].classList.contains('isactive'))
+            arr1[i].classList.remove("isactive")
+        }
+        var arr2=document.getElementsByClassName("demo-theme")
+         for(var i=0; i<arr2.length; i++){
+             if( arr2[i].classList.contains('isactive'))
+            arr2[i].classList.remove("isactive")
+        }
+         var arr3=document.getElementsByClassName("demo-single-theme")
+         for(var i=0; i<arr3.length; i++){
+             if( arr3[i].classList.contains('isactive'))
+            arr3[i].classList.remove("isactive")
+        }
         var link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';
@@ -563,15 +622,41 @@ export default {
       } else {
           document.getElementsByTagName("head")[0].appendChild(link);
        }
-          let arr=Object.keys(this.iscolors);
+//        this.$nextTick(function () {
+// 　　　　　　　　this.colorList.forEach(function (itemcolor) {
+// 　　　　　　　　　　Vue.set(itemcolor,'isactive',false);
+// 　　　　　　　　});
+// 　　　　　　　　Vue.set(itemcolor,'isactive',true);
+// 　　　　　　});
+      
+       document.getElementById(itemcolor+type).classList.add("isactive")
+       
+       
+      let arr=Object.keys(this.iscolors);
       for(let i=0;i<arr.length;i++){
         if( arr[i] === itemcolor){
            this.colorSetting.colortext=this.iscolors[arr[i]];
             return this.colorSetting.colortext;//return就停止往下走
         }
       }
+      // this.activeitem='isactive';
     },
     changeAsideColors(itemcolor){
+      var arr1=document.getElementsByClassName("demo-theme-make")
+        for(var i=0; i<arr1.length; i++){
+          if( arr1[i].classList.contains('isactive'))
+            arr1[i].classList.remove("isactive")
+        }
+        var arr2=document.getElementsByClassName("demo-theme")
+         for(var i=0; i<arr2.length; i++){
+             if( arr2[i].classList.contains('isactive'))
+            arr2[i].classList.remove("isactive")
+        }
+        var arr3=document.getElementsByClassName("demo-single-theme")
+         for(var i=0; i<arr3.length; i++){
+             if( arr3[i].classList.contains('isactive'))
+            arr3[i].classList.remove("isactive")
+        }
        var link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';
@@ -583,9 +668,24 @@ export default {
       } else {
           document.getElementsByTagName("head")[0].appendChild(link);
        }
-        
+        document.getElementById(itemcolor).classList.add("isactive")
       },
        changeThemeLight(){
+         var arr1=document.getElementsByClassName("demo-theme-make")
+        for(var i=0; i<arr1.length; i++){
+          if( arr1[i].classList.contains('isactive'))
+            arr1[i].classList.remove("isactive")
+        }
+        var arr2=document.getElementsByClassName("demo-theme")
+         for(var i=0; i<arr2.length; i++){
+             if( arr2[i].classList.contains('isactive'))
+            arr2[i].classList.remove("isactive")
+        }
+         var arr3=document.getElementsByClassName("demo-single-theme")
+         for(var i=0; i<arr3.length; i++){
+             if( arr3[i].classList.contains('isactive'))
+            arr3[i].classList.remove("isactive")
+        }
        var link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';
@@ -597,9 +697,24 @@ export default {
       } else {
           document.getElementsByTagName("head")[0].appendChild(link);
        }
-        
+        document.getElementById('light').classList.add("isactive")
       },
        changeThemeDark(){
+          var arr1=document.getElementsByClassName("demo-theme-make")
+        for(var i=0; i<arr1.length; i++){
+          if( arr1[i].classList.contains('isactive'))
+            arr1[i].classList.remove("isactive")
+        }
+        var arr2=document.getElementsByClassName("demo-theme")
+         for(var i=0; i<arr2.length; i++){
+             if( arr2[i].classList.contains('isactive'))
+            arr2[i].classList.remove("isactive")
+        }
+         var arr3=document.getElementsByClassName("demo-single-theme")
+         for(var i=0; i<arr3.length; i++){
+             if( arr3[i].classList.contains('isactive'))
+            arr3[i].classList.remove("isactive")
+        }
        var link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';
@@ -611,14 +726,16 @@ export default {
       } else {
           document.getElementsByTagName("head")[0].appendChild(link);
        }
-        
+        document.getElementById('dark').classList.add("isactive")
       },
       changeFiexedHeader(){
          this.boxlay.fixedHeader=!this.boxlay.fixedHeader;
          if( this.boxlay.fixedHeader===true){
           this.boxlay.fixedHeaderClass="fixedheaderclass";
+          this.boxlay.fixedHeaderwidth="fixedheaderwidth";
          }else{
            this.boxlay.fixedHeaderClass='';
+           this.boxlay.fixedHeaderwidth="";
          }
         
       },
@@ -629,7 +746,31 @@ export default {
         }else{
           this.sidebar.displayBtns=""
         }
+      },
+       changeAsideLeft(){
+          this.sidebar.leftSide=! this.sidebar.leftSide;
+           if( this.sidebar.leftSide===true){
+          if(this.boxlay.boxLayout===false &&  this.sidebar.leftSide===true){
+               this.sidebar.leftSideLeft="220px";
+          }
+      //  if(state.boxlay.boxLayout===false && state.isAside.leftSide===true){
+      //     state.isAside.leftSideLeft="65px";
+      //  }
+      if(this.boxlay.boxLayout===true &&  this.sidebar.leftSide===true){
+         this.sidebar.leftSideLeft="300px";
+       }
+      //  if(state.boxlay.boxLayout===true && state.isAside.leftSide===true && state.sidebar.opened===false){
+      //   state.isAside.leftSideLeft="145px";
+      //  }
+      }else{
+         this.sidebar.leftSideLeft="";
       }
+          // if(state.isAside.leftSide===true){
+          //   state.isAside.leftSideLeft='220px';
+          // }else{
+          //   state.isAside.leftSideLeft=''
+          // }
+        },
       
     }
     
@@ -740,6 +881,85 @@ hr{background: #ebeef5;height: 1px; border: none}
 }
 .demo-text{text-align: center;margin-bottom: 7px;margin-left: -5px}
 .img-theme{margin-left: -5px;}
+.demo-theme:hover,.demo-single-theme:hover,.demo-theme-make:hover{
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0,0.3);
+    border: 0;
+    transform: scale(1.1);
+    transition: all .2s;
+    z-index: 1000
+}
+.demo-theme-make.isactive:before,.demo-theme.isactive:before,.theme-dark.isactive:before {
+    background: #fff;
+    content: "";
+    height: 10px;
+    left: 45%;
+    margin-left: -5px;
+    position: absolute;
+    top: 13px;
+    transform: rotate(-45deg);
+    width: 5px;
+    box-shadow: -1px 1px 2px rgba(0,0,0,.5);
+}
+.demo-theme-make.isactive:after,.demo-theme.isactive:after,.theme-dark.isactive:after {
+    background: #fff;
+    content: "";
+    height: 20px;
+    left: 45%;
+    margin-left: 3px;
+    position: absolute;
+    top: 5px;
+    transform: rotate(45deg);
+    width: 5px;
+    box-shadow: 2px 0 2px rgba(0,0,0,.5);
+}
+.theme-dark.isactive:before {
+    background: #fff;
+    content: "";
+    height: 10px;
+    left: 12%;
+    margin-left: -5px;
+    position: absolute;
+    top: 28px;
+    transform: rotate(-45deg);
+    width: 5px;
+    box-shadow: -1px 1px 2px rgba(0,0,0,.5);
+}
+.theme-dark.isactive:after {
+    background: #fff;
+    content: "";
+    height: 20px;
+    left: 12%;
+    margin-left: 3px;
+    position: absolute;
+    top: 20px;
+    transform: rotate(45deg);
+    width: 5px;
+    box-shadow: 2px 0 2px rgba(0,0,0,.5);
+}
+.theme-light.isactive:before {
+    background: #000;
+    content: "";
+    height: 10px;
+    left: 12%;
+    margin-left: -5px;
+    position: absolute;
+    top: 28px;
+    transform: rotate(-45deg);
+    width: 5px;
+    box-shadow: -1px 1px 2px rgba(0,0,0,.5);
+}
+.theme-light.isactive:after {
+    background: #000;
+    content: "";
+    height: 20px;
+    left:12%;
+    margin-left: 3px;
+    position: absolute;
+    top: 20px;
+    transform: rotate(45deg);
+    width: 5px;
+    box-shadow: 2px 0 2px rgba(0,0,0,.5);
+}
 .text-justify{
     width:100%;
     margin-top: 11px;
@@ -753,7 +973,8 @@ hr{background: #ebeef5;height: 1px; border: none}
     border:1px solid #ececec;
     display: inline-block
 }
-
+.text-justify > .thumbnail:hover{border:1px solid #9aa6da;}
+.text-justify > .thumbnail.isactive{border:1px solid #9aa6da;}
 @media (min-width: 1500px){
     .text-justify > .thumbnail{
         font-size: 7px;

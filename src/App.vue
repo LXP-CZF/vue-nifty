@@ -17,11 +17,12 @@
 </script>
 
 <style  lang="less">
-body,html{width: 100%;height: 100%; overflow-x: hidden;  background: #8c979b;}
+body{width: 100%;height: 100%; background: #8c979b;}
 *{margin:0px;padding: 0px; }
 #app {
   width: 100%;
   height: 100%;
+  position: relative;
   font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,6 +30,7 @@ body,html{width: 100%;height: 100%; overflow-x: hidden;  background: #8c979b;}
   /*text-align: center;*/
   color: #2c3e50;
   margin-top: 0px;
+  
  
 }
 

@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import layout from './layout'
 const app={
 	state:{
         open_close:true,
@@ -13,7 +14,9 @@ const app={
             mainLeft:'',
             isFixed:false,//是否固定侧边栏
             isopenBtns:false,
-            displayBtns:''
+            displayBtns:'',
+            leftSide:false,
+            leftSideLeft:'',
           },
     },
     mutations: {
@@ -33,18 +36,19 @@ const app={
             // Cookies.set('sidebarStatus', 0)
             state.sidebar.Profil=true
             state.sidebar.isoffProfil=false
-            if(state.sidebar.isFixed===true){
-              // state.sidebar.mainLeft='mainleft'
-             }else{
-              //  state.sidebar.mainLeft=''
-             }
           }
-
-          if(state.sidebar.isFixed===true){
-            if (state.sidebar.opened===false){
-              // state.sidebar.mainLeft='mainleftlittle'
+           if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===false){
+              state.sidebar.leftSideLeft="145px";
             }
-          }
+            if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===true){
+              state.sidebar.leftSideLeft="300px";
+            }
+            if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===false){
+              state.sidebar.leftSideLeft="65px";
+            }
+            if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===true){
+              state.sidebar.leftSideLeft="220px";
+            }
         },
         CLOSE_SIDEBAR: (state, withoutAnimation) => {
           Cookies.set('sidebarStatus', 0)
