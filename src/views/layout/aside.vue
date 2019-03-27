@@ -1,21 +1,21 @@
 <template>
 <!--侧边栏-->
 <div class="searchBar" id="searchBars">
-<el-row class="asideset" :class="searchBarFixed == true ? 'mainnav_fixed' :''">
+<el-row class="asideset" :class="searchBarFixed == true ? ismainnavFixed :''">
 	<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only">
-		<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" >
+		<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"  v-if="!isfixedHeader">
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
       </el-col>
-      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!isCollapse">
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
 		</el-col>
 		<div class="asidemain" :style="{height:getheight+ 'px'}">
-<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="isCollapse" @select="selectMenu" router>
-  <el-collapse v-if="isProfil" >
+<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" @select="selectMenu" router>
+  <el-collapse v-if="isProfilstate" >
   <el-collapse-item  name="1">
 		<template slot="title">
 			<el-row >
@@ -37,6 +37,26 @@
 			<el-button type="danger" icon="el-icon-delete" circle></el-button>
 		</el-col>
 	</el-row>
+	 <el-submenu index="0">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>导航一</span>
+        </template>
+				<el-menu-item index="Dashboard2">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+        <!-- <el-menu-item-group>
+         <template slot="title">分组一</template> 
+          <el-menu-item index="Dashboard2">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu> -->
+      </el-submenu>
 		<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 			<el-submenu :index="index+''" v-if="!item.leaf">
 				<template slot="title"><i :class="item.iconCls"></i><span>{{item.name}}</span></template>
@@ -55,6 +75,7 @@
 <script>
 	import {mapGetters,mapActions} from 'vuex'
 	export default{
+		props: ['stateCollapse','isProfilstate'],
 		data(){
 			return{
 				getheight:'',
@@ -93,6 +114,9 @@
 		 iscolortext(){
       return this.colorSetting.colortext
 		},
+		 isfixedHeader(){
+     return this.boxlay.fixedHeader
+    },
 			isfixedHeaderClass(){
        return this.boxlay.fixedHeaderClass
     },
@@ -132,6 +156,13 @@
 				let offsetTop = document.querySelector('#searchBars').offsetTop
 				if(this.sidebar.isFixed===true){
 					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
+					 this.asideSetting.mainnavFixed='mainnav_fixed';
+					// if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){
+					//   this.asideSetting.mainnavFixed='mainnav_fixedtop';
+					// }
+					if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===false){
+					  this.asideSetting.mainnavFixed='mainnav_fixed';
+					}
 					 if( this.searchBarFixed === true && this.sidebar.opened===true){
 						 	this.sidebar.mainLeft="mainleft"
 					   }else{this.sidebar.mainLeft=""}
@@ -143,7 +174,6 @@
 				}
 
 			},
-
 
 },
 // watch: {
@@ -164,6 +194,10 @@
   .mainnav_fixed{
     position:fixed;
     top:0;
+	}
+	.mainnav_fixedtop{
+		position:fixed;
+    top:40px;
 	}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;
@@ -204,5 +238,5 @@ a:hover{color: #ffd04b;}
 }
 .nodispalybtns{display:block !important;}
 .fixedheaderclass{position: fixed;z-index: 998;}
-.asidemain{background:#fff;}
+.asidemain{background:#fff;min-height: 785px;}
 </style>

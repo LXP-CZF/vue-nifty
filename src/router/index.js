@@ -9,7 +9,7 @@ import Router from 'vue-router'
 // const content = resolve => require(['@/views/content'], resolve)
  const Dashboard1 = resolve => require(['@/views/component/basic_button'], resolve)
 // const transfer = resolve => require(['@/views/transfer'], resolve)
- const Dashboard2 = resolve => require(['@/views/component/bigger_data2'], resolve)
+ const Dashboard2 = resolve => require(['@/views/Home_1.vue'], resolve)
  const Dashboard3 = resolve => require(['@/components/Table'], resolve)
  const login = resolve => require(['@/views/component/Login'], resolve)
 
@@ -26,16 +26,23 @@ export default new Router({
 			hidden: true
 	},
 	{
+		path: '/Dashboard2',
+		component: Dashboard2,
+		name:'Dashboard2',
+		hidden: true
+	},
+	{
 		path: '/Dashboard1',
 		component: Home,
 		name:'Dashboard',
 		iconCls: 'iconfont icon-shouyex',//图标样式class
 		children: [
 				{ path: '/Dashboard1', component: Dashboard1, name: 'Dashboard1'},
-				{ path: '/Dashboard2', component: Dashboard2, name: 'Dashboard2' },
+				// { path: '/Dashboard2', component: Dashboard2, name: 'Dashboard2' },
 				{ path: '/Dashboard3', component: Dashboard3, name: 'Dashboard3' }
 		]
 	},
+
 	{
 		path: '/layout1',
 		component: Home,

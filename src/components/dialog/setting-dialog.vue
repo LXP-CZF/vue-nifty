@@ -402,6 +402,12 @@ export default {
     isfixedHeaderwidth(){
       return this.boxlay.fixedHeaderwidth
     },
+    isfixedHeaderLogowidth(){
+      return this.boxlay.fixedHeaderLogowidt
+    },
+    isfixedHeaderMaintop(){
+      return this.boxlay.fixedHeaderMaintop
+    },
     isProfil(){
       return this.sidebar.Profil
      },
@@ -468,7 +474,6 @@ export default {
     changeBoxLayout(){
             this.boxlay.dis=!this.boxlay.dis;
             this.boxlay.boxLayout=!this.boxlay.boxLayout;
-            console.log(this.boxlay.boxLayout)
             if(this.boxlay.boxLayout===true){
               this.boxlay.open_boxlayout='open_boxlayout';
               this.isAside.asideRight="6%";
@@ -480,7 +485,7 @@ export default {
             }
             if( this.boxlay.boxLayout===false){
               this.backgroundImg=false;
-              this.boxlay.open_boxlayout="";
+              this.boxlay.open_boxlayout="resize_boxlayout";
               this.isAside.asideRight="0px";
               if(this.backgroundImg===false)
               {
@@ -504,6 +509,12 @@ export default {
             if(this.boxlay.boxLayout===false && this.sidebar.leftSide===true && this.sidebar.opened===true){
               this.sidebar.leftSideLeft="220px";
             }
+            if(this.boxlay.boxLayout===true && this.boxlay.fixedHeader===true){
+              this.boxlay.fixedHeaderClass="fixedheaderclassbox";
+            }
+             if(this.boxlay.boxLayout===false && this.boxlay.fixedHeader===true){
+              this.boxlay.fixedHeaderClass="fixedheaderclass";
+            }
         },
          changeBackgroundImg(){
           this.boxlay.backgroundImg=!this.boxlay.backgroundImg;
@@ -522,18 +533,6 @@ export default {
      document.querySelector('body').setAttribute('style', 'background-image:url(' + type+ item +".jpg?v=1.0"+')');
      document.getElementById(Idname+item).classList.add("isactive")
     },
-    // boxedBgblurred(item){
-    // //  let url = this.$refs.imgblurredbg.prop('src').replace('thumbs','bg');
-    // //  this.$refs.blurredbg.$el.style.borderColor="#000";
-    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.blurred+ item +".jpg?v=1.0"+')');
-        
-    // },
-    //  boxedBgpolygon(item){
-    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.polygon+ item +".jpg?v=1.0"+')');
-    // },
-    //  boxedBgabstract(item){
-    //  document.querySelector('body').setAttribute('style', 'background-image:url(' + this.abstract+ item +".jpg?v=1.0"+')');
-    // },
     changenavFixed(){
       this.sidebar.isFixed=!this.sidebar.isFixed;
       if(this.sidebar.isFixed===true){
@@ -733,11 +732,29 @@ export default {
          if( this.boxlay.fixedHeader===true){
           this.boxlay.fixedHeaderClass="fixedheaderclass";
           this.boxlay.fixedHeaderwidth="fixedheaderwidth";
+          this.boxlay.fixedHeaderLogowidth="201px";
+          this.boxlay.fixedHeaderMaintop="60px";
          }else{
            this.boxlay.fixedHeaderClass='';
            this.boxlay.fixedHeaderwidth="";
+           this.boxlay.fixedHeaderMaintop="";
+           this.boxlay.fixedHeaderLogowidth=""
          }
-        
+         if(this.sidebar.opened===false && this.boxlay.fixedHeader===true){
+                  this.boxlay.fixedHeaderLogowidth="45px"
+         }
+        if(this.boxlay.boxLayout===true && this.boxlay.fixedHeader===true){
+              this.boxlay.fixedHeaderClass="fixedheaderclassbox";
+            }
+            if(this.$route.name==='Dashboard2'){
+                // this.sidebar.opened=true;
+              if (this.sidebar.opened===true && this.boxlay.fixedHeader===true){
+                  this.boxlay.fixedHeaderLogowidth="45px"
+              }
+              if (this.sidebar.opened===false && this.boxlay.fixedHeader===true){
+                  this.boxlay.fixedHeaderLogowidth="201px"
+              }
+            }
       },
       changeBtns(){
         this.sidebar.isopenBtns=!this.sidebar.isopenBtns;

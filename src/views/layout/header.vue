@@ -1,24 +1,42 @@
 <template>
     <!--头部-->
-	<div style="width:100%;">
+	<div style="width:100%;height:100%">
 	<el-header :class="[isalltheme,isHeadertheme,isfixedHeaderClass]">
-	
-		<div style="width:12%;" v-if="isfixedHeader">
+		<div :style="{width:fixedHeaderLogowidthstate}" style="float: left;" v-if="isfixedHeader" >
 			<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" >
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
       </el-col>
-      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!isCollapse">
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
 		</el-col>
 		</div>
-		<div>
-    <el-row style="height: 60px !important;" :class="isfixedHeaderwidth">
+		<!-- 固定头部时出现布局混乱，固重写代码 -->
+		<div v-if="isfixedHeader" :class="isfixedHeaderwidth" >
+    <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" style="width:5%;float:left;margin-left:15px;"></nxhamburger>
+		<input class="search"  placeholder="Type for search..." style="width:15%;float:left;margin-top: 12px;"/>
+		<div class="icon" style="width:60%;float:right;text-align:right;">
+		 <i class="iconfont icon-icon_work"></i>
+				<i class="iconfont icon-icon_notice"></i><el-badge is-dot style="top:-7px;"> </el-badge>
+				 
+        <el-dropdown trigger="hover">
+					<span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-icon_boss"></i></span>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item>我的消息</el-dropdown-item>
+						<el-dropdown-item>设置</el-dropdown-item>
+						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+					</el-dropdown-menu>
+		    </el-dropdown>
+				<i class="iconfont icon-icon_more" @click="changeVisible"></i>
+				</div>
+		</div>
+		<!--  -->
+    <el-row style="height: 60px !important;" :class="isfixedHeaderwidth"  v-if="!isfixedHeader">
       <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="height: 60px !important;">
-        <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></nxhamburger>
+        <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" ></nxhamburger>
       </el-col>
 			<el-col  :sm="5" :md="5" :lg="5" :xl="5" class="hidden-xs-only" style="height: 60px !important;">
         <input class="search"
@@ -40,20 +58,9 @@
 					</el-dropdown-menu>
 		    </el-dropdown>
 				<i class="iconfont icon-icon_more" @click="changeVisible"></i>
-				 <!-- <el-dropdown trigger="click" :hide-on-click="false">
-					<span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-icon_more"></i></span>
-					<el-dropdown-menu slot="dropdown" :class="isVisibleClass" v-if="isVisible">
-						<el-dropdown-item>
-						 
-						</el-dropdown-item>
-						<el-dropdown-item>设置</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item> 
-					</el-dropdown-menu>
-		    </el-dropdown> -->
-				
       </el-col>
     </el-row>
-		</div>
+
 	
 	</el-header>
 	<el-tabs v-model="activeName" id="tabs" class="tabclass" :class="[isVisibleClass,asidePanFixed == true ? isasideFixedclass :'']" :style="{height:getheight+ 'px',left:isleftSideLeft,right:isasideright}">
@@ -88,6 +95,7 @@
 	import theme from '../.././components/HelloWorld'
 	import nxhamburger from '@/components/nx-hamburger'
 	export default{
+			props: ['stateCollapse','fixedHeaderLogowidthstate'],
 		data(){
 			return{
 				sysUserName: 'admin',
@@ -98,6 +106,7 @@
 				 asidePanFixed:false,
 			}
 		},
+		 
 		computed:{
 			...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
 			boxLayout(){
@@ -117,12 +126,15 @@
     },
 		 isfixedHeader(){
      return this.boxlay.fixedHeader
-         },
+    },
 		isfixedHeaderClass(){
        return this.boxlay.fixedHeaderClass
 		},
 		isfixedHeaderwidth(){
       return this.boxlay.fixedHeaderwidth
+		},
+		 isfixedHeaderLogowidth(){
+      return this.boxlay.fixedHeaderLogowidth
     },
 			isVisible(){
        return this.isAside.Visible
@@ -134,7 +146,7 @@
 			return this.sidebar.leftSide
 		},
 		isleftSideLeft(){
-       return this.sidebar.leftSideLeft
+       return 
 		},
 		isasideFixedclass(){
 			return this.isAside.asideFixedClass
@@ -201,7 +213,7 @@
 				let offsetTop = document.querySelector('#tabs').offsetTop
 				if(this.isAside.asideFixed===true){
 					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
-					 
+					 	this.isAside.asideFixedClass='asdfixedClass';
 					if(this.boxlay.fixedHeader===true){
 						this.isAside.asideFixedClass='asideFixedClasstop';
 					}
@@ -214,7 +226,18 @@
 					if(this.sidebar.isFixed===true &&this.boxlay.fixedHeader===false){
 							this.isAside.asideFixedClass='asdfixedClass'
 						}
+					
 				 }
+				 if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){
+					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
+				 	if(this.asidePanFixed === true){
+					    this.boxlay.open_boxlayout="close_boxlayout";
+						}
+						if(this.asidePanFixed === false){
+						this.boxlay.open_boxlayout="open_boxlayout";
+						}
+				 }
+				
 			},
 			
 		},
@@ -262,8 +285,11 @@
 	.iconfont:hover{color:lightgrey;}
 	.search{background: transparent; border: hidden;color:white;height: 30px;width: 100%;}
  .icon-set{text-align: right;}
+ .logtheme{margin-left: -20px;}
  .fixedheaderclass{position: fixed;z-index: 998;left:0px}
- .fixedheaderwidth{width: 84%;float:right;}
+ .fixedheaderclassbox{position: fixed;z-index: 998;left: 6%;width: 88%;}
+ .fixedheaderwidth,.fixedHeaderwidthopen{overflow: hidden;}
+ .fixedHeaderwidthclose{overflow: hidden;}
 .demo-theme-gray{
     background: #8f9ea6;
 }
@@ -300,9 +326,15 @@
 .demo-theme-yellow{
     background: #efd45a !important;
 }
+@media screen and (max-width:800px){
+   .el-tabs{
+				display: none;
+				
+    }
+}
 .el-dropdown-menu__item:hover{background:transparent;}
 .Visibleclass{width:255px;background: #fff; position: absolute; top: 60px;right:0px; transform: none !important; z-index: 997; display: block;color: #000;text-align: left;padding-left: 15px;}
-.noneVisible{width:300px;background: #fff;left: 110%;transform: none !important; z-index: 2001; display: none;}
+.noneVisible{width:255px;background: #fff;left: 110%;transform: none !important; z-index: 2001; display: none;}
 .item{float:right;padding-right: 10px;padding-top: 4.5px;}
 .tabimg{width:32px;height:32px;border-radius:50%;}
 .tabtext{color: #4d627b;font-weight: 700;font-size: .9em;}

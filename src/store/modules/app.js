@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import layout from './layout'
+// import router from './router'
 const app={
 	state:{
         open_close:true,
@@ -17,6 +18,8 @@ const app={
             displayBtns:'',
             leftSide:false,
             leftSideLeft:'',
+            hiddensidebar:'220px',
+            hiddensidebar2:'65px'
           },
     },
     mutations: {
@@ -26,7 +29,13 @@ const app={
           state.sidebar.isoffProfil=!state.sidebar.isoffProfil
           state.sidebar.withoutAnimation = false
           if (state.sidebar.opened===false) {
+            state.sidebar.hiddensidebar="65px";
+            state.sidebar.hiddensidebar2="220px";
             // Cookies.set('sidebarStatus', 1)
+            if(layout.state.boxlay.fixedHeader===true){
+              layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthclose"
+              layout.state.boxlay.fixedHeaderLogowidth="45px";
+            }
             if(state.sidebar.isFixed===true){
             // state.sidebar.mainLeft='mainleftlittle'
           }else{
@@ -36,7 +45,23 @@ const app={
             // Cookies.set('sidebarStatus', 0)
             state.sidebar.Profil=true
             state.sidebar.isoffProfil=false
+            state.sidebar.hiddensidebar="220px";
+            state.sidebar.hiddensidebar2="65px";
+            if(layout.state.boxlay.fixedHeader===true){
+              layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthopen";
+              layout.state.boxlay.fixedHeaderLogowidth="201px";
+            }
           }
+        //   if(this.$router.name==='Dashboard2'){
+        //     // this.sidebar.opened=true;
+        //   if (this.sidebar.opened===true && this.boxlay.fixedHeader===true){
+        //       this.boxlay.fixedHeaderLogowidth="45px"
+        //   }
+        //   if (this.sidebar.opened===false && this.boxlay.fixedHeader===true){
+        //       this.boxlay.fixedHeaderLogowidth="201px"
+        //   }
+        // }
+          
            if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===false){
               state.sidebar.leftSideLeft="145px";
             }

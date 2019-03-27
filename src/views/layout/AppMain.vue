@@ -1,7 +1,7 @@
 <template>
-<div class="mainheight">
-<el-main>
-  <section class="app-main">
+<div class="mainheight" >
+<el-main >
+  <section class="app-main" :style="{marginTop:isfixedHeaderMaintop}">
       <div style="width:100%; height:125px;padding-top:2%" class="maintheme">
           <!-- <h3>Welcome back to the Dashboard.</h3>
           <p>Scroll down to see quick links and overviews of your Server, To do list, Order status or get some Help using Nifty.</p>  -->
@@ -33,10 +33,13 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['colorSetting']),
+    ...mapGetters(['colorSetting','boxlay']),
 		isalltheme(){
       return this.colorSetting.alltheme
-    }
+    },
+    isfixedHeaderMaintop(){
+      return this.boxlay.fixedHeaderMaintop
+    },
 		},
   watch: {
     $route() {

@@ -9,7 +9,9 @@ const layout={
             dis:true,//控制背景图片switch是否禁用
             fixedHeader:false,//控制固定位置switch是否固定header
             fixedHeaderClass:'',//固定header的css
-            fixedHeaderwidth:''//改变header的width
+            fixedHeaderwidth:'',//改变header的width
+            fixedHeaderLogowidth:'',
+            fixedHeaderMaintop:''
           },
           asideSetting:{
             mainnavFixed:'',//控制侧边栏添加固定class
