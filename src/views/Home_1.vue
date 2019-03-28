@@ -2,6 +2,20 @@
 <div>
   <div class="component" :class="this.isopen_boxlayout">
      <el-row>
+        <vueheader :stateCollapse="!isCollapse"  :fixedHeaderLogowidthstate="isfixedHeaderLogowidth"></vueheader>
+      <div style="float:left" :style="{width:ishiddensidebar}">
+      <vueaside :stateCollapse="!isCollapse" :isProfilstate="isCollapse"></vueaside></div>
+      <div style="" :class="ismainleft" :style="{marginLeft:ishiddensidebar}">
+       <vuemain></vuemain>
+       <vuefooter></vuefooter>
+      </div>
+      </el-row>
+    </div>
+    <div class="formatLayout">
+      <settingdialog></settingdialog>
+    </div>
+  <!-- <div class="component" :class="this.isopen_boxlayout">
+     <el-row>
       <div style="float:left" :style="{width:ishiddensidebar2}">
       <vueaside :stateCollapse="!isCollapse" :isProfilstate="isCollapse"></vueaside></div>
       <div style="" :class="ismainleft" :style="{marginLeft:ishiddensidebar2}">
@@ -10,21 +24,8 @@
        <vuefooter></vuefooter>
       </div>
       </el-row>
-    </div>
-  <!-- <div class="component" :class="this.isopen_boxlayout">
-      <el-container>
-        <div style="float:left">
-     <vueaside :stateCollapse="!isCollapse" :isProfilstate="isCollapse"></vueaside></div>
-      <div style="width: 100%;height:100%;float:left" :class="ismainleft">
-        <vueheader :stateCollapse="!isCollapse"  :fixedHeaderLogowidthstate="isfixedHeaderLogowidth"></vueheader>
-       <vuemain></vuemain>
-       <vuefooter></vuefooter>
-      </div>
-      </el-container>
     </div> -->
-     <div class="formatLayout">
-      <settingdialog></settingdialog>
-  </div>
+  
 </div>
 </template>
 
@@ -78,6 +79,7 @@ export default {
  methods:{
    getLink(){
      if(this.$route.name==='Dashboard2'){
+      //  this.sidebar.opened=false;
        var link = document.createElement('link');
         link.type = 'text/css';
         link.rel = 'stylesheet';

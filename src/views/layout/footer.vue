@@ -1,9 +1,21 @@
 <template>
     <!--底部-->
-	<el-footer class="">@2019  GoodIdea</el-footer>
+	<el-footer :class="isfixedfooter">@2019  GoodIdea</el-footer>
 </template>
 
 <script>
+import {mapGetters,mapActions} from 'vuex'
+export default {
+	name: '',
+	components: {
+  },
+  computed:{
+   ...mapGetters(['isFooter']),
+   isfixedfooter(){
+     return this.isFooter.fixedFooterClass
+   },
+  }
+}
 </script>
 
 <style scoped>
@@ -15,6 +27,11 @@
     line-height: 35px;
     width: 100%;
     padding-left: 20px;
+    
+  }
+  .fixedfooter{
     position: fixed;
+    bottom:0px;
+    z-index: 998;
   }
 </style>

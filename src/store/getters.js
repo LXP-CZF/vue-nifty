@@ -3,6 +3,7 @@ const getters={
 	asideSetting:state=>state.layout.asideSetting,
 	colorSetting:state=>state.layout.colorSetting,
 	isAside:state=>state.layout.isAside,
+	isFooter:state=>state.layout.isFooter,
 	// backgroundImg:state=>state.layout.boxlay.backgroundImg,
 	// colortext:state=>state.layout.colortext,
 	iscolors:state=>state.layout.iscolors,

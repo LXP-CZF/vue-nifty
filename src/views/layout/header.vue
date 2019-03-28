@@ -2,23 +2,23 @@
     <!--头部-->
 	<div style="width:100%;height:100%">
 	<el-header :class="[isalltheme,isHeadertheme,isfixedHeaderClass]">
-		<div :style="{width:fixedHeaderLogowidthstate}" style="float: left;" v-if="isfixedHeader" >
+		<div :style="{width:fixedHeaderLogowidthstate}" style="float: left;">
 			<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only" >
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
       </el-col>
-      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
 		</el-col>
 		</div>
 		<!-- 固定头部时出现布局混乱，固重写代码 -->
-		<div v-if="isfixedHeader" :class="isfixedHeaderwidth" >
+		<div  :class="isfixedHeaderwidth" >
     <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" style="width:5%;float:left;margin-left:15px;"></nxhamburger>
 		<input class="search"  placeholder="Type for search..." style="width:15%;float:left;margin-top: 12px;"/>
-		<div class="icon" style="width:60%;float:right;text-align:right;">
+		<div class="icon" style="width:30%;float:right;text-align:right;height:60px;">
 		 <i class="iconfont icon-icon_work"></i>
 				<i class="iconfont icon-icon_notice"></i><el-badge is-dot style="top:-7px;"> </el-badge>
 				 
@@ -34,7 +34,7 @@
 				</div>
 		</div>
 		<!--  -->
-    <el-row style="height: 60px !important;" :class="isfixedHeaderwidth"  v-if="!isfixedHeader">
+    <!-- <el-row style="height: 60px !important;" :class="isfixedHeaderwidth"  v-if="!isfixedHeader">
       <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="height: 60px !important;">
         <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" ></nxhamburger>
       </el-col>
@@ -59,7 +59,7 @@
 		    </el-dropdown>
 				<i class="iconfont icon-icon_more" @click="changeVisible"></i>
       </el-col>
-    </el-row>
+    </el-row> -->
 
 	
 	</el-header>
@@ -146,7 +146,7 @@
 			return this.sidebar.leftSide
 		},
 		isleftSideLeft(){
-       return 
+       return this.sidebar.leftSideLeft
 		},
 		isasideFixedclass(){
 			return this.isAside.asideFixedClass
@@ -226,7 +226,23 @@
 					if(this.sidebar.isFixed===true &&this.boxlay.fixedHeader===false){
 							this.isAside.asideFixedClass='asdfixedClass'
 						}
-					
+					if(this.boxlay.boxLayout===true){
+							if(this.asidePanFixed === true){
+								if(this.sidebar.leftSide===false){
+									this.isAside.asideRight = "6%";
+									// this.sidebar.leftSideLeft="300px"
+									}else{
+										this.sidebar.leftSideLeft="300px"
+									}
+								}
+								if(this.asidePanFixed === false){
+									this.isAside.asideRight = "0px";
+									if(this.sidebar.leftSide===true){
+										this.sidebar.leftSideLeft="220px"
+									}
+									
+								}
+					}
 				 }
 				 if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){
 					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
@@ -326,12 +342,7 @@
 .demo-theme-yellow{
     background: #efd45a !important;
 }
-@media screen and (max-width:800px){
-   .el-tabs{
-				display: none;
-				
-    }
-}
+
 .el-dropdown-menu__item:hover{background:transparent;}
 .Visibleclass{width:255px;background: #fff; position: absolute; top: 60px;right:0px; transform: none !important; z-index: 997; display: block;color: #000;text-align: left;padding-left: 15px;}
 .noneVisible{width:255px;background: #fff;left: 110%;transform: none !important; z-index: 2001; display: none;}
@@ -343,4 +354,10 @@
 ul li{list-style: none;}
 .asdfixedClass{position: fixed;top:0px;}
 .asideFixedClasstop{position: fixed;top:60px;}
+@media screen and (max-width:800px){
+   .el-tabs{
+				display: none;
+				
+    }
+}
 </style>

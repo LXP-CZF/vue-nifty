@@ -1,9 +1,9 @@
 <template>
 <!--侧边栏-->
-<div class="searchBar" id="searchBars">
+<div class="searchBar" id="searchBars" :style="{marginTop:isfixedHeaderMaintop}">
 <el-row class="asideset" :class="searchBarFixed == true ? ismainnavFixed :''">
-	<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only">
-		<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"  v-if="!isfixedHeader">
+	<!-- <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"> -->
+		<!-- <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"  v-if="!isfixedHeader">
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
@@ -12,8 +12,9 @@
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
-		</el-col>
-		<div class="asidemain" :style="{height:getheight+ 'px'}">
+		</el-col> -->
+		<div style="height:60px !important;" :style="{display:isdivdisplay}"></div>
+<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only asidemain" :style="{height:getheight+ 'px'}">
 <el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" @select="selectMenu" router>
   <el-collapse v-if="isProfilstate" >
   <el-collapse-item  name="1">
@@ -42,7 +43,7 @@
           <i class="el-icon-location"></i>
           <span>导航一</span>
         </template>
-				<el-menu-item index="Dashboard2">选项1</el-menu-item>
+				<el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item>
         <el-menu-item index="1-2">选项2</el-menu-item>
         <!-- <el-menu-item-group>
          <template slot="title">分组一</template> 
@@ -66,7 +67,6 @@
 </template>
 		
 </el-menu>
-</div>
 	</el-col>
 </el-row>
 </div>
@@ -108,6 +108,9 @@
 		ismainnavFixed(){
       return this.asideSetting.mainnavFixed
 		},
+		isdivdisplay(){
+		return this.asideSetting.divdisplay
+		},
 		isalltheme(){
       return this.colorSetting.alltheme
 		},
@@ -119,6 +122,9 @@
     },
 			isfixedHeaderClass(){
        return this.boxlay.fixedHeaderClass
+		},
+		 isfixedHeaderMaintop(){
+      return this.boxlay.fixedHeaderMaintop
     },
 		},
 		mounted () {
@@ -157,11 +163,11 @@
 				if(this.sidebar.isFixed===true){
 					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
 					 this.asideSetting.mainnavFixed='mainnav_fixed';
-					// if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){
-					//   this.asideSetting.mainnavFixed='mainnav_fixedtop';
-					// }
-					if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===false){
-					  this.asideSetting.mainnavFixed='mainnav_fixed';
+					if(this.boxlay.fixedHeader===true){
+					  this.asideSetting.divdisplay='block';
+					}
+					if(this.searchBarFixed===false){
+						 this.asideSetting.divdisplay='none';
 					}
 					 if( this.searchBarFixed === true && this.sidebar.opened===true){
 						 	this.sidebar.mainLeft="mainleft"
@@ -172,8 +178,10 @@
 				}else{
 					this.sidebar.mainLeft=" "
 				}
-
 			},
+			changelayoutType(){
+				// this.sidebar.opened=false;
+			}
 
 },
 // watch: {
@@ -193,20 +201,20 @@
 
   .mainnav_fixed{
     position:fixed;
-    top:0;
+    top:0px;
 	}
 	.mainnav_fixedtop{
 		position:fixed;
-    top:40px;
+    top:60px;
 	}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;
 		height: 100%;
-		margin-top: 60px;
+		/* margin-top: 60px; */
   }
 .el-menu-vertical-demo{
 			height: 100%;
-		margin-top: 60px;
+		/* margin-top: 60px; */
 }
   h3{color: #ffffff; }
 	.mnp-desc{

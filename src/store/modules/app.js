@@ -8,22 +8,22 @@ const app={
         theme_color:'#3F76B0',
         classA:'',
         sidebar: {
-            opened: true,
+            opened: true,//折叠侧边栏
             withoutAnimation: false,
             Profil:true,//控制个人简历
             isoffProfil:false,//控制个人简历是否可用
-            mainLeft:'',
+            mainLeft:'',//控制主页面margin-left样式
             isFixed:false,//是否固定侧边栏
-            isopenBtns:false,
-            displayBtns:'',
-            leftSide:false,
-            leftSideLeft:'',
+            isopenBtns:false,//控制是否快捷按钮可视
+            displayBtns:'',//设置快捷键按钮样式
+            leftSide:false,//aside是否放在左边
+            leftSideLeft:'',//aside放在左边时样式
             hiddensidebar:'220px',
             hiddensidebar2:'65px'
           },
     },
     mutations: {
-        TOGGLE_SIDEBAR: state => {
+        TOGGLE_SIDEBAR: state => {//折叠侧边栏方法
           state.sidebar.opened = !state.sidebar.opened
           state.sidebar.Profil = !state.sidebar.Profil
           state.sidebar.isoffProfil=!state.sidebar.isoffProfil
@@ -31,6 +31,7 @@ const app={
           if (state.sidebar.opened===false) {
             state.sidebar.hiddensidebar="65px";
             state.sidebar.hiddensidebar2="220px";
+            layout.state.boxlay.fixedHeaderLogowidth="45px";
             // Cookies.set('sidebarStatus', 1)
             if(layout.state.boxlay.fixedHeader===true){
               layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthclose"
@@ -47,26 +48,17 @@ const app={
             state.sidebar.isoffProfil=false
             state.sidebar.hiddensidebar="220px";
             state.sidebar.hiddensidebar2="65px";
+            layout.state.boxlay.fixedHeaderLogowidth="200px";
             if(layout.state.boxlay.fixedHeader===true){
               layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthopen";
-              layout.state.boxlay.fixedHeaderLogowidth="201px";
+              layout.state.boxlay.fixedHeaderLogowidth="200px";
             }
           }
-        //   if(this.$router.name==='Dashboard2'){
-        //     // this.sidebar.opened=true;
-        //   if (this.sidebar.opened===true && this.boxlay.fixedHeader===true){
-        //       this.boxlay.fixedHeaderLogowidth="45px"
-        //   }
-        //   if (this.sidebar.opened===false && this.boxlay.fixedHeader===true){
-        //       this.boxlay.fixedHeaderLogowidth="201px"
-        //   }
-        // }
-          
            if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===false){
-              state.sidebar.leftSideLeft="145px";
+              state.sidebar.leftSideLeft="65px";
             }
             if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===true){
-              state.sidebar.leftSideLeft="300px";
+              state.sidebar.leftSideLeft="220px";
             }
             if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===false){
               state.sidebar.leftSideLeft="65px";
@@ -75,31 +67,8 @@ const app={
               state.sidebar.leftSideLeft="220px";
             }
         },
-        CLOSE_SIDEBAR: (state, withoutAnimation) => {
-          Cookies.set('sidebarStatus', 0)
-          state.sidebar.opened = false
-          state.sidebar.withoutAnimation = withoutAnimation
-        },
-        toggle:state=>{
-            state.open_close=!state.open_close
-            if(state.open_close==true)
-            {
-                state.icon='el-icon-d-arrow-right'
-            }
-            else{
-                state.icon='el-icon-d-arrow-left'
-            }	
-        },
         changeColor:state=>{
             state.theme_color=state.theme_color
-        },
-        fiexd:state=>{
-            if(state.open_close==false){
-                state.classA='classA'
-            }
-            else{
-                state.classA=''
-            }
         },
         changeProfil:state=>{
           state.sidebar.Profil=!state.sidebar.Profil;
@@ -109,14 +78,8 @@ const app={
         toggleSideBar({ commit }) {
           commit('TOGGLE_SIDEBAR')
         },
-        closeSideBar({ commit }, { withoutAnimation }) {
-          commit('CLOSE_SIDEBAR', withoutAnimation)
-        },
-        menu_toggle:({commit})=>commit('toggle'),
         changeColor:({commit})=>commit('changeColor'),
-        fixed:({commit})=>commit('fixed'),
         changeProfil:({commit})=>commit('changeProfil')
-        
       }
     }
     
