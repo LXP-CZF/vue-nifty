@@ -9,6 +9,7 @@ const app={
         classA:'',
         sidebar: {
             opened: true,//折叠侧边栏
+            opened3: true,
             withoutAnimation: false,
             Profil:true,//控制个人简历
             isoffProfil:false,//控制个人简历是否可用
@@ -19,7 +20,9 @@ const app={
             leftSide:false,//aside是否放在左边
             leftSideLeft:'',//aside放在左边时样式
             hiddensidebar:'220px',
-            hiddensidebar2:'65px'
+            hiddensidebar2:'65px',
+            marginleftHome3main:'0px',
+            marginleftHome3sidebar:'-999px'
           },
     },
     mutations: {
@@ -30,6 +33,8 @@ const app={
           state.sidebar.withoutAnimation = false
           if (state.sidebar.opened===false) {
             state.sidebar.hiddensidebar="65px";
+            state.sidebar.marginleftHome3main="220px";
+            state.sidebar.marginleftHome3sidebar="0px";
             state.sidebar.hiddensidebar2="220px";
             layout.state.boxlay.fixedHeaderLogowidth="45px";
             // Cookies.set('sidebarStatus', 1)
@@ -48,24 +53,71 @@ const app={
             state.sidebar.isoffProfil=false
             state.sidebar.hiddensidebar="220px";
             state.sidebar.hiddensidebar2="65px";
+            state.sidebar.marginleftHome3main="0px";
+            state.sidebar.marginleftHome3sidebar="-990px";
             layout.state.boxlay.fixedHeaderLogowidth="200px";
             if(layout.state.boxlay.fixedHeader===true){
               layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthopen";
               layout.state.boxlay.fixedHeaderLogowidth="200px";
             }
           }
-           if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===false){
-              state.sidebar.leftSideLeft="65px";
+          if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===false){
+            state.sidebar.leftSideLeft="65px";
+          }
+          if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===true){
+            state.sidebar.leftSideLeft="220px";
+          }
+          if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===false){
+            state.sidebar.leftSideLeft="65px";
+          }
+          if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===true){
+            state.sidebar.leftSideLeft="220px";
+          }
+        },
+        TOGGLE_SIDEBAR3: state => {//折叠侧边栏方法Home-3
+          state.sidebar.opened3 = !state.sidebar.opened3
+          // state.sidebar.Profil = !state.sidebar.Profil
+          // state.sidebar.isoffProfil=!state.sidebar.isoffProfil
+          state.sidebar.withoutAnimation = false
+          if (state.sidebar.opened3===false) {
+            // state.sidebar.hiddensidebar="65px";
+            state.sidebar.marginleftHome3main="220px";
+            state.sidebar.marginleftHome3sidebar="0px";
+            // state.sidebar.hiddensidebar2="220px";
+            // layout.state.boxlay.fixedHeaderLogowidth="45px";
+            // Cookies.set('sidebarStatus', 1)
+            if(layout.state.boxlay.fixedHeader===true){
+              layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthclose"
+              // layout.state.boxlay.fixedHeaderLogowidth="45px";
             }
-            if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened===true){
-              state.sidebar.leftSideLeft="220px";
+          } else {
+            // Cookies.set('sidebarStatus', 0)
+            // state.sidebar.Profil=true
+            // state.sidebar.isoffProfil=false
+            // state.sidebar.hiddensidebar="220px";
+            // state.sidebar.hiddensidebar2="65px";
+            state.sidebar.marginleftHome3main="0px";
+            state.sidebar.marginleftHome3sidebar="-990px";
+            
+            // layout.state.boxlay.fixedHeaderLogowidth="200px";
+            if(layout.state.boxlay.fixedHeader===true){
+              layout.state.boxlay.fixedHeaderwidth="fixedHeaderwidthopen";
+              // layout.state.boxlay.fixedHeaderLogowidth="200px";
             }
-            if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===false){
-              state.sidebar.leftSideLeft="65px";
-            }
-            if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened===true){
-              state.sidebar.leftSideLeft="220px";
-            }
+          }
+          if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened3===false){
+            state.sidebar.leftSideLeft="220px";
+          }
+          if(layout.state.boxlay.boxLayout===true && state.sidebar.leftSide===true && state.sidebar.opened3===true){
+            state.sidebar.leftSideLeft="0px";
+          }
+          if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened3===false){
+            state.sidebar.leftSideLeft="220px";
+          }
+          if(layout.state.boxlay.boxLayout===false && state.sidebar.leftSide===true && state.sidebar.opened3===true){
+            state.sidebar.leftSideLeft="0px";
+          }
+           
         },
         changeColor:state=>{
             state.theme_color=state.theme_color
@@ -77,6 +129,9 @@ const app={
       actions: {
         toggleSideBar({ commit }) {
           commit('TOGGLE_SIDEBAR')
+        },
+        toggleSideBar3({ commit }) {
+          commit('TOGGLE_SIDEBAR3')
         },
         changeColor:({commit})=>commit('changeColor'),
         changeProfil:({commit})=>commit('changeProfil')

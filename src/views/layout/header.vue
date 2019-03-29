@@ -8,7 +8,7 @@
       <el-col  :sm="7" :md="7" :lg="7" :xl="7" class="hidden-xs-only" style="height: 60px !important;">
 		    <router-link to="/Dashboard1" style="text-decoration: none"><img src="../../assets/jerry-1.jpg" style="height: 35px; width: 35px;border-radius: 50%;padding-top: 13px; padding-left: 20px;" /></router-link>
       </el-col>
-      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
+      <el-col  :md="16" :lg="16" :xl="16" class="hidden-xs-only hidden-sm-only" style="height: 60px !important; line-height:60px;padding-left:15px" v-if="!stateCollapse">
         <router-link to="/Dashboard1"><h3>Goodidea</h3></router-link>
       </el-col>
 			 </el-row>
@@ -16,7 +16,7 @@
 		</div>
 		<!-- 固定头部时出现布局混乱，固重写代码 -->
 		<div  :class="isfixedHeaderwidth" >
-    <nxhamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened" style="width:5%;float:left;margin-left:15px;"></nxhamburger>
+    <nxhamburger class="hamburger-container" :toggleClick="toggleSideBarvoid" :isActive="sidebaropened" style="width:5%;float:left;margin-left:15px;"></nxhamburger>
 		<input class="search"  placeholder="Type for search..." style="width:15%;float:left;margin-top: 12px;"/>
 		<div class="icon" style="width:30%;float:right;text-align:right;height:60px;">
 		 <i class="iconfont icon-icon_work"></i>
@@ -30,7 +30,7 @@
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 		    </el-dropdown>
-				<i class="iconfont icon-icon_more" @click="changeVisible"></i>
+				<i class="iconfont icon-icon_more" style="cursor: pointer;" @click="changeVisible"></i>
 				</div>
 		</div>
 		<!--  -->
@@ -95,7 +95,7 @@
 	import theme from '../.././components/HelloWorld'
 	import nxhamburger from '@/components/nx-hamburger'
 	export default{
-			props: ['stateCollapse','fixedHeaderLogowidthstate'],
+			props: ['stateCollapse','fixedHeaderLogowidthstate','toggleSideBarvoid','sidebaropened'],
 		data(){
 			return{
 				sysUserName: 'admin',
@@ -114,6 +114,9 @@
     },
     isCollapse() {
       return !this.sidebar.opened
+		},
+		isCollapse3() {
+      return this.sidebar.opened3
 		},
 		 isalltheme(){
       return this.colorSetting.alltheme
@@ -240,8 +243,13 @@
 									if(this.sidebar.leftSide===true){
 										this.sidebar.leftSideLeft="220px"
 									}
-									
+									if(this.sidebar.opened3===true){
+											this.sidebar.leftSideLeft="0px"
+										}
 								}
+								if(this.sidebar.opened3===true &&this.asidePanFixed === true){
+								this.sidebar.leftSideLeft="81px"
+							}
 					}
 				 }
 				 if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){

@@ -44,7 +44,7 @@
           <span>导航一</span>
         </template>
 				<el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
+        <el-menu-item index="Dashboard-3">选项2</el-menu-item>
         <!-- <el-menu-item-group>
          <template slot="title">分组一</template> 
           <el-menu-item index="Dashboard2">选项1</el-menu-item>
@@ -246,5 +246,5 @@ a:hover{color: #ffd04b;}
 }
 .nodispalybtns{display:block !important;}
 .fixedheaderclass{position: fixed;z-index: 998;}
-.asidemain{background:#fff;min-height: 785px;}
+.asidemain{background:#fff;min-height: 815px;}
 </style>

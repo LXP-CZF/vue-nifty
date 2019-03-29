@@ -1,18 +1,18 @@
 <template>
-  <div  ref="app1">
+ <div  ref="app3">
     <div class="component" :class="this.isopen_boxlayout">
      <el-row>
-      <vueheader :stateCollapse="isCollapse" :fixedHeaderLogowidthstate="isfixedHeaderLogowidth" :toggleSideBarvoid="toggleSideBar" :sidebaropened="sidebar.opened"></vueheader>
-      <div style="float:left" :style="{width:ishiddensidebar}" class="main">
-     <vueaside :stateCollapse="isCollapse" :isProfilstate="isProfil"></vueaside></div>
-      <div class="main" :class="ismainleft" :style="{marginLeft:ishiddensidebar}">
+      <vueheader :stateCollapse="false" :fixedHeaderLogowidthstate="isfixedHeaderLogowidth" :toggleSideBarvoid="toggleSideBar3" :sidebaropened="true"></vueheader>
+      <div style="float:left" :style="{width:ishiddensidebar,marginLeft:ismarginleftHome3sidebar}" class="main">
+     <vueaside :stateCollapse="false" :isProfilstate="isProfil"></vueaside></div>
+      <div class="main" :class="ismainleft" :style="{marginLeft:ismarginleftHome3main}">
        <vuemain></vuemain>
        <vuefooter></vuefooter>
       </div>
       </el-row>
     </div>
     <div class="formatLayout">
-      <settingdialog :isSidebar="false"></settingdialog>
+      <settingdialog :isSidebar="true"></settingdialog>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
 import {mapGetters,mapActions} from 'vuex'
   import vueheader from "@/views/layout/header.vue";
   import vuefooter from "@/views/layout/footer.vue";
-  import vuemain from "@/views/layout/AppMain.vue";
+  import vuemain from "@/views/component/main_Home3.vue";
   import vueaside from "@/views/layout/aside.vue";
   import settingdialog from "@/components/dialog/setting-dialog.vue";
 export default {
@@ -57,13 +57,22 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     },
+     isCollapse3() {
+      return !this.sidebar.opened3
+    },
      isProfil() {
       return this.sidebar.Profil
-		},
+        },
+    ismarginleftHome3main(){
+            return this.sidebar.marginleftHome3main
+    },
+    ismarginleftHome3sidebar(){
+            return this.sidebar.marginleftHome3sidebar
+    }
  },
   methods:{
-     	toggleSideBar() {
-				this.$store.dispatch('toggleSideBar')
+   	toggleSideBar3() {
+				this.$store.dispatch('toggleSideBar3')
 			},
   
   }

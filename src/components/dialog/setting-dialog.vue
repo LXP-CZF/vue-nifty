@@ -119,6 +119,7 @@
                   <span>折叠模式</span>
                   <el-switch
                     v-model="isCollapse"
+                    :disabled="isSidebar"
                     active-color="#8bc34a"
                     inactive-color="#afafaf"
                     @change="toggleSideBar"
@@ -387,6 +388,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  props:['isSidebar'],
   data() {
     return {
       formatLayoutVisible: false,//面板是否打开
@@ -446,6 +448,9 @@ export default {
     ]),
     isCollapse() {
       return !this.sidebar.opened;
+    },
+     isCollapse3() {
+      return this.sidebar.opened3;
     },
     isopenBtns() {
       return this.sidebar.isopenBtns;
@@ -833,7 +838,7 @@ export default {
         this.sidebar.displayBtns = "";
       }
     },
-    changeAsideLeft() {//固定aside部分
+    changeAsideLeft() {//aside部分放在左边
       this.sidebar.leftSide = !this.sidebar.leftSide;
       if (this.sidebar.leftSide === true) {
         if (this.boxlay.boxLayout === false && this.sidebar.leftSide === true) {
@@ -841,6 +846,12 @@ export default {
         }
         if (this.boxlay.boxLayout === true && this.sidebar.leftSide === true) {
           this.sidebar.leftSideLeft = "220px";
+        }
+         if (this.sidebar.opened3===true && this.boxlay.boxLayout === false && this.sidebar.leftSide === true) {
+          this.sidebar.leftSideLeft = "0px";
+        }
+        if (this.sidebar.opened3===true && this.boxlay.boxLayout === true && this.sidebar.leftSide === true) {
+          this.sidebar.leftSideLeft = "0px";
         }
       } else {
         this.sidebar.leftSideLeft = "";

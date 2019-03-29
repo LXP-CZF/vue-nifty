@@ -8,7 +8,7 @@ import Router from 'vue-router'
 // const main = resolve => require(['@/views/layout/main'], resolve)
 // const content = resolve => require(['@/views/content'], resolve)
  const Dashboard1 = resolve => require(['@/views/component/basic_button'], resolve)
-// const transfer = resolve => require(['@/views/transfer'], resolve)
+ const Dashboard_3 = resolve => require(['@/views/Home_3.vue'], resolve)
  const Dashboard2 = resolve => require(['@/views/Home_1.vue'], resolve)
  const Dashboard3 = resolve => require(['@/components/Table'], resolve)
  const login = resolve => require(['@/views/component/Login'], resolve)
@@ -29,6 +29,12 @@ export default new Router({
 		path: '/Dashboard2',
 		component: Dashboard2,
 		name:'Dashboard2',
+		hidden: true
+	},
+	{
+		path: '/Dashboard-3',
+		component: Dashboard_3,
+		name:'Dashboard_3',
 		hidden: true
 	},
 	{
