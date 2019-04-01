@@ -1,12 +1,17 @@
 <template>
     <!--底部-->
-	<el-footer :class="isfixedfooter">@2019  GoodIdea</el-footer>
+	<el-footer :class="isfixedfooter" :style="{width:idfooterwidth}">@2019  GoodIdea</el-footer>
 </template>
 
 <script>
 import {mapGetters,mapActions} from 'vuex'
 export default {
-	name: '',
+  name: '',
+  data(){
+    return{
+      getwidth:''
+    }
+  },
 	components: {
   },
   computed:{
@@ -14,7 +19,20 @@ export default {
    isfixedfooter(){
      return this.isFooter.fixedFooterClass
    },
-  }
+    idfooterwidth(){
+      return this.isFooter.footerWidth
+    }
+  
+  }, 
+  mounted(){
+     this.getw();
+   },
+   methods:{
+     getw(){
+      this.getwidth=document.querySelector('.mainheight').offsetWidth;
+     }
+     
+   }
 }
 </script>
 
@@ -25,7 +43,7 @@ export default {
     font-size: 13px;
     height: 35px !important;
     line-height: 35px;
-    width: 100%;
+    /* width: 100%; */
     padding-left: 20px;
     
   }

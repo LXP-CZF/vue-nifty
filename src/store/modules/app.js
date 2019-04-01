@@ -31,6 +31,12 @@ const app={
           state.sidebar.Profil = !state.sidebar.Profil
           state.sidebar.isoffProfil=!state.sidebar.isoffProfil
           state.sidebar.withoutAnimation = false
+          debugger
+          setTimeout(()=>{
+            var getwidths=document.querySelector('.mainheight').offsetWidth;
+            layout.state.isFooter.footerWidth=getwidths+'px';
+          },300)
+          
           if (state.sidebar.opened===false) {
             state.sidebar.hiddensidebar="65px";
             state.sidebar.marginleftHome3main="220px";

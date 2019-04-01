@@ -46,7 +46,8 @@ const layout={
           },
           isFooter:{
             fixedFooter:false,//是否固定footer
-            fixedFooterClass:''//固定footer后添加的样式
+            fixedFooterClass:'',//固定footer后添加的样式
+            footerWidth:'100%'
           }
     },
     mutations: {
@@ -87,14 +88,7 @@ const layout={
             state.isAside.asideFixedClass=''
           }
         },
-        changeFooterFixed:state=>{//固定footer
-          state.isFooter.fixedFooter=!state.isFooter.fixedFooter;
-          if(state.isFooter.fixedFooter===true){
-            state.isFooter.fixedFooterClass="fixedfooter"
-          }else{
-            state.isFooter.fixedFooterClass=""
-          }
-        }
+        
       },
       actions: {
         changeAsideVisible:({commit})=>commit('changeAsideVisible'),

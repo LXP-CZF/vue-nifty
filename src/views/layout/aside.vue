@@ -43,7 +43,7 @@
           <i class="el-icon-location"></i>
           <span>导航一</span>
         </template>
-				<el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item>
+				<!-- <el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item> -->
         <el-menu-item index="Dashboard-3">选项2</el-menu-item>
         <!-- <el-menu-item-group>
          <template slot="title">分组一</template> 

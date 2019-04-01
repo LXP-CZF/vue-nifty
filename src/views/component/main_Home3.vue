@@ -1,5 +1,5 @@
 <template>
- <div class="content">
+ <div class="contentmain3">
      <div class="text-center" >
         <h2>Hi Aaron Chavez! Welcome back to the Dashboard.</h2>
         <p class="text-check">Check out your past searches and the content you’ve browsed in. <a href="#" class="btn-link">View last results</a></p>
@@ -40,7 +40,7 @@
 export default {
  components:{},
  props:{},
-  inject:['reload'],
+
  data() {
     return {
       currentDate: new Date()
@@ -50,12 +50,12 @@ export default {
  methods:{},
  created(){},
  mounted(){
-      this.reload();
+     
  }
 }
 </script>
 <style scoped>
-.content{
+.contentmain3{
     width: 100%;
     min-height: 500px;
     background-color: #ecf0f5;

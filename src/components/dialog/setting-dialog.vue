@@ -1,7 +1,7 @@
 <template>
   <el-row style="z-index:999;">
     <el-col>
-      <div class="main">
+      <div class="main" >
         <div class="mark" v-if="markshow"></div>
         <el-button
           size="small"
@@ -9,12 +9,13 @@
           ref="appbtn"
           type="info"
           class="btn"
+          id="btn"
           :style="{'right':rightoff}"
           @click="formatLayout"
         >
           <i class="el-icon-setting"></i>
         </el-button>
-        <el-card class="box-card" :style="{'right':rightoffset}">
+        <el-card class="box-card" :style="{'right':rightoffset}" id="box_card">
           <div slot="header" class="clearfix">
             <span class="text-title">COSTOMIZE</span>
             <br>
@@ -444,7 +445,8 @@ export default {
       "asideSetting",
       "colorSetting",
       "iscolors",
-      "isAside"
+      "isAside",
+      "isFooter"
     ]),
     isCollapse() {
       return !this.sidebar.opened;
@@ -523,6 +525,15 @@ export default {
     },
     leftSide() {
       return this.sidebar.leftSide;
+    },
+    isfooterFixe(){
+      return this.isFooter.fixedFooter
+    },
+    isfooFixclass(){
+      return  this.isFooter.fixedFooterClass
+    },
+    idfooterwidth(){
+      return this.isFooter.footerWidth
     }
   },
   methods: {
@@ -553,6 +564,16 @@ export default {
     changeBoxLayout() {//控制是否box布局
       this.boxlay.dis = !this.boxlay.dis;
       this.boxlay.boxLayout = !this.boxlay.boxLayout;
+       setTimeout(()=>{
+              var getwidths=document.querySelector('.mainheight').offsetWidth;
+              this.isFooter.footerWidth=getwidths+'px';
+            },300)
+      if (this.$route.name === "Dashboard_3") {
+      setTimeout(()=>{
+              var getwidths3=document.querySelector('.contentmain3').offsetWidth;
+              this.isFooter.footerWidth=getwidths3+'px';
+            },300)
+      }
       if (this.boxlay.boxLayout === true) {
         this.boxlay.open_boxlayout = "open_boxlayout";
         this.isAside.asideRight = "0px";
@@ -562,6 +583,7 @@ export default {
         if (this.sidebar.isFixed === false) {
           this.asideSetting.mainnavFixed = "";
         }
+       
       }
       if (this.boxlay.boxLayout === false) {
         this.backgroundImg = false;
@@ -623,6 +645,10 @@ export default {
         this.boxlay.fixedHeaderClass = "";
         this.boxlay.fixedHeaderwidth = "";
         this.boxlay.fixedHeaderMaintop = "";
+        if(this.boxlay.boxLayout === true){
+         this.boxlay.open_boxlayout = "open_boxlayout";
+        }
+       
       }
       if (this.sidebar.opened === false && this.boxlay.fixedHeader === true) {
         this.boxlay.fixedHeaderLogowidth = "45px";
@@ -643,6 +669,20 @@ export default {
         }
       }
     },
+    changeFooterFixed(){//固定footer
+          this.isFooter.fixedFooter=!this.isFooter.fixedFooter;
+          if(this.isFooter.fixedFooter===true){
+            this.isFooter.fixedFooterClass="fixedfooter"
+            var getwidth=document.querySelector('.mainheight').offsetWidth;
+            this.isFooter.footerWidth=getwidth+'px';
+          if (this.$route.name === "Dashboard_3") {
+             var getwidth3=document.querySelector('.contentmain3').offsetWidth;
+            this.isFooter.footerWidth3=getwidth3+'px';
+           }
+          }else{
+            this.isFooter.fixedFooterClass=""
+          }
+        },
      changenavFixed() {//固定侧边栏
       this.sidebar.isFixed = !this.sidebar.isFixed;
       // if (this.sidebar.isFixed === true) {
@@ -856,8 +896,17 @@ export default {
       } else {
         this.sidebar.leftSideLeft = "";
       }
-    }
-  }
+    },
+  changeheight(){
+         var formHeight=document.getElementById('box_card').offsetHeight;
+         var Btntop=formHeight/2+10;
+         document.getElementById('btn').style.top=Btntop+'px';
+      }
+    },
+     mounted(){
+    this.changeheight();
+   }
+
 };
 </script>
 <style lang="less" scoped>
@@ -873,7 +922,7 @@ export default {
 .btn {
   position: fixed;
   right: -10px;
-  top: 50%;
+  // top: 50%;
   z-index: 3;
   font-size: 25px;
 }

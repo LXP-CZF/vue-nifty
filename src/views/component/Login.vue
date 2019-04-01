@@ -1,6 +1,7 @@
 <template>
-<div class="login">
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+<div id="login">
+<div class="login" >
+  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container" id="formdiv">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
@@ -14,7 +15,8 @@
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
-  </div>
+</div>
+</div>
 </template>
 
 <script>
@@ -72,22 +74,46 @@
             return false;
           }
         });
+      },
+      changeheight(){
+         var h=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;//可见区域高度
+          var logindiv=document.getElementById('login');
+          logindiv.style.height=h+"px";
+          debugger
+         var formHeight=document.getElementById('formdiv').offsetHeight;
+         var margintop=(h-formHeight)/2;
+         document.getElementById('formdiv').style.marginTop=margintop+'px';
       }
-    }
+    },
+     mounted(){
+    this.changeheight();
+   }
   }
 
 </script>
 
 <style  scoped>
-  .login{overflow-y: hidden}
+#login{width:100%;height:100%;overflow-y: hidden;background-image: url("../../assets/boxed-bg/polygon/bg/13.jpg");background-size: 100% 100%;
+}
+  /* .login{overflow-y: hidden;  
+     display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-pack: center;
+} */
   .login-container {
     /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
     -webkit-border-radius: 5px;
     border-radius: 5px;
     -moz-border-radius: 5px;
-    background-clip: padding-box;
-    margin: 100px auto;
-    width: 350px;
+    /* background-clip: padding-box; */
+    margin: auto;
+    line-height: 100%;
+    width: 300px;
+    height: 100%;
     padding: 35px 35px 15px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
