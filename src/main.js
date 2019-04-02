@@ -9,7 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'babel-polyfill'
 import vueGridLayout from 'vue-grid-layout';
-// import animated from 'animate.css';
+import animated from 'animate.css';
 //阿里图标
 import './assets/iconfont/iconfont.css';
 import echarts from 'echarts'

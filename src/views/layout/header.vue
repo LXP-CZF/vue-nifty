@@ -161,16 +161,6 @@
       return this.isAside.asideRight
     }
 		},
-		mounted(){
-			 if(this.yOrNvisible===false){
-            this.isAside.isVisibleClass='noneVisible'
-          }else{
-            this.isAside.isVisibleClass='Visibleclass'
-					}
-					this.getHeight();
-					//给window添加一个滚动滚动监听事件
-	  	window.addEventListener('scroll', this.handleScroll,true)
-		},
 		methods:{
 		...mapActions([
 			// 'menu_toggle',
@@ -268,11 +258,28 @@
 	    components:{
 	      nxhamburger
 			},
-			// watch: {
-      // isCollapse(){
-			// 	this.changeLeft();
-			// }
-      // }
+		mounted(){
+			 if(this.yOrNvisible===false){
+            this.isAside.isVisibleClass='noneVisible'
+          }else{
+            this.isAside.isVisibleClass='Visibleclass'
+					}
+					this.getHeight();
+					 // 数据首次加载完后 → 获取宽度，并设置其高度
+					this.$nextTick(() => {
+					this.getHeight();
+					})
+					// 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
+					window.onresize = () => {
+							return (() => {
+									this.$nextTick(() => {
+									this.getHeight();
+									})
+							})()
+					}
+					//给window添加一个滚动滚动监听事件
+	  	window.addEventListener('scroll', this.handleScroll,true)
+		}
 	}
 	
 </script>

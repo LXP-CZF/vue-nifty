@@ -31,7 +31,6 @@ const app={
           state.sidebar.Profil = !state.sidebar.Profil
           state.sidebar.isoffProfil=!state.sidebar.isoffProfil
           state.sidebar.withoutAnimation = false
-          debugger
           setTimeout(()=>{
             var getwidths=document.querySelector('.mainheight').offsetWidth;
             layout.state.isFooter.footerWidth=getwidths+'px';

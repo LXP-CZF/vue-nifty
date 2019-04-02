@@ -74,14 +74,35 @@ export default {
    	toggleSideBar3() {
 				this.$store.dispatch('toggleSideBar3')
 			},
-  
-  }
+ getminHeight(){
+       setTimeout(()=>{
+         var h=document.documentElement.clientHeight;//可见区域高度
+         var maindiv=document.querySelector('.contentmain3').style.minHeight=h-60-35+"px";
+       },200)
+      }
 
+  },
+  mounted(){
+      this.getminHeight();
+      // 数据首次加载完后 → 获取宽度，并设置其高度
+    this.$nextTick(() => {
+      this.getminHeight();
+    })
+    // 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
+    window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+              this.getminHeight();
+            })
+        })()
+    }
+
+   },
 }
 </script>
 
 <style  lang="less">
-
+// .component{overflow-x: hidden;}
  .open_boxlayout{
    width:88%;
    margin-left: 6%;

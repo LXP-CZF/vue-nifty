@@ -1,6 +1,6 @@
 <template>
     <!--底部-->
-	<el-footer :class="isfixedfooter" :style="{width:idfooterwidth}">@2019  GoodIdea</el-footer>
+	<el-footer :class="isfixedfooter" :style="{width:isfooterwidth}">@2019  GoodIdea</el-footer>
 </template>
 
 <script>
@@ -19,17 +19,30 @@ export default {
    isfixedfooter(){
      return this.isFooter.fixedFooterClass
    },
-    idfooterwidth(){
+    isfooterwidth(){
       return this.isFooter.footerWidth
     }
   
   }, 
   mounted(){
      this.getw();
+      this.$nextTick(() => {
+              this.getw();
+            })
+      window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+             this.getw();
+            })
+        })()
+    }
    },
    methods:{
      getw(){
-      this.getwidth=document.querySelector('.mainheight').offsetWidth;
+       setTimeout(()=>{
+      this.isFooter.footerWidth=document.querySelector('.mainheight').offsetWidth+'px';
+      return this.isFooter.footerWidth;
+       },300)
      }
      
    }
@@ -43,7 +56,7 @@ export default {
     font-size: 13px;
     height: 35px !important;
     line-height: 35px;
-    /* width: 100%; */
+    width: 100%;
     padding-left: 20px;
     
   }

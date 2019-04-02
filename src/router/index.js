@@ -38,14 +38,14 @@ export default new Router({
 		hidden: true
 	},
 	{
-		path: '/Dashboard1',
+		path: '/Dashboard2',
 		component: Home,
-		name:'Dashboard',
+		name:'Dashboard2',
 		iconCls: 'iconfont icon-shouyex',//图标样式class
 		children: [
-				{ path: '/Dashboard1', component: Dashboard1, name: 'Dashboard1'},
+				{ path: '/Dashboard1', component: Dashboard1, name: 'Dashboard2-1'},
 				// { path: '/Dashboard2', component: Dashboard2, name: 'Dashboard2' },
-				{ path: '/Dashboard3', component: Dashboard3, name: 'Dashboard3' }
+				{ path: '/Dashboard3', component: Dashboard3, name: 'Dashboard2-2' }
 		]
 	},
 

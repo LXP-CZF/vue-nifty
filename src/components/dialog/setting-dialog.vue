@@ -671,14 +671,15 @@ export default {
     },
     changeFooterFixed(){//固定footer
           this.isFooter.fixedFooter=!this.isFooter.fixedFooter;
-          if(this.isFooter.fixedFooter===true){
-            this.isFooter.fixedFooterClass="fixedfooter"
-            var getwidth=document.querySelector('.mainheight').offsetWidth;
+           var getwidth=document.querySelector('.mainheight').offsetWidth;
             this.isFooter.footerWidth=getwidth+'px';
           if (this.$route.name === "Dashboard_3") {
              var getwidth3=document.querySelector('.contentmain3').offsetWidth;
             this.isFooter.footerWidth3=getwidth3+'px';
            }
+          if(this.isFooter.fixedFooter===true){
+            this.isFooter.fixedFooterClass="fixedfooter"
+           
           }else{
             this.isFooter.fixedFooterClass=""
           }

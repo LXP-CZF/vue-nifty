@@ -41,10 +41,10 @@
 	 <el-submenu index="0">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <span>Dashboard1</span>
         </template>
 				<!-- <el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item> -->
-        <el-menu-item index="Dashboard-3">选项2</el-menu-item>
+        <el-menu-item index="Dashboard-3">Dashboard1-1</el-menu-item>
         <!-- <el-menu-item-group>
          <template slot="title">分组一</template> 
           <el-menu-item index="Dashboard2">选项1</el-menu-item>
@@ -60,10 +60,10 @@
       </el-submenu>
 		<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 			<el-submenu :index="index+''" v-if="!item.leaf">
-				<template slot="title"><i :class="item.iconCls"></i><span>{{item.name}}</span></template>
+				<template slot="title"><i :class="item.iconCls"></i><span style="margin-left:6px;">{{item.name}}</span></template>
 				<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden" >{{child.name}}</el-menu-item>
 			</el-submenu>
-    <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls" style="margin-left: -5px;"></i>&nbsp;&nbsp;&nbsp;{{item.children[0].name}}</el-menu-item>
+    <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
 </template>
 		
 </el-menu>
@@ -129,8 +129,18 @@
 		},
 		mounted () {
 			//给window添加一个滚动滚动监听事件
-	  	window.addEventListener('scroll', this.handleScroll,true)
-			this.getHeight();
+			window.addEventListener('scroll', this.handleScroll,true)
+				this.getHeight();
+			 this.$nextTick(() => {
+             this.getHeight();
+            })
+			 window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+              this.getHeight();
+            })
+        })()
+    }
 		},
 		methods:{
       ...mapActions([
@@ -144,16 +154,25 @@
 			selectMenu(){
 				setTimeout(()=>{
 					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
-					document.querySelector('.tabclass').style.height=document.querySelector('.mainheight').offsetHeight+'px'; 
-
-				  return this.getheight
+					// document.querySelector('.tabclass').style.height=document.querySelector('.mainheight').style.height+'px'; 
+					if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+					return this.getheight
 				},2000)
 				 
 			},
 			getHeight(){
 					setTimeout(()=>{
 					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-				 return this.getheight
+					 if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+				   return this.getheight
 				},2000)
 			},
 		
@@ -246,5 +265,5 @@ a:hover{color: #ffd04b;}
 }
 .nodispalybtns{display:block !important;}
 .fixedheaderclass{position: fixed;z-index: 998;}
-.asidemain{background:#fff;min-height: 815px;}
+.asidemain{background:#fff;}
 </style>

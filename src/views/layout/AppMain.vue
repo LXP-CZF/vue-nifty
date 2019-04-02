@@ -41,11 +41,6 @@ export default {
       return this.boxlay.fixedHeaderMaintop
     },
 		},
-  watch: {
-    $route() {
-      this.getBreadcrumb()
-    }
-  },
   methods: {
     getBreadcrumb() {
       let matched = this.$route.matched.filter(item => item.name)
@@ -54,15 +49,43 @@ export default {
         matched = [{ path: '/'}].concat(matched)
       }
       this.levelList = matched
-    }
+    },
+     getminHeight(){
+       setTimeout(()=>{
+         var h=document.documentElement.clientHeight;//可见区域高度
+         var maindiv=document.querySelector('.el-main').style.minHeight=h-60-35+"px";
+       },200)
+      }
+
   },
+  mounted(){
+      this.getminHeight();
+      // 数据首次加载完后 → 获取宽度，并设置其高度
+    this.$nextTick(() => {
+      this.getminHeight();
+    })
+    // 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
+    window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+              this.getminHeight();
+            })
+        })()
+    }
+
+   },
   components:{
 			breadcrumb
-		}
+    },
+     watch: {
+    $route() {
+      this.getBreadcrumb()
+    }
+  },
 }
 </script>
 <style scoped>
-.el-main{padding: 0px !important;margin:0 auto;width: 100%;overflow-x: hidden; min-height: 750px; background: #ecf0f5;}
+.el-main{padding: 0px !important;margin:0 auto;width: 100%;overflow-x: hidden; background: #ecf0f5;}
 .app-main{padding-bottom: 25px;}
 p{font-size: 15px; padding-top: 8px;}
 .no-redirect{color:#f6f8fa;}
