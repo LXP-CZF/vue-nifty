@@ -2,7 +2,7 @@
   <!--布局-->
   <div>
       <el-row :gutter="20" style="background-color: #ecf0f5;padding:0px 20px 0px 20px;">
-        <el-col  :xs="24" :sm="24" :md="11" :lg="11" :xl="11" style="margin-top:-50px;">
+        <el-col  :xs="24" :sm="24" :md="11" :lg="11" :xl="11" style="margin-top:-70px;">
           <el-row :gutter="20">
             <el-col  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
               <div class="liteBanner primaryColor">
@@ -50,7 +50,7 @@
               </el-col>
           </el-row>
       </el-col>
-        <el-col  :xs="24" :sm="24" :md="13" :lg="13" :xl="13" style="margin-top:-50px;">
+        <el-col  :xs="24" :sm="24" :md="13" :lg="13" :xl="13" style="margin-top:-70px;">
           <div class="liteBanner primaryColor">
             <i class="el-icon-message"></i> DATEBASE
             <span>MORE</span>

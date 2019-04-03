@@ -20,7 +20,7 @@
 		</el-col>
 
 		<!--列表-->
-		<el-col :span="24"
+		<el-col :span="24">
 		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 98%; margin: 10px;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>

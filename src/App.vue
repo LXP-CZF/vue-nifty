@@ -31,7 +31,8 @@
 </script>
 
 <style  lang="less">
-body{width: 100%;height: 100%; background: #8c979b;}
+body{width: 100%;height: 100%; background: #8c979b;overflow-x: hidden;}
+
 *{margin:0px;padding: 0px; }
 #app {
   width: 100%;

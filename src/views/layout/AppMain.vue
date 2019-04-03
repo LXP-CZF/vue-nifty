@@ -11,7 +11,9 @@
       <breadcrumb></breadcrumb>
       </div>
     <!-- <transition name="fade" mode="out-in"> -->
+      <div class="Main">
         <router-view></router-view>
+      </div>
     <!-- </transition> -->
   </section>
 </el-main>
@@ -89,5 +91,6 @@ export default {
 .app-main{padding-bottom: 25px;}
 p{font-size: 15px; padding-top: 8px;}
 .no-redirect{color:#f6f8fa;}
+.Main{margin: 20px}
 </style>
 

@@ -92,7 +92,6 @@
 <script>
   
   import {mapGetters,mapActions} from 'vuex'
-	import theme from '../.././components/HelloWorld'
 	import nxhamburger from '@/components/nx-hamburger'
 	export default{
 			props: ['stateCollapse','fixedHeaderLogowidthstate','toggleSideBarvoid','sidebaropened'],
@@ -321,6 +320,10 @@
  .fixedheaderclassbox{position: fixed;z-index: 998;left: 6%;width: 88%;}
  .fixedheaderwidth,.fixedHeaderwidthopen{overflow: hidden;}
  .fixedHeaderwidthclose{overflow: hidden;}
+ .tabclass{overflow-y: scroll}
+ .tabclass::-webkit-scrollbar { width: 4px !important;background: #2c3e500a !important;}
+ .tabclass { -ms-overflow-style: none; }
+ .tabclass { overflow: -moz-scrollbars-none; }
 .demo-theme-gray{
     background: #8f9ea6;
 }

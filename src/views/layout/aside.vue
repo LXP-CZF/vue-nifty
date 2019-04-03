@@ -266,4 +266,8 @@ a:hover{color: #ffd04b;}
 .nodispalybtns{display:block !important;}
 .fixedheaderclass{position: fixed;z-index: 998;}
 .asidemain{background:#fff;}
+.el-menu{overflow-y: scroll;}
+.el-menu::-webkit-scrollbar { width: 4px !important;background: transparent !important;}
+.el-menu { -ms-overflow-style: none; }
+.el-menu { overflow: -moz-scrollbars-none; }
 </style>

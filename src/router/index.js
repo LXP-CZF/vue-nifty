@@ -6,7 +6,7 @@ import Router from 'vue-router'
 // const mock = resolve => require(['@/components/mock'], resolve)
 // const tree = resolve => require(['@/views/tree'], resolve)
 // const main = resolve => require(['@/views/layout/main'], resolve)
-// const content = resolve => require(['@/views/content'], resolve)
+ const table = resolve => require(['@/views/table/index.vue'], resolve)
  const Dashboard1 = resolve => require(['@/views/component/basic_button'], resolve)
  const Dashboard_3 = resolve => require(['@/views/Home_3.vue'], resolve)
  const Dashboard2 = resolve => require(['@/views/Home_1.vue'], resolve)
@@ -48,13 +48,19 @@ export default new Router({
 				{ path: '/Dashboard3', component: Dashboard3, name: 'Dashboard2-2' }
 		]
 	},
-
+    // {
+	// 	path: '/table',
+	// 	component: table,
+	// 	name:'Dashboard_3',
+	// 	hidden: true
+	// },
 	{
-		path: '/layout1',
+		path: '/table',
 		component: Home,
-		name:'Layouts',
+		name:'Tables',
 		iconCls: 'iconfont icon-icon_subordinate',//图标样式class
 		children: [
+			    { path: '/table',component: table,name: 'table'},
 				{ path: '/layout1',  name: 'layout1'},
 				{ path: '/layout2',  name: 'layout2' },
 				{ path: '/layout3', name: 'layout3' }
