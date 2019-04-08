@@ -12,7 +12,7 @@ span[data-v-362a7709] {
     color: #4d627b !important;;
 }
 .logtheme{background: #80b343 !important;}
-.el-collapse-item__content{background: #80b343 !important;}
+.el-collapse-item__content,.btnsBg{background: #80b343 !important;}
 .coll-item,.coll-item a,.el-menu-item,.mnp-desc{color:#fff !important;}
 .el-menu-item.is-active{color:#cac4c4 !important;}
 .el-submenu .el-menu-item:hover,.el-submenu .el-submenu__title:hover,.el-menu-item.is-active{background: #80b343 !important;}

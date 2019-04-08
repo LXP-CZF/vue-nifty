@@ -1,5 +1,5 @@
 
-.el-header{ background: #d23e3e !important; }
+.el-header,.btnsBg{ background: #d23e3e !important; }
 .maintheme{background: #ecf0f5 !important;}
 .no-redirect[data-v-4fdd58e2]{
     color: #4d627b !important;

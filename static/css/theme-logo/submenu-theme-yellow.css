@@ -11,8 +11,9 @@
 span[data-v-362a7709] {
     color: #4d627b !important;;
 }
-.logtheme{background: #efd45a !important;}
+.logtheme,.btnsBg{background: #efd45a !important;}
 h3{color: #fff;}
+.btnsBg{  background: #807362 !important;  }
 .el-submenu.is-active .el-submenu__title {
     border-bottom-color: #efd45a !important;
     background: #efd45a !important; 

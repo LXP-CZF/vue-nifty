@@ -89,7 +89,7 @@ export default {
 <style scoped>
 .el-main{padding: 0px !important;margin:0 auto;width: 100%;overflow-x: hidden; background: #ecf0f5;}
 .app-main{padding-bottom: 25px;}
-p{font-size: 15px; padding-top: 8px;}
+ p{font-size: 15px; padding-top: 8px;}
 .no-redirect{color:#f6f8fa;}
 .Main{margin: 20px}
 </style>

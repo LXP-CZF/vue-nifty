@@ -1,76 +1,92 @@
 <template>
 	<section>
 		<!--工具条-->
-		<el-row>
-		<el-col :span="24" class="toolbar" style="padding-bottom: 0px; text-align: left;margin: -60px 10px -10px 10px;">
-			<el-form :inline="true" :model="filters">
-				<el-form-item>
-					<el-input v-model="filters.name" placeholder="姓名"></el-input>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" v-on:click="getUsers">查询</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button type="primary" @click="handleAdd">新增</el-button>
-				</el-form-item>
-				<el-form-item>
-					<el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload" >export</el-button>
-				</el-form-item>
-			</el-form>
-		</el-col>
-
-		<!--列表-->
 		<el-col :span="24">
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" size="small" style="width: 98%; margin: 10px;">
+            <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>查询</span>
+                </div>
+                <el-form :inline="true" :model="filters" ref="filters">
+				<el-form-item :label="units" prop="name">
+					<el-input v-model="filters.name" placeholder="请输入"></el-input>
+				</el-form-item>
+                <el-form-item label="能力引擎" prop="value1">
+					<el-select v-model="filters.value1" placeholder="请选择" >
+						<el-option label="正常" value="suc" ></el-option>
+      			        <el-option label="停用" value="error"></el-option>
+					</el-select>
+			  </el-form-item>
+                <el-form-item label="能力类型" prop="value">
+					<el-select v-model="filters.value" placeholder="请选择" >
+						<el-option label="正常" value="suc" ></el-option>
+      			        <el-option label="停用" value="error"></el-option>
+					</el-select>
+			  </el-form-item>
+              <br/>
+				<el-form-item>
+					<el-button type="primary" size="small" icon="el-icon-search" v-on:click="getUsers" class="btnsBg">查询</el-button>
+                    <el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
+				</el-form-item>
+				
+			
+			</el-form>
+            </el-card>	
+            <h3>{{title}}</h3>
+		</el-col>
+		<!-- button -->
+        
+    <el-col :span="24" class="btns">
+     <el-button type="success" size="mini" icon="el-icon-edit" @click="handleAdd">加载引擎</el-button>
+		 <!-- <el-button type="danger" size="mini" icon="el-icon-delete" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button> -->
+		</el-col>
+		<!--列表-->
+		
+		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
-			<el-table-column type="index" width="60">
+			<el-table-column type="index"  width="60">
 			</el-table-column>
-			<el-table-column prop="name" label="姓名" width="120" sortable>
+			<el-table-column prop="name" :label="type_name" width="80">
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
+            <el-table-column type="index" :label="engine_version" width="80">
 			</el-table-column>
-			<el-table-column prop="age" label="年龄" width="100" sortable>
+            <el-table-column prop="name" :label="units" width="80">
 			</el-table-column>
-			<el-table-column prop="birth" label="生日" width="120" sortable>
+			<el-table-column prop="sex" :label="statue" width="80" :formatter="formatSex">
 			</el-table-column>
-			<el-table-column prop="addr" label="地址" min-width="180" sortable>
+            <el-table-column prop="sex" :label="type" width="80" :formatter="formatSex">
 			</el-table-column>
-			<el-table-column label="操作" width="150">
+			<el-table-column prop="birth" :label="start_date" width="130" sortable>
+			</el-table-column>
+            <el-table-column prop="name" :label="creater" width="80" >
+			</el-table-column>
+            <el-table-column prop="name" :label="changer" width="100" >
+			</el-table-column>
+			<el-table-column prop="birth" :label="end_date" width="130">
+			</el-table-column>
+			<el-table-column label="操作" >
 				<template scope="scope">
-					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+					<el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+					<!-- <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button> -->
 				</template>
 			</el-table-column>
 		</el-table>
-		</el-col>
+
 		<!--工具条-->
-		<el-col :span="24" class="toolbar" style="margin: -10px 10px 0px 10px;text-align: left;">
-			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;margin-right: 20px;">
+		<el-col :span="24" class="pagination">
+			<el-pagination layout="prev, pager, next" background  @current-change="handleCurrentChange"  :page-size="pagesize" :current-page="page" :total="total">
 			</el-pagination>
 		</el-col>
 
 		<!--编辑界面-->
 		<el-dialog title="编辑" :visible.syn="editFormVisible" @close="editFormVisible=false">
-			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="姓名" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="性别">
+			<el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
+				
+                <el-form-item :label="statue">
 					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
+						<el-radio class="radio" :label="1">启用</el-radio>
+						<el-radio class="radio" :label="0">停用</el-radio>
 					</el-radio-group>
-				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
-				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="editForm.addr"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -81,24 +97,30 @@
 
 		<!--新增界面-->
 		<el-dialog title="新增" :visible.syn="addFormVisible" @close="addFormVisible=false">
-			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="姓名" prop="name">
+			<el-form :model="addForm" label-width="100px" :rules="addFormRules" ref="addForm">
+				<el-form-item :label="type_name" prop="name">
 					<el-input v-model="addForm.name" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="性别">
-					<el-radio-group v-model="addForm.sex">
-						<el-radio class="radio" :label="1">男</el-radio>
-						<el-radio class="radio" :label="0">女</el-radio>
+                <el-form-item :label="vender">
+					<el-input v-model="addForm.addr" auto-complete="off"></el-input>
+				</el-form-item>
+                <el-form-item :label="type">
+					<el-radio-group v-model="editForm.sex">
+						<el-radio class="radio" :label="1">启用</el-radio>
+						<el-radio class="radio" :label="0">停用</el-radio>
 					</el-radio-group>
 				</el-form-item>
-				<el-form-item label="年龄">
-					<el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
+                <el-form-item label="api_key">
+					<el-input auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="生日">
-					<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
+                <el-form-item label="api_secret">
+					<el-input auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="地址">
-					<el-input type="textarea" v-model="addForm.addr"></el-input>
+                <el-form-item :label="statue">
+					<el-radio-group v-model="addForm.sex">
+						<el-radio class="radio" :label="1">启用</el-radio>
+						<el-radio class="radio" :label="0">停用</el-radio>
+					</el-radio-group>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -106,24 +128,36 @@
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
-		</el-row>
 	</section>
 </template>
 
 <script>
-	import util from './../common/js/util'
+	import util from '@/common/js/util'
 	//import NProgress from 'nprogress'
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from './../api/api';
-
+	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
+  
 	export default {
 		data() {
 			return {
 				filters: {
-					name: ''
-				},
+					name: '',
+					value1:'',
+					value:'',
+                },
+                type_name:'引擎名称',
+                engine_version:'引擎版本',
+                statue:'状态',
+                type:'类型',
+                units:'能力单元',
+                start_date:'创建日期',
+                creater:'创建人',
+                changer:'最后修改者',
+                end_date:'最后修改日期',
+                title:'能力单元管理表',
 				users: [],
 				total: 0,
 				page: 1,
+				pagesize:20,
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
@@ -166,7 +200,7 @@
 		methods: {
 			//性别显示转换
 			formatSex: function (row, column) {
-				return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
+				return row.sex == 1 ? '启用' : row.sex == 0 ? '停用' : '未知';
 			},
 			handleCurrentChange(val) {
 				this.page = val;
@@ -184,6 +218,7 @@
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;
+					console.log(this.users);
 					//NProgress.done();
 				});
 			},
@@ -237,7 +272,7 @@
 								this.editLoading = false;
 								//NProgress.done();
 								this.$message({
-									message: '提交成功',
+									message: '修改成功',
 									type: 'success'
 								});
 								this.$refs['editForm'].resetFields();
@@ -261,7 +296,7 @@
 								this.addLoading = false;
 								//NProgress.done();
 								this.$message({
-									message: '提交成功',
+									message: '新增成功',
 									type: 'success'
 								});
 								this.$refs['addForm'].resetFields();
@@ -319,15 +354,25 @@
 	          return v[j]
 	        }
 	      }))
-	    }
+			},
+			resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
 		},
 		mounted() {
 			this.getUsers();
-		}
+		},
+	
 	}
 
 </script>
 
 <style scoped>
+section{margin-top: -65px;}
 .el-dialog{text-align: left;}
+.box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
+.pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}
+.btns{margin: 20px 0px 15px 0px; text-align: left !important;}
+h3{margin: 20px 0px 15px 0px; color:#25476a !important}
+
 </style>

@@ -1,4 +1,4 @@
-.el-header{background: #294d73 !important;}
+.el-header,.btnsBg{background: #294d73 !important;}
 .maintheme{background: #ecf0f5 !important;}
 .no-redirect[data-v-4fdd58e2]{
     color: #4d627b !important;

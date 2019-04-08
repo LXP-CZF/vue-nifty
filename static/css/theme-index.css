@@ -8,7 +8,7 @@
     margin-right: 5px;
 		margin-top:5px;
 }
-.el-header {
+.el-header,.btnsBg {
     background-color:#25476a !important;
     }
     /* 设置鼠标选中文字颜色 */

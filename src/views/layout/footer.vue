@@ -42,7 +42,7 @@ export default {
        setTimeout(()=>{
       this.isFooter.footerWidth=document.querySelector('.mainheight').offsetWidth+'px';
       return this.isFooter.footerWidth;
-       },300)
+       },2000)
      }
      
    }

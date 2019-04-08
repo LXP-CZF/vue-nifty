@@ -11,6 +11,7 @@ span[data-v-362a7709] {
     color: #fff;
 }
 h3{color: #fff;}
+.btnsBg{  background: #294d73 !important;  }
 .el-submenu.is-active .el-submenu__title {
     border-bottom-color: #294d73 !important;
     background: #294d73 !important; 

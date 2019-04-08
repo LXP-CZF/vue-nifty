@@ -12,6 +12,11 @@ import Router from 'vue-router'
  const Dashboard2 = resolve => require(['@/views/Home_1.vue'], resolve)
  const Dashboard3 = resolve => require(['@/components/Table'], resolve)
  const login = resolve => require(['@/views/component/Login'], resolve)
+ const capability_type = resolve => require(['@/views/access/capability_type'], resolve)
+ const capability_engineversion = resolve => require(['@/views/access/capability_engineversion'], resolve)
+ const capability_units = resolve => require(['@/views/access/capability_units'], resolve)
+ const capability_engine = resolve => require(['@/views/access/capability_engine'], resolve)
+ const manage_interface = resolve => require(['@/views/common_interface/manage_interface'], resolve)
 
 //import login from '@/views/login/login.vue'
 Vue.use(Router)
@@ -60,10 +65,12 @@ export default new Router({
 		name:'Tables',
 		iconCls: 'iconfont icon-icon_subordinate',//图标样式class
 		children: [
-			    { path: '/table',component: table,name: 'table'},
-				{ path: '/layout1',  name: 'layout1'},
-				{ path: '/layout2',  name: 'layout2' },
-				{ path: '/layout3', name: 'layout3' }
+			  { path: '/table',component: table,name: 'table'},
+				{ path: '/capability_type', component:capability_type, name: '能力类型管理'},
+				{ path: '/capability_engineversion',component:capability_engineversion,  name: '能力引擎管理' },
+				{ path: '/capability_units',component:capability_units, name: '能力单元管理' },
+				{ path: '/capability_engine',component:capability_engine, name: '能力引擎版本管理' },
+				{ path: '/manage_interface',component:manage_interface, name: '接口管理' }
 		]
 	},
   ]
