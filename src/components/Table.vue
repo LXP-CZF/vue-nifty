@@ -163,6 +163,9 @@
 
 			}
 		},
+		mounted() {
+			this.getUsers();
+		},
 		methods: {
 			//性别显示转换
 			formatSex: function (row, column) {
@@ -277,7 +280,7 @@
 			},
 			//批量删除
 			batchRemove: function () {
-				var ids = this.sels.map(item => item.id).toString();
+				const ids = this.sels.map(item => item.id).toString();
 				this.$confirm('确认删除选中记录吗？', '提示', {
 					type: 'warning'
 				}).then(() => {
@@ -321,9 +324,6 @@
 	      }))
 	    }
 		},
-		mounted() {
-			this.getUsers();
-		}
 	}
 
 </script>

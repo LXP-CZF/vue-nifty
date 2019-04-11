@@ -2,16 +2,14 @@
   <!--<div class="expand">-->
     <el-row :gutter="5">
     	<el-col  :xs="4" :sm="4" :md="4" :lg="4" :xl="4">
-    		  <el-button @click="handleAddTop" style="margin-top: 10px;">添加顶级节点</el-button>
-        <el-tree ref="expandMenuList" class="expand-tree"
+    		  <!-- <el-button @click="handleAddTop" style="margin-top: 10px;">添加顶级节点</el-button> -->
+        <el-tree ref="expandMenuList" class="expand_tree"
         v-if="isLoadingTree"
         :data="setTree"
         node-key="id"
         highlight-current
         :props="defaultProps"
-        :expand-on-click-node="false"
-        :render-content="renderContent"     
-        :default-expanded-keys="defaultExpandKeys"
+        
         @node-click="handleNodeClick"></el-tree>  <!--树节点的内容区的渲染 Function-->
     	</el-col>
     	<el-col  :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
@@ -30,6 +28,9 @@ import api from '@/api/city'
 
   export default{
     name: 'tree',
+     components:{
+    	Table
+    },
     data(){
       return{
         maxexpandId: api.maxexpandId,//新增节点开始id
@@ -42,9 +43,6 @@ import api from '@/api/city'
         },
         defaultExpandKeys: [],//默认展开节点列表
       }
-    },
-    components:{
-    	Table
     },
     mounted(){
       this.initExpand()
@@ -151,52 +149,6 @@ import api from '@/api/city'
   }
 </script>
 
-<style>
-.expand{
-  width:100%;
-  height:80%;
-  overflow:hidden;
-}
-.el-row{
-		width: 100%;
-	}
-.expand>div{
-  height:85%;
-  padding-top:20px;
-  width:50%;
-  margin:20px auto;
-  max-width:400px;
-  overflow-y:auto;
-}
-.expand>div::-webkit-scrollbar-track{
-  box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  border-radius:5px;
-}
-.expand>div::-webkit-scrollbar-thumb{
-  background-color:rgba(50, 65, 87, 0.5);
-  outline:1px solid slategrey;
-  border-radius:5px;
-}
-.expand>div::-webkit-scrollbar{
-  width:10px;
-}
-.expand-tree{
-  border:none;
-  margin-top:10px;
-  margin-left:10px;
-  height: 580px;
-  overflow-y:overlay;
-}
-.expand-tree .el-tree-node.is-current,
-.expand-tree .el-tree-node:hover{
-  overflow:hidden;
-}
-.expand-tree .is-current>.el-tree-node__content .tree-btn,
-.expand-tree .el-tree-node__content:hover .tree-btn{
-  display:inline-block;
-}
-.expand-tree .is-current>.el-tree-node__content .tree-label{
-  font-weight:600;
-  white-space:normal;
-}
+<style scoped>
+.expand_tree{margin-top:-60px;}
 </style>

@@ -21,7 +21,7 @@
 			  </el-form-item>
         <br/>
 				<el-form-item>
-					<el-button type="primary"  size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
+					<el-button type="primary" class="btnsBg"  size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
 					<el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
 				</el-form-item>
 			</el-form>
@@ -210,6 +210,9 @@
 
 			}
 		},
+		mounted() {
+			this.getUsers();
+		},
 		methods: {
 			//性别显示转换
 			formatSex: function (row, column) {
@@ -231,9 +234,9 @@
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;
-					console.log(this.users);
 					//NProgress.done();
 				});
+				document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+37+'px';
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -371,9 +374,6 @@
 			resetForm(formName) {
         this.$refs[formName].resetFields();
       }
-		},
-		mounted() {
-			this.getUsers();
 		},
 	
 	}

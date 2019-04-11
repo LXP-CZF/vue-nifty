@@ -11,7 +11,7 @@
 					<el-input v-model="filters.name" placeholder="请输入"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
+					<el-button type="primary" class="btnsBg" size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
 					<el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
 				</el-form-item>
 			</el-form>
@@ -64,24 +64,6 @@
                 <el-form-item label="类型描述">
 					<el-input  auto-complete="off"></el-input>
 				</el-form-item>
-				<!-- <el-form-item :label="statue">
-					<el-radio-group v-model="editForm.sex">
-						<el-radio class="radio" :label="1">启用</el-radio>
-						<el-radio class="radio" :label="0">停用</el-radio>
-					</el-radio-group>
-				</el-form-item>
-                <el-form-item :label="start_date">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item>
-                <el-form-item :label="creater" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-                <el-form-item :label="changer" prop="name">
-					<el-input v-model="editForm.name" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item :label="end_date">
-					<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
-				</el-form-item> -->
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -176,6 +158,10 @@
 
 			}
 		},
+			mounted() {
+			this.getUsers();
+		},
+	
 		methods: {
 			//性别显示转换
 			formatSex: function (row, column) {
@@ -197,7 +183,6 @@
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;
-					console.log(this.users);
 					//NProgress.done();
 				});
 			},
@@ -337,9 +322,6 @@
 			resetForm(formName) {
         this.$refs[formName].resetFields();
       }
-		},
-		mounted() {
-			this.getUsers();
 		},
 	
 	}

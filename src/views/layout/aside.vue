@@ -38,14 +38,14 @@
 			<el-button type="danger" icon="el-icon-delete" circle></el-button>
 		</el-col>
 	</el-row>
-	 <el-submenu index="0">
+	 <!-- <el-submenu index="0">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span>Dashboard1</span>
         </template>
-				<!-- <el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item> -->
+			<el-menu-item index="Dashboard2"><router-link to="" @click.native="changelayoutType">选项1</router-link></el-menu-item>
         <el-menu-item index="Dashboard-3">Dashboard1-1</el-menu-item>
-        <!-- <el-menu-item-group>
+        <el-menu-item-group>
          <template slot="title">分组一</template> 
           <el-menu-item index="Dashboard2">选项1</el-menu-item>
           <el-menu-item index="1-2">选项2</el-menu-item>
@@ -56,8 +56,8 @@
         <el-submenu index="1-4">
           <template slot="title">选项4</template>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu> -->
-      </el-submenu>
+        </el-submenu> 
+      </el-submenu> -->
 		<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 			<el-submenu :index="index+''" v-if="!item.leaf">
 				<template slot="title"><i :class="item.iconCls"></i><span style="margin-left:6px;">{{item.name}}</span></template>
@@ -74,6 +74,7 @@
 
 <script>
 	import {mapGetters,mapActions} from 'vuex'
+	import {debounce} from '../../assets/js/public'
 	export default{
 		props: ['stateCollapse','isProfilstate'],
 		data(){
@@ -82,7 +83,79 @@
 				searchBarFixed:false
 			}
 		},
-    computed:{
+		mounted () {
+			//给window添加一个滚动滚动监听事件
+			window.addEventListener('scroll', this.handleScroll,true)
+				this.getHeight();
+			 this.$nextTick(() => {
+             this.getHeight();
+            })
+			 window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+              this.getHeight();
+            })
+        })()
+    }
+		},
+		methods:{
+      ...mapActions([
+				'menu_toggle',
+				'changeColor',
+				'fixed'
+			]),
+			selectMenu(){
+				setTimeout(()=>{
+					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
+					if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+					return this.getheight
+				},2000)
+				 
+			},
+			getHeight(){
+					setTimeout(()=>{
+					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+				   return this.getheight
+				},2000)
+			},
+			handleScroll:debounce(function(){
+				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+				let offsetTop = document.querySelector('#searchBars').offsetTop
+				if(this.sidebar.isFixed===true){
+					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
+					 this.asideSetting.mainnavFixed='mainnav_fixed';
+					if(this.boxlay.fixedHeader===true){
+					  this.asideSetting.mainnavFixed='mainnav_fixedtop';
+					}
+					if(this.searchBarFixed===false){
+						 this.asideSetting.mainnavFixed='mainnav_fixedtop';
+					}
+					 if( this.searchBarFixed === true && this.sidebar.opened===true){
+						 	this.sidebar.mainLeft="mainleft"
+					   }else{this.sidebar.mainLeft=""}
+					  if(this.searchBarFixed === true && this.sidebar.opened==false){ 
+						 	this.sidebar.mainLeft="mainleftlittle"
+					 }
+				}else{
+					this.sidebar.mainLeft=" "
+					 this.asideSetting.mainnavFixed='';
+				}
+			},10),
+			changelayoutType(){
+				// this.sidebar.opened=false;
+			}
+
+},
+ computed:{
       activeIndex(){
         return this.$route.path
       },
@@ -127,82 +200,6 @@
       return this.boxlay.fixedHeaderMaintop
     },
 		},
-		mounted () {
-			//给window添加一个滚动滚动监听事件
-			window.addEventListener('scroll', this.handleScroll,true)
-				this.getHeight();
-			 this.$nextTick(() => {
-             this.getHeight();
-            })
-			 window.onresize = () => {
-        return (() => {
-            this.$nextTick(() => {
-              this.getHeight();
-            })
-        })()
-    }
-		},
-		methods:{
-      ...mapActions([
-				'menu_toggle',
-				'changeColor',
-				'fixed'
-			]),
-			// handleScroll(){
-			// 	this.asideSetting.mainnavFixed="mainnav-fixed";
-			// },
-			selectMenu(){
-				setTimeout(()=>{
-					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
-					// document.querySelector('.tabclass').style.height=document.querySelector('.mainheight').style.height+'px'; 
-					if(this.boxlay.fixedHeader===true){
-						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-					 }else{
-						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 }
-					return this.getheight
-				},2000)
-				 
-			},
-			getHeight(){
-					setTimeout(()=>{
-					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 if(this.boxlay.fixedHeader===true){
-						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-					 }else{
-						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 }
-				   return this.getheight
-				},2000)
-			},
-		
-			handleScroll () {
-				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-				let offsetTop = document.querySelector('#searchBars').offsetTop
-				if(this.sidebar.isFixed===true){
-					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
-					 this.asideSetting.mainnavFixed='mainnav_fixed';
-					if(this.boxlay.fixedHeader===true){
-					  this.asideSetting.divdisplay='block';
-					}
-					if(this.searchBarFixed===false){
-						 this.asideSetting.divdisplay='none';
-					}
-					 if( this.searchBarFixed === true && this.sidebar.opened===true){
-						 	this.sidebar.mainLeft="mainleft"
-					   }else{this.sidebar.mainLeft=""}
-					  if(this.searchBarFixed === true && this.sidebar.opened==false){ 
-						 	this.sidebar.mainLeft="mainleftlittle"
-					 }
-				}else{
-					this.sidebar.mainLeft=" "
-				}
-			},
-			changelayoutType(){
-				// this.sidebar.opened=false;
-			}
-
-},
 // watch: {
 //       "document.querySelector('.mainheight').offsetHeight": function(){ //加引号监听对象里的属性
 //         this.selectMenu();
@@ -224,7 +221,7 @@
 	}
 	.mainnav_fixedtop{
 		position:fixed;
-    top:60px;
+    left:0px;
 	}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;

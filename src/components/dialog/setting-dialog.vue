@@ -156,7 +156,7 @@
                     @change="changeAsideFixed"
                   ></el-switch>
                 </div>
-                <div class="text-div mar-btm">
+                <!-- <div class="text-div mar-btm">
                   <span>漂浮的</span>
                   <el-switch
                     active-color="#8bc34a"
@@ -164,7 +164,7 @@
                     active-value="100"
                     inactive-value="0"
                   ></el-switch>
-                </div>
+                </div> -->
                 <div class="text-div mar-btm">
                   <span>左边</span>
                   <el-switch
@@ -434,117 +434,17 @@ export default {
       isleftSide: this.$store.getters.sidebar.leftSide, //控制是否aside在左边
       isasideFixed: this.$store.getters.isAside.asideFixed, //控制是否aside固定
       isfooterFixed:this.$store.getters.isFooter.fixedFooter,//控制是否footer固定
-      // iscollapse:this.$store.getters.sidebar.opened,
-      //  isProfil:this.$store.getters.sidebar.Profil,//控制个人简历
     };
   },
-  computed: {
-    ...mapGetters([
-      "boxlay",
-      "sidebar",
-      "asideSetting",
-      "colorSetting",
-      "iscolors",
-      "isAside",
-      "isFooter"
-    ]),
-    isCollapse() {
-      return !this.sidebar.opened;
-    },
-     isCollapse3() {
-      return this.sidebar.opened3;
-    },
-    isopenBtns() {
-      return this.sidebar.isopenBtns;
-    },
-    isdisplaybtns() {
-      return this.sidebar.displayBtns;
-    },
-    isbackgroundImg() {
-      return this.boxlay.backgroundImg;
-    },
-    boxLayout() {
-      return this.boxlay.boxLayout;
-    },
-    isbgasidecolor() {
-      return this.boxlay.isbgasidecolor;
-    },
-    dis() {
-      return this.boxlay.dis;
-    },
-    isopen_boxlayout() {
-      return this.boxlay.open_boxlayout;
-    },
-    isfixedHeader() {
-      return this.boxlay.fixedHeader;
-    },
-    isfixedHeaderClass() {
-      return this.boxlay.fixedHeaderClass;
-    },
-    isfixedHeaderwidth() {
-      return this.boxlay.fixedHeaderwidth;
-    },
-    isfixedHeaderLogowidth() {
-      return this.boxlay.fixedHeaderLogowidt;
-    },
-    isfixedHeaderMaintop() {
-      return this.boxlay.fixedHeaderMaintop;
-    },
-    isProfil() {
-      return this.sidebar.Profil;
-    },
-    isFixed() {
-      return this.sidebar.isFixed;
-    },
-    ifmainleft() {
-      return this.sidebar.mainLeft;
-    },
-    ismainnavFixed() {
-      return this.asideSetting.mainnavFixed;
-    },
-    isalltheme() {
-      return this.colorSetting.alltheme;
-    },
-    isHeadertheme() {
-      return this.colorSetting.headertheme;
-    },
-    iscolortext() {
-      return this.colorSetting.colortext;
-    },
-    isoffProfil() {
-      return this.sidebar.isoffProfil;
-    },
-    isColors() {
-      return this.iscolors;
-    },
-    isasideright() {
-      return this.isAside.asideRight;
-    },
-    isleftSideLeft() {
-      return this.sidebar.leftSideLeft;
-    },
-    leftSide() {
-      return this.sidebar.leftSide;
-    },
-    isfooterFixe(){
-      return this.isFooter.fixedFooter
-    },
-    isfooFixclass(){
-      return  this.isFooter.fixedFooterClass
-    },
-    idfooterwidth(){
-      return this.isFooter.footerWidth
-    }
-  },
+  mounted(){
+    this.changeheight();
+   },
   methods: {
     ...mapActions([
-      // 'changeBoxLayout',
-      //'changeBackgroundImg',
       "changeProfil",
       "toggleSideBar",
       "changeAsideVisible",
       "changeAsideColor",
-      // 'changeAsideLeft',
       "changeAsideFixed",
       "changeFooterFixed"
     ]),
@@ -686,68 +586,7 @@ export default {
         },
      changenavFixed() {//固定侧边栏
       this.sidebar.isFixed = !this.sidebar.isFixed;
-      // if (this.sidebar.isFixed === true) {
-      //   this.asideSetting.mainnavFixed = "mainnav_fixedtop";
-      // }
-      // if (this.sidebar.isFixed === false) {
-      //   this.asideSetting.mainnavFixed = "";
-      // }
-      //  if (this.boxlay.fixedHeader === true && this.sidebar.isFixed === true) {
-      //    this.asideSetting.mainnavFixed = "mainnav_fixedtop";
-      // }
-      // if (this.boxlay.boxLayout === false) {
-      //   if (this.sidebar.isFixed === true) {
-      //     this.asideSetting.mainnavFixed = "mainnav_fixed";
-      //   }
-      //   if (this.sidebar.isFixed === false) {
-      //     this.asideSetting.mainnavFixed = "";
-      //   }
-      // }
-      // if (this.boxlay.boxLayout === true) {
-      //   if (this.sidebar.isFixed === true) {
-      //     this.asideSetting.mainnavFixed = "mainnav_fixedbox";
-      //   }
-      //   if (this.sidebar.isFixed === false) {
-      //     this.asideSetting.mainnavFixed = "";
-      //   }
-      // }
-      // if (this.sidebar.opened === false) {
-      //   if (this.sidebar.isFixed === true) {
-      //     // this.sidebar.mainLeft="mainleftlittle";
-      //   } else {
-      //     this.sidebar.mainLeft = "";
-      //   }
-      // }
-      // if (this.sidebar.opened === true) {
-      //   if (this.sidebar.isFixed === true) {
-      //     // this.sidebar.mainLeft="mainleft";
-      //   } else {
-      //     this.sidebar.mainLeft = "";
-      //   }
-      // }
     },
-
-    // changealltheme(itemcolor){
-    //   var link = document.createElement('link');
-    //   link.type = 'text/css';
-    //   link.rel = 'stylesheet';
-    //   link.id='theme';
-    //   link.href = this.subTheme+itemcolor+'.css?v=1.0';
-    //   document.getElementsByTagName("head")[0].appendChild(link);
-    //   // this.colorSetting.alltheme=this.color+itemcolor;
-    //   let arr=Object.keys(this.iscolors);
-    //   for(let i=0;i<arr.length;i++){
-    //     if( arr[i] === itemcolor){
-    //        this.colorSetting.colortext=this.iscolors[arr[i]];
-    //       // document.querySelector('.el-submenu.is-active .el-submenu__title').setAttribute('style', 'background:' + this.colorSetting.colortext +"!important"+'');
-    //       // document.head.appendChild(document.createElement('link').href=this.subTheme+itemcolor);
-    //        return this.colorSetting.colortext;//return就停止往下走
-    //     }
-
-    //   }
-    //   return;
-    //  // return this.colortext;
-    // },
     changeThemeColors(itemcolor, type) {//更换主题颜色
       var arr1 = document.getElementsByClassName("demo-theme-make");
       for (var i = 0; i < arr1.length; i++) {
@@ -904,9 +743,104 @@ export default {
          document.getElementById('btn').style.top=Btntop+'px';
       }
     },
-     mounted(){
-    this.changeheight();
-   }
+   computed: {
+    ...mapGetters([
+      "boxlay",
+      "sidebar",
+      "asideSetting",
+      "colorSetting",
+      "iscolors",
+      "isAside",
+      "isFooter"
+    ]),
+    isCollapse() {
+      return !this.sidebar.opened;
+    },
+     isCollapse3() {
+      return this.sidebar.opened3;
+    },
+    isopenBtns() {
+      return this.sidebar.isopenBtns;
+    },
+    isdisplaybtns() {
+      return this.sidebar.displayBtns;
+    },
+    isbackgroundImg() {
+      return this.boxlay.backgroundImg;
+    },
+    boxLayout() {
+      return this.boxlay.boxLayout;
+    },
+    isbgasidecolor() {
+      return this.boxlay.isbgasidecolor;
+    },
+    dis() {
+      return this.boxlay.dis;
+    },
+    isopen_boxlayout() {
+      return this.boxlay.open_boxlayout;
+    },
+    isfixedHeader() {
+      return this.boxlay.fixedHeader;
+    },
+    isfixedHeaderClass() {
+      return this.boxlay.fixedHeaderClass;
+    },
+    isfixedHeaderwidth() {
+      return this.boxlay.fixedHeaderwidth;
+    },
+    isfixedHeaderLogowidth() {
+      return this.boxlay.fixedHeaderLogowidt;
+    },
+    isfixedHeaderMaintop() {
+      return this.boxlay.fixedHeaderMaintop;
+    },
+    isProfil() {
+      return this.sidebar.Profil;
+    },
+    isFixed() {
+      return this.sidebar.isFixed;
+    },
+    ifmainleft() {
+      return this.sidebar.mainLeft;
+    },
+    ismainnavFixed() {
+      return this.asideSetting.mainnavFixed;
+    },
+    isalltheme() {
+      return this.colorSetting.alltheme;
+    },
+    isHeadertheme() {
+      return this.colorSetting.headertheme;
+    },
+    iscolortext() {
+      return this.colorSetting.colortext;
+    },
+    isoffProfil() {
+      return this.sidebar.isoffProfil;
+    },
+    isColors() {
+      return this.iscolors;
+    },
+    isasideright() {
+      return this.isAside.asideRight;
+    },
+    isleftSideLeft() {
+      return this.sidebar.leftSideLeft;
+    },
+    leftSide() {
+      return this.sidebar.leftSide;
+    },
+    isfooterFixe(){
+      return this.isFooter.fixedFooter
+    },
+    isfooFixclass(){
+      return  this.isFooter.fixedFooterClass
+    },
+    idfooterwidth(){
+      return this.isFooter.footerWidth
+    }
+  },
 
 };
 </script>

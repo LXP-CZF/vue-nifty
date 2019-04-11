@@ -94,7 +94,10 @@
   import {mapGetters,mapActions} from 'vuex'
 	import nxhamburger from '@/components/nx-hamburger'
 	export default{
-			props: ['stateCollapse','fixedHeaderLogowidthstate','toggleSideBarvoid','sidebaropened'],
+		components:{
+			nxhamburger
+		},
+		props: ['stateCollapse','fixedHeaderLogowidthstate','toggleSideBarvoid','sidebaropened'],
 		data(){
 			return{
 				sysUserName: 'admin',
@@ -105,60 +108,28 @@
 				 asidePanFixed:false,
 			}
 		},
-		 
-		computed:{
-			...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
-			boxLayout(){
-        return this.boxlay.boxLayout
-    },
-    isCollapse() {
-      return !this.sidebar.opened
-		},
-		isCollapse3() {
-      return this.sidebar.opened3
-		},
-		 isalltheme(){
-      return this.colorSetting.alltheme
-		},
-		 isHeadertheme(){
-      return this.colorSetting.headertheme
-		},
-		isFixed(){
-      return this.sidebar.isFixed
-    },
-		 isfixedHeader(){
-     return this.boxlay.fixedHeader
-    },
-		isfixedHeaderClass(){
-       return this.boxlay.fixedHeaderClass
-		},
-		isfixedHeaderwidth(){
-      return this.boxlay.fixedHeaderwidth
-		},
-		 isfixedHeaderLogowidth(){
-      return this.boxlay.fixedHeaderLogowidth
-    },
-			isVisible(){
-       return this.isAside.Visible
-		},
-		isVisibleClass(){
-       return this.isAside.isVisibleClass
-		},
-		isleftSide(){
-			return this.sidebar.leftSide
-		},
-		isleftSideLeft(){
-       return this.sidebar.leftSideLeft
-		},
-		isasideFixedclass(){
-			return this.isAside.asideFixedClass
-		},
-	 isasidefixed(){
-       return this.isAside.asideFixed
-		},
-		 isasideright(){
-      return this.isAside.asideRight
-    }
+		
+		mounted(){
+			 if(this.yOrNvisible===false){
+            this.isAside.isVisibleClass='noneVisible'
+          }else{
+            this.isAside.isVisibleClass='Visibleclass'
+					}
+					this.getHeight();
+					 // 数据首次加载完后 → 获取宽度，并设置其高度
+					this.$nextTick(() => {
+					this.getHeight();
+					})
+					// 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
+					window.onresize = () => {
+							return (() => {
+									this.$nextTick(() => {
+									this.getHeight();
+									})
+							})()
+					}
+					//给window添加一个滚动滚动监听事件
+	  	window.addEventListener('scroll', this.handleScroll,true)
 		},
 		methods:{
 		...mapActions([
@@ -195,7 +166,7 @@
 				getHeight(){
 					setTimeout(()=>{
 					 this.getheight=document.querySelector('.mainheight').offsetHeight;
-						return this.getheight
+					
 						},2000)
 			},
 				handleScroll () {
@@ -254,31 +225,60 @@
 			},
 			
 		},
-	    components:{
-	      nxhamburger
-			},
-		mounted(){
-			 if(this.yOrNvisible===false){
-            this.isAside.isVisibleClass='noneVisible'
-          }else{
-            this.isAside.isVisibleClass='Visibleclass'
-					}
-					this.getHeight();
-					 // 数据首次加载完后 → 获取宽度，并设置其高度
-					this.$nextTick(() => {
-					this.getHeight();
-					})
-					// 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
-					window.onresize = () => {
-							return (() => {
-									this.$nextTick(() => {
-									this.getHeight();
-									})
-							})()
-					}
-					//给window添加一个滚动滚动监听事件
-	  	window.addEventListener('scroll', this.handleScroll,true)
-		}
+			computed:{
+			...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
+			boxLayout(){
+        return this.boxlay.boxLayout
+    },
+    isCollapse() {
+      return !this.sidebar.opened
+		},
+		isCollapse3() {
+      return this.sidebar.opened3
+		},
+		 isalltheme(){
+      return this.colorSetting.alltheme
+		},
+		 isHeadertheme(){
+      return this.colorSetting.headertheme
+		},
+		isFixed(){
+      return this.sidebar.isFixed
+    },
+		 isfixedHeader(){
+     return this.boxlay.fixedHeader
+    },
+		isfixedHeaderClass(){
+       return this.boxlay.fixedHeaderClass
+		},
+		isfixedHeaderwidth(){
+      return this.boxlay.fixedHeaderwidth
+		},
+		 isfixedHeaderLogowidth(){
+      return this.boxlay.fixedHeaderLogowidth
+    },
+			isVisible(){
+       return this.isAside.Visible
+		},
+		isVisibleClass(){
+       return this.isAside.isVisibleClass
+		},
+		isleftSide(){
+			return this.sidebar.leftSide
+		},
+		isleftSideLeft(){
+       return this.sidebar.leftSideLeft
+		},
+		isasideFixedclass(){
+			return this.isAside.asideFixedClass
+		},
+	 isasidefixed(){
+       return this.isAside.asideFixed
+		},
+		 isasideright(){
+      return this.isAside.asideRight
+    }
+		},
 	}
 	
 </script>

@@ -135,6 +135,7 @@
 	import util from '@/common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
+import { setInterval } from 'timers';
   
 	export default {
 		data() {
@@ -144,16 +145,16 @@
 					value1:'',
 					value:'',
                 },
-                type_name:'引擎名称',
-                engine_version:'引擎版本',
-                statue:'状态',
-                type:'类型',
-                units:'能力单元',
-                start_date:'创建日期',
-                creater:'创建人',
-                changer:'最后修改者',
-                end_date:'最后修改日期',
-                title:'能力单元管理表',
+				type_name:'引擎名称',
+				engine_version:'引擎版本',
+				statue:'状态',
+				type:'类型',
+				units:'能力单元',
+				start_date:'创建日期',
+				creater:'创建人',
+				changer:'最后修改者',
+				end_date:'最后修改日期',
+				title:'能力单元管理表',
 				users: [],
 				total: 0,
 				page: 1,
@@ -161,7 +162,6 @@
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
-
 				editFormVisible: false,//编辑界面是否显示
 				editLoading: false,
 				editFormRules: {
@@ -178,7 +178,6 @@
 					birth: '',
 					addr: ''
 				},
-
 				addFormVisible: false,//新增界面是否显示
 				addLoading: false,
 				addFormRules: {
@@ -196,6 +195,9 @@
 				}
 
 			}
+		},
+		mounted() {
+			this.getUsers();
 		},
 		methods: {
 			//性别显示转换
@@ -218,9 +220,11 @@
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;
-					console.log(this.users);
 					//NProgress.done();
 				});
+				setTimeout(()=>{
+				document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+35+'px'
+				},500)
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -359,10 +363,6 @@
         this.$refs[formName].resetFields();
       }
 		},
-		mounted() {
-			this.getUsers();
-		},
-	
 	}
 
 </script>

@@ -43,6 +43,22 @@
         checked: true
       };
     },
+    mounted(){
+      this.changeheight();
+      // 数据首次加载完后 → 获取宽度，并设置其高度
+    this.$nextTick(() => {
+      this.changeheight();
+    })
+    // 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
+    window.onresize = () => {
+        return (() => {
+            this.$nextTick(() => {
+              this.changeheight();
+            })
+        })()
+    }
+
+   },
     methods: {
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
@@ -84,22 +100,7 @@
          document.getElementById('formdiv').style.marginTop=margintop+'px';
       }
     },
-     mounted(){
-      this.changeheight();
-      // 数据首次加载完后 → 获取宽度，并设置其高度
-    this.$nextTick(() => {
-      this.changeheight();
-    })
-    // 挂载 reisze 事件 → 屏幕缩放时监听宽度变化
-    window.onresize = () => {
-        return (() => {
-            this.$nextTick(() => {
-              this.changeheight();
-            })
-        })()
-    }
-
-   }
+     
   }
 
 </script>

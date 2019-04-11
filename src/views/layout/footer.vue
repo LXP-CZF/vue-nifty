@@ -12,18 +12,6 @@ export default {
       getwidth:''
     }
   },
-	components: {
-  },
-  computed:{
-   ...mapGetters(['isFooter']),
-   isfixedfooter(){
-     return this.isFooter.fixedFooterClass
-   },
-    isfooterwidth(){
-      return this.isFooter.footerWidth
-    }
-  
-  }, 
   mounted(){
      this.getw();
       this.$nextTick(() => {
@@ -45,7 +33,17 @@ export default {
        },2000)
      }
      
-   }
+   },
+    computed:{
+   ...mapGetters(['isFooter']),
+   isfixedfooter(){
+     return this.isFooter.fixedFooterClass
+   },
+    isfooterwidth(){
+      return this.isFooter.footerWidth
+    }
+  
+  }, 
 }
 </script>
 

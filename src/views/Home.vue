@@ -26,17 +26,24 @@ import {mapGetters,mapActions} from 'vuex'
   import settingdialog from "@/components/dialog/setting-dialog.vue";
 export default {
   name: 'App',
-  data(){
-    return{
-    }
-  },
-  components:{
+   components:{
     vueheader,
     vuefooter,
     vuemain,
     vueaside,
     settingdialog
   },
+  data(){
+    return{
+    }
+  },
+  methods:{
+     	toggleSideBar() {
+				this.$store.dispatch('toggleSideBar')
+			},
+  
+  },
+
    computed:{
    ...mapGetters(['boxlay','asideSetting','sidebar']),
    isopen_boxlayout(){
@@ -61,13 +68,6 @@ export default {
       return this.sidebar.Profil
 		},
  },
-  methods:{
-     	toggleSideBar() {
-				this.$store.dispatch('toggleSideBar')
-			},
-  
-  }
-
 }
 </script>
 

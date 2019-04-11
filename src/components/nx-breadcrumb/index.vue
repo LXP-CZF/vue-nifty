@@ -14,18 +14,13 @@
 <script>
 export default {
   name: 'nxBreadcrumb',
-  created() {
-    this.getBreadcrumb()
-  },
   data() {
     return {
       levelList: null
     }
   },
-  watch: {
-    $route() {
-      this.getBreadcrumb()
-    }
+  created() {
+    this.getBreadcrumb()
   },
   methods: {
     getBreadcrumb() {
@@ -36,7 +31,12 @@ export default {
       }
       this.levelList = matched
     }
-  }
+  },
+  watch: {
+    $route() {
+      this.getBreadcrumb()
+    }
+  },
 }
 </script>
 

@@ -26,41 +26,18 @@ import {mapGetters,mapActions} from 'vuex'
 import breadcrumb from '@/components/nx-breadcrumb'
 export default {
   name: 'AppMain',
-  created() {
-    this.getBreadcrumb()
-  },
+  components:{
+			breadcrumb
+    },
   data() {
     return {
       levelList: null
     }
   },
-  computed:{
-    ...mapGetters(['colorSetting','boxlay']),
-		isalltheme(){
-      return this.colorSetting.alltheme
-    },
-    isfixedHeaderMaintop(){
-      return this.boxlay.fixedHeaderMaintop
-    },
-		},
-  methods: {
-    getBreadcrumb() {
-      let matched = this.$route.matched.filter(item => item.name)
-      const first = matched[0]
-      if (first && first.name !== '主页') {
-        matched = [{ path: '/'}].concat(matched)
-      }
-      this.levelList = matched
-    },
-     getminHeight(){
-       setTimeout(()=>{
-         var h=document.documentElement.clientHeight;//可见区域高度
-         var maindiv=document.querySelector('.el-main').style.minHeight=h-60-35+"px";
-       },200)
-      }
-
+  created() {
+    this.getBreadcrumb()
   },
-  mounted(){
+   mounted(){
       this.getminHeight();
       // 数据首次加载完后 → 获取宽度，并设置其高度
     this.$nextTick(() => {
@@ -76,9 +53,32 @@ export default {
     }
 
    },
-  components:{
-			breadcrumb
+  methods: {
+    getBreadcrumb() {
+      let matched = this.$route.matched.filter(item => item.name)
+      const first = matched[0]
+      if (first && first.name !== '主页') {
+        matched = [{ path: '/'}].concat(matched)
+      }
+      this.levelList = matched
     },
+     getminHeight(){
+       setTimeout(()=>{
+         const h=document.documentElement.clientHeight;//可见区域高度
+         const maindiv=document.querySelector('.el-main').style.minHeight=h-60-35+"px";
+       },200)
+      }
+
+  },
+     computed:{
+    ...mapGetters(['colorSetting','boxlay']),
+		isalltheme(){
+      return this.colorSetting.alltheme
+    },
+    isfixedHeaderMaintop(){
+      return this.boxlay.fixedHeaderMaintop
+    },
+		},
      watch: {
     $route() {
       this.getBreadcrumb()

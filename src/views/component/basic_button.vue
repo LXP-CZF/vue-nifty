@@ -65,8 +65,12 @@
   import datazoom from '@/views/echarts/dataZoom.vue'
   import radar from '@/views/echarts/radar.vue'
     export default {
-        name: "basic_button",
-     data() {
+      name: "basic_button",
+      components:{
+          datazoom,
+          radar
+      },
+      data() {
       return {
         tableData3: [{
           date: '2016-05-03',
@@ -77,10 +81,6 @@
         }]
       }
     },
-      components:{
-          datazoom,
-          radar
-      }
 
 
     }
