@@ -2,7 +2,7 @@
 <div class="mainheight" >
 <el-main >
   <section class="app-main" :style="{marginTop:isfixedHeaderMaintop}">
-      <div style="width:100%; height:125px;padding-top:2%" class="maintheme">
+      <div style="width:100%; height:132px;padding-top:2%" class="maintheme">
           <!-- <h3>Welcome back to the Dashboard.</h3>
           <p>Scroll down to see quick links and overviews of your Server, To do list, Order status or get some Help using Nifty.</p>  -->
      <div v-for="(item,index)  in levelList" :key="item.path" v-if="item.name" style="padding-left:22px;font-size:18px">
@@ -64,8 +64,8 @@ export default {
     },
      getminHeight(){
        setTimeout(()=>{
-         const h=document.documentElement.clientHeight;//可见区域高度
-         const maindiv=document.querySelector('.el-main').style.minHeight=h-60-35+"px";
+         var h=document.documentElement.clientHeight;//可见区域高度
+         document.querySelector('.el-main').style.minHeight=h-60-35+"px";
        },200)
       }
 

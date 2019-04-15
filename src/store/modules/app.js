@@ -32,9 +32,12 @@ const app={
           state.sidebar.isoffProfil=!state.sidebar.isoffProfil
           state.sidebar.withoutAnimation = false
           setTimeout(()=>{
+            document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+35+'px'
+            },300);
+          setTimeout(()=>{
             var getwidths=document.querySelector('.mainheight').offsetWidth;
             layout.state.isFooter.footerWidth=getwidths+'px';
-          },300)
+          },300);
           
           if (state.sidebar.opened===false) {
             state.sidebar.hiddensidebar="65px";

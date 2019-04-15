@@ -19,7 +19,6 @@
 						<el-option label="停用" value="error"></el-option>
 					</el-select>
 			  </el-form-item>
-        <br/>
 				<el-form-item>
 					<el-button type="primary" class="btnsBg"  size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
 					<el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
@@ -29,15 +28,18 @@
 		
 		</el-col>
 		<!-- button -->
-    <el-col :span="24" class="btns">
-			<el-row><el-col :span="12">
+    <el-col :span="24">
+			<el-card class="box-card">
+				<div slot="header" class="clearfix btnsBg">
+					<el-col :span="12">
 		 <h3>{{title}}</h3></el-col>
 		 <el-col :span="12">
      <el-button type="success"  size="mini" icon="el-icon-edit" @click="handleAdd">新增</el-button>
 		 <el-button type="danger" size="mini" icon="el-icon-delete" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
 		</el-col>
-		</el-row>
-		</el-col>
+				</div>
+		
+		
 		<!--列表-->
 		
 		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
@@ -68,12 +70,14 @@
 				</template>
 			</el-table-column>
 		</el-table>
-
-		<!--工具条-->
 		<el-col :span="24" class="pagination">
 			<el-pagination layout="prev, pager, next" background  @current-change="handleCurrentChange"  :page-size="pagesize" :current-page="page" :total="total">
 			</el-pagination>
 		</el-col>
+	</el-card>
+	</el-col>
+		<!--工具条-->
+		
 
 		<!--编辑界面-->
 		<el-dialog title="编辑" :visible.syn="editFormVisible" @close="editFormVisible=false">
@@ -149,7 +153,7 @@
 	import util from '@/common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
-  
+  import {changeAsideHeight} from '../../assets/js/public'
 	export default {
 		data() {
 			return {
@@ -170,7 +174,7 @@
 				users: [],
 				total: 0,
 				page: 1,
-				pagesize:20,
+				pagesize:10,
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
@@ -221,6 +225,7 @@
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getUsers();
+				changeAsideHeight();
 			},
 			//获取用户列表
 			getUsers() {
@@ -236,7 +241,7 @@
 					this.listLoading = false;
 					//NProgress.done();
 				});
-				document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+37+'px';
+			 changeAsideHeight();
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -381,7 +386,7 @@
 </script>
 
 <style scoped>
-section{margin-top: -65px;}
+section{margin-top: -85px;}
 .el-dialog{text-align: left;}
 .box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
 .pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}

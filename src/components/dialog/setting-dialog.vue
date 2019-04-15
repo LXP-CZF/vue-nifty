@@ -468,17 +468,17 @@ export default {
               var getwidths=document.querySelector('.mainheight').offsetWidth;
               this.isFooter.footerWidth=getwidths+'px';
             },300)
-      if (this.$route.name === "Dashboard_3") {
-      setTimeout(()=>{
-              var getwidths3=document.querySelector('.contentmain3').offsetWidth;
-              this.isFooter.footerWidth=getwidths3+'px';
-            },300)
-      }
       if (this.boxlay.boxLayout === true) {
         this.boxlay.open_boxlayout = "open_boxlayout";
         this.isAside.asideRight = "0px";
+        if (this.boxlay.fixedHeader === true) {
+        this.asideSetting.asideTop="40px";
+        }
+        if (this.boxlay.fixedHeader === false){
+           this.asideSetting.asideTop="0px";
+        }
         if (this.sidebar.isFixed === true) {
-          this.asideSetting.mainnavFixed = "mainnav_fixedbox";
+          this.asideSetting.mainnavFixed = "mainnav_fixed";
         }
         if (this.sidebar.isFixed === false) {
           this.asideSetting.mainnavFixed = "";
@@ -489,6 +489,7 @@ export default {
         this.backgroundImg = false;
         this.boxlay.open_boxlayout = "resize_boxlayout";
         this.isAside.asideRight = "0px";
+        this.asideSetting.asideTop="0px";
         if (this.backgroundImg === false) {
           this.boxlay.isbgasidecolor = false;
         }
@@ -541,12 +542,21 @@ export default {
         this.boxlay.fixedHeaderClass = "fixedheaderclass";
         this.boxlay.fixedHeaderwidth = "fixedheaderwidth";
         this.boxlay.fixedHeaderMaintop = "60px";
+        if(this.boxlay.boxLayout === true){
+        this.asideSetting.asideTop="40px";
+        }
+         if(this.sidebar.isFixed===true){
+          this.asideSetting.navFixed='mainnav_fixedtop';
+				}
       } else {
         this.boxlay.fixedHeaderClass = "";
         this.boxlay.fixedHeaderwidth = "";
         this.boxlay.fixedHeaderMaintop = "";
+         this.asideSetting.navFixed='';
+         
         if(this.boxlay.boxLayout === true){
          this.boxlay.open_boxlayout = "open_boxlayout";
+         this.asideSetting.asideTop="0px";
         }
        
       }
@@ -555,18 +565,6 @@ export default {
       }
       if (this.boxlay.boxLayout === true && this.boxlay.fixedHeader === true) {
         this.boxlay.fixedHeaderClass = "fixedheaderclassbox";
-      }
-        if (this.boxlay.fixedHeader === true && this.sidebar.isFixed === true) {
-         this.asideSetting.mainnavFixed = "mainnav_fixedtop";
-      }
-      if (this.$route.name === "Dashboard2") {
-        // this.sidebar.opened=true;
-        if (this.sidebar.opened === true && this.boxlay.fixedHeader === true) {
-          this.boxlay.fixedHeaderLogowidth = "45px";
-        }
-        if (this.sidebar.opened === false && this.boxlay.fixedHeader === true) {
-          this.boxlay.fixedHeaderLogowidth = "200px";
-        }
       }
     },
     changeFooterFixed(){//固定footer
@@ -586,6 +584,13 @@ export default {
         },
      changenavFixed() {//固定侧边栏
       this.sidebar.isFixed = !this.sidebar.isFixed;
+      if(this.sidebar.isFixed===true){
+       if(this.boxlay.fixedHeader===true){
+			    this.asideSetting.navFixed='mainnav_fixedtop';
+				}
+     }else{
+       this.asideSetting.navFixed='';
+     }
     },
     changeThemeColors(itemcolor, type) {//更换主题颜色
       var arr1 = document.getElementsByClassName("demo-theme-make");
@@ -807,6 +812,9 @@ export default {
     ismainnavFixed() {
       return this.asideSetting.mainnavFixed;
     },
+    isnavFixed() {
+      return this.asideSetting.navFixed;
+    },
     isalltheme() {
       return this.colorSetting.alltheme;
     },
@@ -839,7 +847,10 @@ export default {
     },
     idfooterwidth(){
       return this.isFooter.footerWidth
-    }
+    },
+    	isasideTop() {
+      return this.asideSetting.asideTop;
+    },
   },
 
 };

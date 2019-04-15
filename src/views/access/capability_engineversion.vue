@@ -22,7 +22,6 @@
       			        <el-option label="停用" value="error"></el-option>
 					</el-select>
 			  </el-form-item>
-              <br/>
 				<el-form-item>
 					<el-button type="primary" size="small" icon="el-icon-search" v-on:click="getUsers" class="btnsBg">查询</el-button>
                     <el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
@@ -133,9 +132,9 @@
 
 <script>
 	import util from '@/common/js/util'
-	//import NProgress from 'nprogress'
+	import {changeAsideHeight} from '../../assets/js/public'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
-import { setInterval } from 'timers';
+ import { setInterval } from 'timers';
   
 	export default {
 		data() {
@@ -158,7 +157,7 @@ import { setInterval } from 'timers';
 				users: [],
 				total: 0,
 				page: 1,
-				pagesize:20,
+				pagesize:10,
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
@@ -204,9 +203,11 @@ import { setInterval } from 'timers';
 			formatSex: function (row, column) {
 				return row.sex == 1 ? '启用' : row.sex == 0 ? '停用' : '未知';
 			},
+			
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getUsers();
+				changeAsideHeight();
 			},
 			//获取用户列表
 			getUsers() {
@@ -222,9 +223,7 @@ import { setInterval } from 'timers';
 					this.listLoading = false;
 					//NProgress.done();
 				});
-				setTimeout(()=>{
-				document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+35+'px'
-				},500)
+		  changeAsideHeight();
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -368,7 +367,7 @@ import { setInterval } from 'timers';
 </script>
 
 <style scoped>
-section{margin-top: -65px;}
+section{margin-top: -85px;}
 .el-dialog{text-align: left;}
 .box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
 .pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}

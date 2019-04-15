@@ -47,4 +47,10 @@ body{width: 100%;height: 100%; background: #8c979b;overflow-x: hidden;}
 }
 .clearfix{text-align: left}
 .el-button--primary{border:none !important}
+.el-card__header {
+    padding: 8px !important;
+}
+.el-card__body {
+    padding: 20px 10px 0px 10px !important;
+}
 </style>

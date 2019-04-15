@@ -1,6 +1,6 @@
-import Cookies from 'js-cookies'
+import Cookies from 'js-cookie'
 export function setName(name) {
-  return Cookies.set("name", name);
+  return Cookies.set("name", name,{expires:100 });
 }
 export function getName() {
   return Cookies.get("name");

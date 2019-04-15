@@ -1,7 +1,7 @@
 <template>
 <!--侧边栏-->
 <div class="searchBar" id="searchBars" :style="{marginTop:isfixedHeaderMaintop}">
-<el-row class="asideset" :class="searchBarFixed == true ? ismainnavFixed :''">
+<el-row class="asideset" :class="[searchBarFixed == true ? ismainnavFixed :'',isnavFixed]" :style="{marginTop:isasideTop}">
 	<!-- <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"> -->
 		<!-- <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only"  v-if="!isfixedHeader">
 			 <el-row style="height: 60px !important;background-color:#25476a;" class="logtheme">
@@ -125,20 +125,20 @@
 						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
 					 }
 				   return this.getheight
-				},2000)
+				},1500)
 			},
-			handleScroll:debounce(function(){
+			handleScroll(){
 				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
 				let offsetTop = document.querySelector('#searchBars').offsetTop
 				if(this.sidebar.isFixed===true){
 					 scrollTop > offsetTop ? this.searchBarFixed = true : this.searchBarFixed = false
+					
+					if(this.boxlay.fixedHeader===false){
 					 this.asideSetting.mainnavFixed='mainnav_fixed';
-					if(this.boxlay.fixedHeader===true){
-					  this.asideSetting.mainnavFixed='mainnav_fixedtop';
 					}
-					if(this.searchBarFixed===false){
-						 this.asideSetting.mainnavFixed='mainnav_fixedtop';
-					}
+					// if(this.searchBarFixed===false){
+					// 	 this.asideSetting.mainnavFixed='mainnav_fixedtop';
+					// }
 					 if( this.searchBarFixed === true && this.sidebar.opened===true){
 						 	this.sidebar.mainLeft="mainleft"
 					   }else{this.sidebar.mainLeft=""}
@@ -149,7 +149,7 @@
 					this.sidebar.mainLeft=" "
 					 this.asideSetting.mainnavFixed='';
 				}
-			},10),
+			},
 			changelayoutType(){
 				// this.sidebar.opened=false;
 			}
@@ -198,6 +198,12 @@
 		},
 		 isfixedHeaderMaintop(){
       return this.boxlay.fixedHeaderMaintop
+		},
+		isnavFixed() {
+      return this.asideSetting.navFixed;
+		},
+		isasideTop() {
+      return this.asideSetting.asideTop;
     },
 		},
 // watch: {
@@ -221,7 +227,8 @@
 	}
 	.mainnav_fixedtop{
 		position:fixed;
-    left:0px;
+		
+		top:60px;
 	}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     max-width: 220px;

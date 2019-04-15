@@ -22,7 +22,6 @@
 						<el-option label="停用" value="error"></el-option>
 					</el-select>
 			  </el-form-item> -->
-        <br/>
 				<el-form-item>
 					<el-button type="primary" class="btnsBg" size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
 					<el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
@@ -38,7 +37,7 @@
 		</el-col>
 		<!--列表-->
 		<h3>{{title}}</h3>
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
+		<el-table :data="users" highlight-current-row border="true" resizable v-loading="listLoading" @selection-change="selsChange" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index"  width="60">
@@ -158,7 +157,7 @@
 
 <script>
 	import util from '@/common/js/util'
-	//import NProgress from 'nprogress'
+	import {changeAsideHeight} from '../../assets/js/public'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
   
 	export default {
@@ -169,22 +168,21 @@
 					value1:'',
 					value:'',
                 },
-                type_name:'接口名称',
-                statue:'状态',
-                identification:'标识',
-                code:'代码',
-                 remark:'备注',
-                title:'接口管理列表',
+				type_name:'接口名称',
+				statue:'状态',
+				identification:'标识',
+				code:'代码',
+				remark:'备注',
+				title:'接口管理列表',
 				users: [],
 				total: 0,
 				page: 1,
-				pagesize:20,
+				pagesize:10,
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
-
-                editFormVisible: false,//编辑界面是否显示
-                selectFormVisible:false,
+				editFormVisible: false,//编辑界面是否显示
+				selectFormVisible:false,
 				editLoading: false,
 				editFormRules: {
 					name: [
@@ -230,6 +228,7 @@
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getUsers();
+				changeAsideHeight();
 			},
 			//获取用户列表
 			getUsers() {
@@ -244,7 +243,10 @@
 					this.users = res.data.users;
 					this.listLoading = false;
 					//NProgress.done();
-				});
+				
+				}).then((res) => {
+					changeAsideHeight();
+					});
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -393,7 +395,7 @@
 </script>
 
 <style scoped>
-section{margin-top: -65px;}
+section{margin-top: -85px;}
 .el-dialog{text-align: left;}
 .box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
 .pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
+import {users} from '../assets/js/users';
 let _Users = Users;
 
 export default {
@@ -67,14 +68,14 @@ export default {
         return true;
       });
       let total = mockUsers.length;
-      mockUsers = mockUsers.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+      mockUsers = mockUsers.filter((u, index) => index < 10 * page && index >= 10 * (page - 1));
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
             total: total,
             users: mockUsers
           }]);
-        }, 1000);
+        }, 300);
       });
     });
 
@@ -149,6 +150,9 @@ export default {
         }, 500);
       });
     });
-
+    //新增用户
+    // mock.onGet('/getttusers').reply(200,{
+    //   code: 1001, msg: '请求成功', users
+    // })
   }
 };

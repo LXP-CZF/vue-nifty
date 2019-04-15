@@ -215,10 +215,12 @@
 				 if(this.boxlay.fixedHeader===true && this.boxlay.boxLayout===true){
 					 scrollTop > offsetTop ? this.asidePanFixed = true : this.asidePanFixed = false
 				 	if(this.asidePanFixed === true){
-					    this.boxlay.open_boxlayout="close_boxlayout";
+							this.boxlay.open_boxlayout="close_boxlayout";
+							this.asideSetting.asideTop="0px"
 						}
 						if(this.asidePanFixed === false){
 						this.boxlay.open_boxlayout="open_boxlayout";
+						this.asideSetting.asideTop="40px"
 						}
 				 }
 				
@@ -226,7 +228,7 @@
 			
 		},
 			computed:{
-			...mapGetters(['boxlay','sidebar','colorSetting','isAside']),
+			...mapGetters(['boxlay','sidebar','colorSetting','isAside','asideSetting']),
 			boxLayout(){
         return this.boxlay.boxLayout
     },
@@ -277,7 +279,10 @@
 		},
 		 isasideright(){
       return this.isAside.asideRight
-    }
+		},
+		isasideTop() {
+      return this.asideSetting.asideTop;
+    },
 		},
 	}
 	

@@ -21,6 +21,8 @@
 
 <script>
   import { requestLogin } from '@/api/api';
+  import {setName,getName} from '../../utils/auth';
+  import axios from 'axios';
   //import NProgress from 'nprogress'
   export default {
     data() {
@@ -40,7 +42,8 @@
             //{ validator: validaePass2 }
           ]
         },
-        checked: true
+        checked: true,
+        users:[]
       };
     },
     mounted(){
@@ -58,8 +61,7 @@
         })()
     }
 
-   },
-    methods: {
+  },    methods: {
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
@@ -81,7 +83,9 @@
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                setName(this.ruleForm2.account);
+                let aaa=getName("name");
+                console.log(aaa);
                 this.$router.push({ path: '/Dashboard1' });
               }
             });

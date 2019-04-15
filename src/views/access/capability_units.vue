@@ -22,15 +22,12 @@
       			        <el-option label="停用" value="error"></el-option>
 					</el-select>
 			  </el-form-item>
-              <br/>
 				<el-form-item>
 					<el-button type="primary" class="btnsBg" size="small" icon="el-icon-search" v-on:click="getUsers">查询</el-button>
-                    <el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
+					<el-button  size="small" icon="el-icon-delete" v-on:click="resetForm('filters')">重置</el-button>
 				</el-form-item>
-				
-			
 			</el-form>
-            </el-card>	
+		</el-card>	
             <h3>{{title}}</h3>
 		</el-col>
 		<!-- button -->
@@ -135,7 +132,7 @@
 	import util from '@/common/js/util'
 	//import NProgress from 'nprogress'
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '@/api/api';
-  
+  import {changeAsideHeight} from '../../assets/js/public'
 	export default {
 		data() {
 			return {
@@ -157,7 +154,7 @@
 				users: [],
 				total: 0,
 				page: 1,
-				pagesize:20,
+				pagesize:10,
 				listLoading: false,
 				downloadLoading:false,
 				sels: [],//列表选中列
@@ -205,9 +202,10 @@
 			formatSex: function (row, column) {
 				return row.sex == 1 ? '启用' : row.sex == 0 ? '停用' : '未知';
 			},
-			handleCurrentChange(val) {
-				this.page = val;
+			handleCurrentChange(page) {
+				this.page = page;
 				this.getUsers();
+				changeAsideHeight();
 			},
 			//获取用户列表
 			getUsers() {
@@ -222,6 +220,7 @@
 					this.users = res.data.users;
 					this.listLoading = false;
 					//NProgress.done();
+					changeAsideHeight();
 				});
 			},
 			//删除
@@ -367,7 +366,7 @@
 </script>
 
 <style scoped>
-section{margin-top: -65px;}
+section{margin-top: -85px;}
 .el-dialog{text-align: left;}
 .box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
 .pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}

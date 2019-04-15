@@ -15,6 +15,8 @@ const layout={
           },
           asideSetting:{
             mainnavFixed:'',//控制侧边栏添加固定class
+            navFixed:'',//控制侧边栏，但header固定时添加固定class
+            asideTop:'',
             divdisplay:'none'
           },
           colorSetting:{

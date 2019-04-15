@@ -1,0 +1,22 @@
+{
+    "users":[
+        {
+            "id":1,
+            "username":"admin",
+            "colorType":"",
+            "themecolor":""
+        },
+        {
+            "id":2,
+            "username":"",
+            "colorType":"",
+            "themecolor":""
+        },
+        {
+            "id":3,
+            "colorType":"",
+            "username":"",
+            "themecolor":""
+        }
+    ]
+}
