@@ -33,7 +33,6 @@ export function throttle(func,wait){
     }
 };
 export function changeAsideHeight(){
-   
-        document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+35+'px'
-    
-}
+    return Promise.resolve(
+        document.querySelector('.asidemain').style.height=document.querySelector('.mainheight').offsetHeight+35+'px'  
+)}

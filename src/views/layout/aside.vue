@@ -15,7 +15,7 @@
 		</el-col> -->
 		<div style="height:60px !important;" :style="{display:isdivdisplay}"></div>
 <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only asidemain" :style="{height:getheight+ 'px'}">
-<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" @select="selectMenu" router>
+<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" router>
   <el-collapse v-if="isProfilstate" >
   <el-collapse-item  name="1">
 		<template slot="title">
@@ -104,29 +104,33 @@
 				'changeColor',
 				'fixed'
 			]),
-			selectMenu(){
-				setTimeout(()=>{
-					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
-					if(this.boxlay.fixedHeader===true){
-						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-					 }else{
-						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 }
-					return this.getheight
-				},2000)
+			// selectMenu(){
+			// 	setTimeout(()=>{
+			// 		this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
+			// 		if(this.boxlay.fixedHeader===true){
+			// 			 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+			// 		 }else{
+			// 			 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+			// 		 }
+			// 		return this.getheight
+			// 	},2000)
 				 
-			},
+			// },
 			getHeight(){
-					setTimeout(()=>{
-					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 if(this.boxlay.fixedHeader===true){
-						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-					 }else{
-						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-					 }
-				   return this.getheight
-				},1500)
-			},
+				// 	setTimeout(()=>{
+				// 	 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+				// 	 if(this.boxlay.fixedHeader===true){
+				// 		 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+				// 	 }else{
+				// 		 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+				// 	 }
+				//    return this.getheight
+				// },1500)
+				
+						var h=document.documentElement.clientHeight;//可见区域高度
+						this.getheight=h-60;
+					},
+			
 			handleScroll(){
 				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
 				let offsetTop = document.querySelector('#searchBars').offsetTop

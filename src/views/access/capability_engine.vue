@@ -30,43 +30,41 @@
 		<!-- button -->
     <el-col :span="24">
 			<el-card class="box-card">
-				<div slot="header" class="clearfix btnsBg">
-					<el-col :span="12">
-		 <h3>{{title}}</h3></el-col>
-		 <el-col :span="12">
-     <el-button type="success"  size="mini" icon="el-icon-edit" @click="handleAdd">新增</el-button>
-		 <el-button type="danger" size="mini" icon="el-icon-delete" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-		</el-col>
-				</div>
-		
-		
+					<el-row class="tabletitle">
+						<el-col :span="12" class="titletext">
+							<span class="title">{{title}}</span></el-col>
+							<el-col :span="12" class="titlebtns">
+							<el-button   size="mini"  icon="el-icon-edit" @click="handleAdd" class="btnsBorderno">新增</el-button>
+							<el-button  size="mini" icon="el-icon-delete" @click="batchRemove"  class="btnsBorderno" :disabled="this.sels.length===0">批量删除</el-button>
+						</el-col>
+					</el-row>
 		<!--列表-->
 		
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
-			<el-table-column type="selection" width="55">
+		<el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" :header-cell-style="tableHeaderColor" :default-sort = "{prop: 'birth', order: 'descending'}" style="width: 100%; margin: 7px 0px 0px 0px;">
+			<el-table-column type="selection" >
 			</el-table-column>
-			<el-table-column type="index"  width="60">
+			<el-table-column type="index">
 			</el-table-column>
-			<el-table-column prop="name" :label="type_name" width="100">
+			<el-table-column prop="name" :label="type_name" min-width="8%">
 			</el-table-column>
-			<el-table-column prop="sex" :label="statue" width="80" :formatter="formatSex">
+			<el-table-column prop="sex" :label="statue" :formatter="formatSex" min-width="6%">
 			</el-table-column>
-            <el-table-column prop="sex" :label="type" width="80" :formatter="formatSex">
+            <el-table-column prop="sex" :label="type" :formatter="formatSex" min-width="6%">
 			</el-table-column>
-            <el-table-column prop="addr" :label="vender" width="130">
+            <el-table-column prop="addr" :label="vender" min-width="14%">
 			</el-table-column>
-			<el-table-column prop="birth" :label="start_date" width="130" sortable>
+			<el-table-column prop="birth" :label="start_date" sortable min-width="10%">
 			</el-table-column>
-            <el-table-column prop="name" :label="creater" width="70" >
+            <el-table-column prop="name" :label="creater" min-width="6%">
 			</el-table-column>
-            <el-table-column prop="name" :label="changer" width="90" >
+            <el-table-column prop="name" :label="changer" min-width="8%">
 			</el-table-column>
-			<el-table-column prop="birth" :label="end_date" width="130">
+			<el-table-column prop="birth" :label="end_date" min-width="9%">
 			</el-table-column>
-			<el-table-column label="操作" >
+			<el-table-column label="操作" min-width="15%">
 				<template scope="scope">
-					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+					<el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+					<el-button type="danger" size="mini" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -224,8 +222,7 @@
 			},
 			handleCurrentChange(val) {
 				this.page = val;
-				this.getUsers();
-				changeAsideHeight();
+				this.getUsers()
 			},
 			//获取用户列表
 			getUsers() {
@@ -240,8 +237,9 @@
 					this.users = res.data.users;
 					this.listLoading = false;
 					//NProgress.done();
+					
 				});
-			 changeAsideHeight();
+			
 			},
 			//删除
 			handleDel: function (index, row) {
@@ -378,7 +376,12 @@
 			},
 			resetForm(formName) {
         this.$refs[formName].resetFields();
+			},
+			tableHeaderColor({ row, column, rowIndex, columnIndex }) {
+      if (rowIndex === 0) {
+        return 'background-color: lightblue;color: #fff;font-weight: 500;'
       }
+    }
 		},
 	
 	}
@@ -391,5 +394,18 @@ section{margin-top: -85px;}
 .box-card{width: 100%;min-height: 100px; height: auto;margin: 0px 0px 10px 0px; text-align: center; border-radius: 5px;}
 .pagination{background: white;margin: -6px 0px 10px 0px;text-align:center;width:100%;height: 60px;padding-top: 15px}
 .btns{margin: 20px 0px 10px 0px;padding:7px; text-align: right !important;}
-h3{text-align: left !important;color:#25476a !important;}
+.title{font-size: .8rem;color:#25476a !important;}
+.tabletitle {
+   
+    margin: -20px -10px 0px -10px;
+}
+.titletext{
+    text-align: left;
+    padding: 9px;
+}
+.titlebtns{
+    text-align: right;
+    padding-right: 10px;
+		}
+		.btnsBorderno{color: #000 !important;border:none !important;background: transparent !important;}
 </style>

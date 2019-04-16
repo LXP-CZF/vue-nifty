@@ -31,7 +31,7 @@
 </script>
 
 <style  lang="less">
-body{width: 100%;height: 100%; background: #8c979b;overflow-x: hidden;}
+body{width: 100%;height: 100%; background: #eaeef3;overflow-x: hidden;}
 *{margin:0px;padding: 0px; }
 #app {
   width: 100%;
@@ -52,5 +52,9 @@ body{width: 100%;height: 100%; background: #8c979b;overflow-x: hidden;}
 }
 .el-card__body {
     padding: 20px 10px 0px 10px !important;
+}
+.el-table td, .el-table th {padding: 0px !important;}
+.el-table td div {
+    font-size: .5rem;
 }
 </style>

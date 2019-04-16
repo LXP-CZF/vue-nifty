@@ -1,10 +1,11 @@
 <template>
 <div id="login">
-<div class="login" >
+  
+<div class="login">
   <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container" id="formdiv">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号" class="noborder"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
       <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
@@ -109,8 +110,16 @@
 
 </script>
 
-<style  scoped>
-#login{width:100%;height:100%;overflow-y: hidden;background-image: url("../../assets/boxed-bg/polygon/bg/13.jpg");background-size: 100% 100%;
+<style>
+#login{
+  width:100%;
+  height:100%;
+  overflow-y: hidden;
+  background-image: url("../../assets/boxed-bg/polygon/bg/13.jpg");
+  background-size: 100% 100%;
+  
+
+/* background: linear-gradient(to bottom, #c6cbf3 0%,#3e90e6 100%) */ 
 }
   /* .login{overflow-y: hidden;  
      display: -webkit-box;
@@ -132,9 +141,9 @@
     width: 300px;
     height: 100%;
     padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
+    background: transparent;
+    /* border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6; */
     }
    .login-container .title {
       margin: 0px auto 40px auto;
@@ -144,5 +153,24 @@
    .login-container .remember {
       margin: 0px 0px 35px 0px;
     }
-  
+  .el-input__inner {
+    -webkit-appearance: none;
+    background-color: #ffffff05;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    border: none !important;
+    border-bottom: 1px solid;
+    box-sizing: border-box;
+    color: #ffffff  !important;;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
 </style>

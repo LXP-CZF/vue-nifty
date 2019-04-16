@@ -547,7 +547,9 @@ export default {
         }
          if(this.sidebar.isFixed===true){
           this.asideSetting.navFixed='mainnav_fixedtop';
-				}
+        }
+        var h=document.documentElement.clientHeight;//可见区域高度
+         document.querySelector('.el-main').style.minHeight=h-35+"px";
       } else {
         this.boxlay.fixedHeaderClass = "";
         this.boxlay.fixedHeaderwidth = "";
@@ -558,7 +560,8 @@ export default {
          this.boxlay.open_boxlayout = "open_boxlayout";
          this.asideSetting.asideTop="0px";
         }
-       
+       var h=document.documentElement.clientHeight;//可见区域高度
+         document.querySelector('.el-main').style.minHeight=h-60-35+"px";
       }
       if (this.sidebar.opened === false && this.boxlay.fixedHeader === true) {
         this.boxlay.fixedHeaderLogowidth = "45px";
