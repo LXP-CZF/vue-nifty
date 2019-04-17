@@ -14,7 +14,7 @@
 			 </el-row>
 		</el-col> -->
 		<div style="height:60px !important;" :style="{display:isdivdisplay}"></div>
-<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only asidemain" :style="{height:getheight+ 'px'}">
+<el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only asidemain" :style="{height:getheight+ 'px',minHeight:getminheight+ 'px'}">
 <el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" router>
   <el-collapse v-if="isProfilstate" >
   <el-collapse-item  name="1">
@@ -80,6 +80,7 @@
 		data(){
 			return{
 				getheight:'',
+				getminheight:'',
 				searchBarFixed:false
 			}
 		},
@@ -117,18 +118,19 @@
 				 
 			// },
 			getHeight(){
-				// 	setTimeout(()=>{
-				// 	 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-				// 	 if(this.boxlay.fixedHeader===true){
-				// 		 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-				// 	 }else{
-				// 		 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-				// 	 }
-				//    return this.getheight
-				// },1500)
 				
 						var h=document.documentElement.clientHeight;//可见区域高度
-						this.getheight=h-60;
+						this.getminheight=h-60;
+					setTimeout(()=>{
+					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+				   return this.getheight
+				},1500)
+				
 					},
 			
 			handleScroll(){
@@ -278,4 +280,13 @@ a:hover{color: #ffd04b;}
 .el-menu::-webkit-scrollbar { width: 4px !important;background: transparent !important;}
 .el-menu { -ms-overflow-style: none; }
 .el-menu { overflow: -moz-scrollbars-none; }
+.el-submenu .el-menu-item {
+    height: 38px !important;
+    line-height: 38px !important;
+    
+}
+.el-submenu__title {
+    height: 45px !important;
+    line-height: 45px !important;
+}
 </style>

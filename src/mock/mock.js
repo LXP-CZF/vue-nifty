@@ -4,10 +4,13 @@ import { LoginUsers, Users } from './data/user';
 import {users} from '../assets/js/users';
 let _Users = Users;
 
+
 export default {
   /**
    * mock bootstrap
    */
+
+
   bootstrap() {
     let mock = new MockAdapter(axios);
 

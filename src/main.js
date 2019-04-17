@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-//  import axios from 'axios'
+  import axios from 'axios'
 import ElementUi from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
@@ -27,7 +27,18 @@ Vue.use(vueGridLayout);
 
 Vue.config.productionTip = false
 require('./mockDate.js')
-
+// 添加请求拦截器，在请求头中加token
+axios.interceptors.request.use(
+  config => {
+    if (localStorage.getItem('Authorization')) {
+      config.headers.Authorization = localStorage.getItem('Authorization');
+    }
+ 
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  });
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

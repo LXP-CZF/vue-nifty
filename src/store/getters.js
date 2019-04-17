@@ -12,5 +12,6 @@ const getters={
 	fixed:state=>state.app.fixed,
 	classA:state=>state.app.classA,
 	sidebar: state => state.app.sidebar,
+	Authorization:state=>state.users
 }
 export default getters
