@@ -15,7 +15,7 @@
 		</el-col> -->
 		<div style="height:60px !important;" :style="{display:isdivdisplay}"></div>
 <el-col :sm="24" :md="24" :lg="24" :xl="24" class="hidden-xs-only asidemain" :style="{height:getheight+ 'px',minHeight:getminheight+ 'px'}">
-<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext"  :collapse="stateCollapse" router>
+<el-menu :default-active="activeIndex" class="el-menu-vertical-demo"  :active-text-color="iscolortext" @select="selectMenu" :collapse="stateCollapse" router>
   <el-collapse v-if="isProfilstate" >
   <el-collapse-item  name="1">
 		<template slot="title">
@@ -105,22 +105,21 @@
 				'changeColor',
 				'fixed'
 			]),
-			// selectMenu(){
-			// 	setTimeout(()=>{
-			// 		this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
-			// 		if(this.boxlay.fixedHeader===true){
-			// 			 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
-			// 		 }else{
-			// 			 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
-			// 		 }
-			// 		return this.getheight
-			// 	},2000)
+			selectMenu(){
+				setTimeout(()=>{
+					this.getheight=document.querySelector('.mainheight').offsetHeight+35; 
+					if(this.boxlay.fixedHeader===true){
+						 this.getheight=document.querySelector('.mainheight').offsetHeight-25;
+					 }else{
+						 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
+					 }
+					return this.getheight
+				},1500)
 				 
-			// },
+			 },
 			getHeight(){
-				
-						var h=document.documentElement.clientHeight;//可见区域高度
-						this.getminheight=h-60;
+				  var h=document.documentElement.clientHeight;//可见区域高度
+					this.getminheight=h-60;
 					setTimeout(()=>{
 					 this.getheight=document.querySelector('.mainheight').offsetHeight+35;
 					 if(this.boxlay.fixedHeader===true){
@@ -131,7 +130,7 @@
 				   return this.getheight
 				},1500)
 				
-					},
+			},
 			
 			handleScroll(){
 				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -254,7 +253,11 @@
 	margin: -36px 0px -40px 55px;
 	}
 	.mnp-img{
-		height:64px;width:64px;border-radius:55%;
+		height:64px;width:64px;
+		-webkit-border-radius: 55%; 
+    border-radius: 55%; 
+    -moz-border-radius: 55%; 
+		border-radius:55%;
 		padding: 10px 70px 10px 70px;
 	}
 	.el-collapse-item__header{height: 148px;}

@@ -3,7 +3,7 @@ const LoginUsers = [
   {
     id: 1,
     username: 'admin',
-    password: 'admin',
+    password: '21232f297a57a5a743894a0e4a801fc3',
     token:'admin1314520',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
     name: '张某某'
@@ -11,7 +11,7 @@ const LoginUsers = [
   {
     id: 2,
     username: 'editor',
-    password: 'editor',
+    password: '5aee9dbd2a188839105073571bee1b1f',
     token:'editor1314520',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
     name: '陈某某'
@@ -19,7 +19,7 @@ const LoginUsers = [
   {
     id: 3,
     username: 'administrator',
-    password: 'administrator',
+    password: '200ceb26807d6bf99fd6f4f0d1ca54d4',
     token:'administrator520',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
     name: '李某某'

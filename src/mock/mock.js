@@ -2,6 +2,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
 import {users} from '../assets/js/users';
+// import '../utils/md5'
+import md5 from 'js-md5';
 let _Users = Users;
 
 
@@ -33,7 +35,8 @@ export default {
           let hasUser = LoginUsers.some(u => {
             if (u.username === username && u.password === password) {
               user = JSON.parse(JSON.stringify(u));
-              user.password = undefined;
+              //  user.password = undefined;
+             
               return true;
             }
           });
@@ -43,7 +46,7 @@ export default {
           } else {
             resolve([200, { code: 500, msg: '账号或密码错误' }]);
           }
-        }, 1000);
+        }, 10);
       });
     });
 

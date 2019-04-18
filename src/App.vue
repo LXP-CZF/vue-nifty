@@ -55,7 +55,7 @@ body{width: 100%;height: 100%; background: #eaeef3;overflow-x: hidden;}
 }
 .el-table td, .el-table th {padding: 0px !important;}
 .el-table td div {
-    font-size: .5rem;
+    font-size: 12px !important;
 }
 .el-popper[x-placement^=bottom] {
     margin-top: 5px;

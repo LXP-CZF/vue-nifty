@@ -8,7 +8,8 @@ import store from './store'
 import ElementUi from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
-import 'babel-polyfill'
+import 'babel-polyfill';
+// import md5 from 'js-md5';
 import vueGridLayout from 'vue-grid-layout';
 import animated from 'animate.css';
 //阿里图标
@@ -23,22 +24,12 @@ Mock.bootstrap();
 Vue.prototype.$echarts = echarts
 Vue.use(ElementUi);
 Vue.use(vueGridLayout);
+// Vue.use(md5);
 
 
 Vue.config.productionTip = false
 require('./mockDate.js')
-// 添加请求拦截器，在请求头中加token
-axios.interceptors.request.use(
-  config => {
-    if (localStorage.getItem('Authorization')) {
-      config.headers.Authorization = localStorage.getItem('Authorization');
-    }
- 
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  });
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
