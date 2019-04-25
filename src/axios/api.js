@@ -1,15 +1,20 @@
 import axios from 'axios'
-
+// import store from '../store/index'
 axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded'
 
 
-// 请求拦截器
-axios.interceptors.request.use(function(config){
-	//在发送请求之前做某事
-	return config;
-},function(error){
-	return Promise.reject(error);
-})
+// 添加请求拦截器，在请求头中加token
+axios.interceptors.request.use(
+  config => {
+    if (localStorage.getItem('Authorization')) {
+      config.headers.Authorization = localStorage.getItem('Authorization');
+    }
+ 
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  });
 
   // 响应拦截器
 axios.interceptors.response.use(function(response) {

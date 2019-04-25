@@ -10,6 +10,32 @@ let size = [
 '125x125', '728x90', '160x600', '120x600', 
 '300x600'
 ]
+const LoginUsers = [
+	{
+	  id: 1,
+	  username: 'admin',
+	  password: '21232f297a57a5a743894a0e4a801fc3',
+	//   token:'admin1314520',
+	  avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+	  name: '张某某'
+	},
+	{
+	  id: 2,
+	  username: 'editor',
+	  password: '5aee9dbd2a188839105073571bee1b1f',
+	//   token:'editor1314520',
+	  avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+	  name: '陈某某'
+	},
+	{
+	  id: 3,
+	  username: 'administrator',
+	  password: '200ceb26807d6bf99fd6f4f0d1ca54d4',
+	//   token:'administrator520',
+	  avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+	  name: '李某某'
+	}
+  ];
 let n=40;
 for(let i=1;i<=n;i++){
 	let template={
@@ -30,22 +56,31 @@ for(let i=1;i<=n;i++){
 	    'Address': Random.province() // 生成地址*/
 	}
 	data.push(template)
-}
-/*let list=function(options){
-	let rtype=options.type.toLowerCase();
-	switch(rtype){
-		case 'get':
-			break;
-		case 'post':
-		let id=parseInt(JSON.parse(options.body).params.id);
-		data=data.filter(function(val){
-			return val.id!=id;
+};
+const login = (config) => {
+	let {username, password} = JSON.parse(config.data);
+	return new Promise((resolve, reject) => {
+	  let user = null;
+	  setTimeout(() => {
+		let hasUser = LoginUsers.some(u => {
+		  if (u.username === username && u.password === password) {
+			user = JSON.parse(JSON.stringify(u));
+			//  user.password = undefined;
+		   
+			return true;
+		  }
 		});
-			break;
-		default:
-			break;
+
+		if (hasUser) {
+		  resolve([200, { code: 200, msg: '请求成功', user }]);
+		} else {
+		  resolve([200, { code: 500, msg: '账号或密码错误' }]);
+		}
+	  }, 10);
+	});
 	}
-}*/
+
 
 Mock.mock('/data/index','post',data)//根据数据模板生成模拟数据
+Mock.mock('/data/login','post',login)//根据数据模板生成模拟数据
 

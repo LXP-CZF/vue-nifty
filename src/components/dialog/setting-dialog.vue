@@ -244,7 +244,7 @@
                     </el-col>
                   </el-row>
                 </el-row>
-                <el-row :gutter="30">
+                <el-row :gutter="30" style="margin-bottom:40px">
                   <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" class="schemes">
                     <p class="text-xs demo-text">头</p>
                     <img src="../../assets/color-schemes-a.png" class="img-theme">
@@ -884,7 +884,7 @@ export default {
 .box-card[data-v-33b77da8] {
   width: 81% !important;
   max-height: 96% !important;
-  overflow-y: scroll !important;
+  // overflow-y: scroll !important;
 }
 .schemes {
   height: 208px;

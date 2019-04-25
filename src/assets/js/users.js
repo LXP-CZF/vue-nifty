@@ -8,7 +8,7 @@ row1.username = "admin";
 row1.colorType="";
 row1.themecolor="";
 
-var row2 = {id:'2',username:'',colorType:'',themecolor:''}
+var row2 = {id:'2',username:'editor',colorType:'',themecolor:''}
 
 json.push(row1);
 

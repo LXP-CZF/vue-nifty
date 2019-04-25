@@ -60,4 +60,7 @@ body{width: 100%;height: 100%; background: #eaeef3;overflow-x: hidden;}
 .el-popper[x-placement^=bottom] {
     margin-top: 5px;
 }
+// .el-dialog__wrapper {
+//   overflow: hidden;
+// }
 </style>

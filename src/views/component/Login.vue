@@ -12,12 +12,12 @@
             <h3 class="title">系统登录</h3>
             <!-- <span class="title"><i class="iconfont icon-icon_boss"></i></span> -->
             <el-form-item prop="userName">
-              <el-input type="text" v-model="loginForm.userName" auto-complete="off"  placeholder="账号" class="noborder">
+              <el-input type="text" v-model="loginForm.userName" auto-complete="off"  placeholder="用户名" class="noborder">
                 <i slot="prefix" class="iconfont icon-icon_boss iconColor"></i>
               </el-input>
             </el-form-item>
             <el-form-item prop="passWord">
-              <el-input type="password" v-model="loginForm.passWord" auto-complete="off" placeholder="密码">
+              <el-input  type="password" v-model="loginForm.passWord"  placeholder="密码" auto-complete="off" show-password>
                 <i slot="prefix" class="el-icon-view iconColor"></i>
               </el-input>
             </el-form-item>
@@ -38,18 +38,18 @@ import { requestLogin } from "@/api/api";
 import { setName, getName, setPassword, getPassword } from "../../utils/auth";
 import md5 from 'js-md5';
 import { mapGetters, mapActions } from "vuex";
-import axios from "axios";
+
 //import NProgress from 'nprogress'
 export default {
    
   data() {
-    // var validateInput = (rule, value, callback) => {
-    //   if (!checkSpecialKey(value)) {
-    //     callback(new Error("不能含有特殊字符！！"));
-    //   } else {
-    //     callback();
-    //   }
-    // };
+    var validateInput = (rule, value, callback) => {
+      if (!this.checkSpecialKey(value)) {
+        callback(new Error("不能含有特殊字符和空格！！"));
+      } else {
+        callback();
+      }
+    };
     return {
       logining: false,
       loginForm: {
@@ -59,12 +59,19 @@ export default {
       userToken: "",
       rules2: {
         userName: [
-          {  required: true, message: "请输入账号", trigger: "blur" },
-          // { validator: validateInput, trigger: ["blur", "change"] }
+          {required: true, message: "请输入账号", trigger: "blur" },
+          {validator: validateInput, trigger: ["blur", "change"] },
+          {pattern:/^[A-Za-z0-9]+$/,message: "用户名不能为中文", trigger: ["blur", "change"] },
+          // {pattern:/^[^ ]+$/,message: "用户名不能含有空格", trigger: ["blur", "change"] },
+          { min:3,max:10, message: "请输入正确的账号格式，长度3~10个字符", trigger: ["blur"]}
+         
         ],
         passWord: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { min:6,max:12, message: "请输入正确的密码格式，长度6~12个字符", trigger: ["blur", "change"]}
+          {validator: validateInput, trigger: ["blur", "change"] },
+          {pattern:/^[A-Za-z0-9]+$/,message: "密码不能为中文", trigger: ["blur", "change"] },
+          // {pattern:/^[^ ]+$/,message: "密码不能含有空格", trigger: ["blur", "change"] },
+          { min:5,max:12, message: "请输入正确的密码格式，长度6~12个字符", trigger: ["blur"]}
         ]
       },
       checked: false,
@@ -100,11 +107,17 @@ export default {
         //如果验证通过
         if (valid) {
           this.logining = true;
+          //  this.$axios.post('/data/index').then((res)=>{
+          //          console.log(res);              
+          //     }).catch((res) => {
+          //         alert("错误：" + res);
+          //     })
+          //  this.$router.push({ path: "/Dashboard1" });
           var loginParams = {
             username: this.loginForm.userName,
             password: md5(this.loginForm.passWord)
           };
-          // console.log(md5(this.loginForm.passWord));
+          console.log(md5(this.loginForm.passWord));
           requestLogin(loginParams).then(data => {
             this.logining = false;
             let { msg, code, user } = data;
@@ -136,15 +149,15 @@ export default {
       });
     },
     //校验用户名方法
-    // checkSpecialKey(str) {
-    //   var specialKey = "[`~!#$^&*()=|{}':;'\\[\\].<>/?~！#￥……&*（）——|{}【】‘；：”“'。，、？]‘'";
-    //   for (var i = 0; i < str.length; i++) {
-    //     if (specialKey.indexOf(str.substr(i, 1)) != -1) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // },
+    checkSpecialKey(str) {
+      var specialKey = "[`~!#$^&*()=|{}':;'\\[\\].<>/?~！#￥……&*（）——|{}【】‘；：”“'。，、？] ‘'";
+      for (var i = 0; i < str.length; i++) {
+        if (specialKey.indexOf(str.substr(i, 1)) != -1) {
+          return false;
+        }
+      }
+      return true;
+    },
 
     changeheight() {
       var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight; //可见区域高度
